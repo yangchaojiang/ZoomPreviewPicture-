@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImgePreviewLibrary</string>
+    <dimen name="yms_dimens_50.0_px">25.0dp</dimen>
+</resources>
