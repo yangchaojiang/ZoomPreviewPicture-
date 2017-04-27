@@ -3,7 +3,7 @@
 常见应用场景如微信朋友圈照片九宫格和微信聊天图片预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
 
 效果如下：
-![](https://github.com/yangchaojiang/ZoomPreviewPicture/tree/master/gif/aaaa.gif)
+![](https://github.com/yangchaojiang/ZoomPreviewPicture/blob/master/gif/aaaa.gif)
 
 License
 --------
