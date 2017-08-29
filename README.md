@@ -16,6 +16,34 @@ compile 'com.ycjiang:imgepreviewlibrary:1.0.1'
   <version>1.0.0</version>
   <type>pom</type>
 </dependency>
+```
+### 示例代码
+````
+//mRecyclerView item点击事件
+     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int position) {
+              //在你点击时，调用computeBoundsBackward（）方法
+                computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
+                PhotoActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
+            }
+        });
+
+   /**
+    *  * 查找信息
+     * 从第一个完整可见item逆序遍历，如果初始位置为0，则不执行方法内循环
+     */
+    private void computeBoundsBackward(int firstCompletelyVisiblePos) {
+        for (int i = firstCompletelyVisiblePos;i < mThumbViewInfoList.size(); i++) {
+            View itemView = mGridLayoutManager.findViewByPosition(i);
+            Rect bounds = new Rect();
+            if (itemView != null) {
+                ImageView thumbView = (ImageView) itemView.findViewById(R.id.iv);
+                thumbView.getGlobalVisibleRect(bounds);
+            }
+            mThumbViewInfoList.get(i).setBounds(bounds);
+        }
+    }
 ````
 
 效果如下：

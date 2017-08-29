@@ -112,7 +112,6 @@ public class PhotoActivity extends FragmentActivity {
             }
         });
         viewPager.setCurrentItem(currentIndex);
-
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {

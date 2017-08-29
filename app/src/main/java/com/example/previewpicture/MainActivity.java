@@ -4,12 +4,12 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.previewlibrary.PhotoActivity;
 import com.previewlibrary.ThumbViewInfo;
 import java.util.ArrayList;
@@ -36,26 +36,21 @@ public class MainActivity extends Activity {
         mGridLayoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        BaseQuickAdapter adapter=new BaseQuickAdapter<ThumbViewInfo>(R.layout.item_image, mThumbViewInfoList) {
-            @Override
-            protected void convert(final BaseViewHolder holder, final ThumbViewInfo url) {
-                final ImageView thumbView = holder.getView(R.id.iv);
-                Glide.with(MainActivity.this)
-                        .load(url.getUrl())
-                        .into(thumbView);
-                holder.getView(R.id.iv).setTag(R.id.iv,url.getUrl());
-            }
-        };
+        MyBaseQuickAdapter adapter=new MyBaseQuickAdapter(this);
+        adapter.addData(mThumbViewInfoList);
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int position) {
-                assembleDataList();
-                PhotoActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
-            }
-        });
+       adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+           @Override
+           public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+               computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
+               PhotoActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
+           }
+       });
+
+
     }
     /**
+     * 查找信息
      * 从第一个完整可见item逆序遍历，如果初始位置为0，则不执行方法内循环
      */
     private void computeBoundsBackward(int firstCompletelyVisiblePos) {
@@ -68,10 +63,5 @@ public class MainActivity extends Activity {
             }
             mThumbViewInfoList.get(i).setBounds(bounds);
         }
-
-    }
-    private void assembleDataList() {
-        computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
-
     }
 }
