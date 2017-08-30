@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -39,14 +39,99 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:25.3.1'
 }
-publish {
-    userOrg = 'ycjiang'      //bintray注册的用户名
-    groupId = 'com.ycjiang'         //compile引用时的第1部分groupId
-    artifactId = 'imgepreviewlibrary'     //compile引用时的第2部分项目名
-    publishVersion = '1.0.2'    //compile引用时的第3部分版本号
-    desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, ' +
-            'exit the full screen to restore the original location of the two processes of the animation transition.' +
-            ' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview '//d项目描述
-    repoName="yangjiang" //你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对名问题最多情况，
-    website = 'https://github.com/yangchaojiang/ZoomPreviewPicture' //github 托管地址
+/** 以下开始是将Android Library上传到jcenter的相关配置**/
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+//项目主页
+def siteUrl = 'https://github.com/yangchaojiang/RecordingAndCompress/tree/master'    // project homepage
+//项目的版本控制地址
+def gitUrl = 'git@github.com:yangchaojiang/RecordingAndCompress.git' // project git
+
+//发布到组织名称名字，必须填写
+group = "com.ycjiang"   //没有用户名
+//发布到JCenter上的项目名字，必须填写
+def libName = "imgepreviewlibrary"
+// 版本号，下次更新是只需要更改版本号即可
+version = "1.0.2"
+/**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//生成文档
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding "UTF-8"
+    options.charSet 'UTF-8'
+    options.author true
+    options.version true
+    options.links "https://github.com/linglongxin24/FastDev/tree/master/mylibrary/docs/javadoc"
+    failOnError false
+}
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+//上传到jcenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// 配置maven库，生成POM.xml文件
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name libName
+                url siteUrl
+                licenses {
+                    license {
+                        name libName
+                        url siteUrl
+                    }
+                }
+
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+//上传到jcenter
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")    //读取 local.properties 文件里面的 bintray.user
+    key = properties.getProperty("bintray.apikey")   //读取 local.properties 文件里面的 bintray.apikey
+    configurations = ['archives']
+    pkg {
+        repo = "yangjiang"
+        name = libName    //发布到JCenter上的项目名字，必须填写
+        desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, ' +
+                'exit the full screen to restore the original location of the two processes of the animation transition.' +
+                ' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview, some mobile phone system album, ' +
+                'etc. viewpager picture zoom zoom pull down to pull out (effect with micro letter picture browsing.'    //项目描述
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }
