@@ -18,11 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-     d
         <activity
-            android:name="com.previewlibrary.PhotoActivity"
+            android:name="com.example.previewpicture.MyPreviewImageActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <meta-data
             android:name="com.example.previewpicture.MyGlideModule"
             android:value="GlideModule" />

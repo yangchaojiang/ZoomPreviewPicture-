@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.9.0'
     compile project(':imgepreviewlibrary')
+    compile 'com.simplepeng.library:transformslibrary:1.0.0'
 }

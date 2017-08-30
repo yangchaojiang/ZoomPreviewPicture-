@@ -20,7 +20,7 @@ import java.util.List;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:图片预览页面
  */
-public class PhotoActivity extends FragmentActivity {
+public class GPreviewActivity extends FragmentActivity {
     private boolean isTransformOut = false;
     //图片的地址
     private List<ThumbViewInfo> imgUrls;
@@ -33,36 +33,60 @@ public class PhotoActivity extends FragmentActivity {
     //显示图片数
     private TextView ltAddDot;
 
+     /***
+      * 启动预览
+      *
+      * @param activity     活动对象
+      * @param tempData     图片集合
+      * @param currentIndex 当前索引坐标
+      ***/
+     public static void startActivity(Activity activity, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
+         // 图片的地址
+         //获取图片的bitmap
+         Intent intent = new Intent(activity, GPreviewActivity.class);
+         intent.putParcelableArrayListExtra("imagePaths", tempData);
+         intent.putExtra("position", currentIndex);
+         activity.startActivity(intent);
+     }
+     /***
+      * 启动预览
+      *
+      * @param activity     活动对象
+      * @param    className  目标类
+      * @param tempData     图片集合
+      * @param currentIndex 当前索引坐标
+      ***/
+     public static void startActivity(Activity activity,Class className, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
+         // 图片的地址
+         //获取图片的bitmap
+         Intent intent = new Intent(activity,className);
+         intent.putParcelableArrayListExtra("imagePaths", tempData);
+         intent.putExtra("position", currentIndex);
+         activity.startActivity(intent);
+     }
 
-    /***
-     * 启动预览
-     *
-     * @param activity     活动对象
-     * @param tempData     图片集合
-     * @param currentIndex 当前索引坐标
-     ***/
-    public static void startActivity(Activity activity, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
-        // 图片的地址
-        //获取图片的bitmap
-        Intent intent = new Intent(activity, PhotoActivity.class);
-        intent.putParcelableArrayListExtra("imagePaths", tempData);
-        intent.putExtra("position", currentIndex);
-        activity.startActivity(intent);
-    }
 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_imge_preview_photo);
+         initData();
+         initView();
+     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_imge_preview_photo);
-        initDate();
-        initView();
-    }
+     @Override
+     protected void onDestroy() {
+         super.onDestroy();
+         fragments.clear();
+         fragments=null;
+         imgUrls=null;
+         viewPager.clearOnPageChangeListeners();
+     }
 
-    /**
+     /**
      * 初始化数据
      */
-    private void initDate() {
+    private void initData() {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
         if (imgUrls != null) {
@@ -124,7 +148,7 @@ public class PhotoActivity extends FragmentActivity {
     }
 
     //退出预览的动画
-    public void transformOut() {
+     void transformOut() {
         if (isTransformOut) {
             return;
         }
@@ -145,20 +169,28 @@ public class PhotoActivity extends FragmentActivity {
         }
     }
 
-    /**
+     /**
      * 关闭页面
      */
-    private void exit() {
+    public void exit() {
         finish();
         overridePendingTransition(0, 0);
     }
 
-    @Override
+     public List<ThumbViewInfo> getImgUrls() {
+         return imgUrls;
+     }
+
+     public PhotoViewPager getViewPager() {
+         return viewPager;
+     }
+
+     @Override
     public void onBackPressed() {
         transformOut();
     }
 
-    /**
+     /**
      * pager的适配器
      */
     private class PhotoPagerAdapter extends FragmentPagerAdapter {

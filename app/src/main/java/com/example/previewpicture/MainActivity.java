@@ -4,13 +4,10 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.previewlibrary.PhotoActivity;
+import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +40,7 @@ public class MainActivity extends Activity {
            @Override
            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
-               PhotoActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
+               GPreviewActivity.startActivity(MainActivity.this,MyPreviewImageActivity.class,mThumbViewInfoList,position);
            }
        });
 

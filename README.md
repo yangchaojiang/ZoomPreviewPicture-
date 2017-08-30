@@ -1,4 +1,5 @@
 # ZoomPreviewPicture
+
 本项目受Google官方demo Zooming a View 启发，实现了点击小图放大至全屏预览，退出全屏恢复至原来位置这两个过程的动画过渡。
 常见应用场景如微信朋友圈照片九宫格和微信聊天图片预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
 
@@ -6,16 +7,22 @@
 
 ```gradle
 
-compile 'com.ycjiang:imgepreviewlibrary:1.0.1'
+compile 'com.ycjiang:imgepreviewlibrary:1.0.2'
 
 ```
 ```Maven
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>loadviewhelper</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.2</version>
   <type>pom</type>
 </dependency>
+```
+###  项目类库依赖项目
+```
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:25.3.1'```
 ```
 ### 示例代码
 ````
@@ -45,14 +52,24 @@ compile 'com.ycjiang:imgepreviewlibrary:1.0.1'
         }
     }
 ````
+###  自定义Activity 实现getViewPager 切换动画
+~~~
+public class MyPreviewImageActivity  extends GPreviewActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+       // getViewPager().setPageTransformer(true,new DepthPageTransformer());
+       // getViewPager();
+       // getImgUrls();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+}
+~~~
 
 效果如下：
 ![](https://github.com/yangchaojiang/ZoomPreviewPicture/blob/master/gif/aaaa.gif)
 
-License
---------
-The project by the Google official demo Zooming a View inspired to achieve a click
-on the thumbnail zoom to full screen preview, exit the full screen to restore the original location 
-of the two processes of the animation transition.
-Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview,
-some mobile phone system album, etc. viewpager picture zoom zoom pull down to pull out (effect with micro letter picture browsing

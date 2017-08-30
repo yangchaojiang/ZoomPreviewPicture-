@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * Deprecated: 图片预览单个图片的frgment
  */
 public class PhotoFragment extends LazyFragment {
-    //上下文对象
-    private PhotoActivity context;
     /**
      * 预览图片 类型
      */
@@ -41,12 +40,20 @@ public class PhotoFragment extends LazyFragment {
 
     @Override
     protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
-        context = (PhotoActivity) getActivity();
+        return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView(view);
         initDate();
+    }
 
-        return view;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Glide.with(this).onStop();
     }
 
     /**
@@ -97,7 +104,7 @@ public class PhotoFragment extends LazyFragment {
             @Override
             public void onPhotoTap(View view, float x, float y) {
                 if (photoView.checkMinScale()) {
-                    ((PhotoActivity) getActivity()).transformOut();
+                    ((GPreviewActivity) getActivity()).transformOut();
                 }
             }
         });
@@ -113,7 +120,7 @@ public class PhotoFragment extends LazyFragment {
             @Override
             public void onTransformOut() {
                 if (photoView.checkMinScale()) {
-                    ((PhotoActivity) getActivity()).transformOut();
+                    ((GPreviewActivity) getActivity()).transformOut();
                 }
             }
         });
