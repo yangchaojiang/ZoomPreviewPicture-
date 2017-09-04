@@ -1,4 +1,4 @@
-package com.previewlibrary;
+package com.previewlibrary.wight;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,10 +12,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+
+import com.previewlibrary.R;
 
 import java.lang.reflect.Field;
 
@@ -28,7 +31,7 @@ import uk.co.senab.photoview.PhotoView;
 ***/
 public class SmoothImageView extends PhotoView {
 
-    enum Status {
+  public   enum Status {
         STATE_NORMAL,
         STATE_IN,
         STATE_OUT,

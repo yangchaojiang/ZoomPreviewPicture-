@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.previewlibrary.GPreviewActivity;
-import com.previewlibrary.ThumbViewInfo;
+import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
 

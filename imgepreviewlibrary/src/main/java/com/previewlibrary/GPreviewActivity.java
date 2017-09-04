@@ -12,6 +12,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
+import com.previewlibrary.wight.PhotoViewPager;
+import com.previewlibrary.wight.SmoothImageView;
+import com.previewlibrary.enitity.ThumbViewInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +61,7 @@ public class GPreviewActivity extends FragmentActivity {
       * @param tempData     图片集合
       * @param currentIndex 当前索引坐标
       ***/
-     public static void startActivity(Activity activity,Class className, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
+     public static void startActivity(Activity activity, Class className, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
          // 图片的地址
          //获取图片的bitmap
          Intent intent = new Intent(activity,className);

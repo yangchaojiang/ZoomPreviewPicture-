@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.previewlibrary.SmoothImageView
+    <com.previewlibrary.wight.SmoothImageView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

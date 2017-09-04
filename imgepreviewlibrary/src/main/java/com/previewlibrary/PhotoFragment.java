@@ -10,9 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+
+import com.previewlibrary.loader.MySimpleTarget;
+import com.previewlibrary.wight.SmoothImageView;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -53,7 +54,7 @@ public class PhotoFragment extends LazyFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Glide.with(this).onStop();
+        ZoomMediaLoader.getInstance().getLoader().onStop(this);
     }
 
     /**
@@ -75,25 +76,34 @@ public class PhotoFragment extends LazyFragment {
             imgUrl = bundle.getString(KEY_PATH);
             //位置
             Rect startBounds = bundle.getParcelable(KEY_START_BOUND);
-            if (startBounds!=null) {
+            if (startBounds != null) {
                 photoView.setThumbRect(startBounds);
             }
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
             //加载缩略图
             //加载原图
-            Glide.with(this)
-                    .load(imgUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_iamge_zhanwei)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            photoView.setImageBitmap(resource);
-                            loading.setVisibility(View.GONE);
-                        }
-                    });
+            ZoomMediaLoader.getInstance().getLoader().displayImage(this, imgUrl, new MySimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap bitmap) {
+                    photoView.setImageBitmap(bitmap);
+                    loading.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadFailed(int errorDrawable) {
+                    loading.setVisibility(View.GONE);
+                    if (errorDrawable != 0) {
+                        photoView.setImageResource(errorDrawable);
+                    }
+                }
+
+                @Override
+                public void onLoadStarted() {
+
+                }
+            });
+
         }
         // 非动画进入的Fragment，默认背景为黑色
         if (!isTransPhoto) {
@@ -133,7 +143,6 @@ public class PhotoFragment extends LazyFragment {
     }
 
     private boolean isLoaded = false;
-    private boolean isLoadFinish = false;
 
     @Override
     protected void onLazy() {
@@ -142,37 +151,28 @@ public class PhotoFragment extends LazyFragment {
         }
         isLoaded = true;
         //加载原图
-        Glide.with(this)
-                .load(imgUrl)
-                .asBitmap()
-                .centerCrop()
-                .placeholder(R.drawable.ic_iamge_zhanwei)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        isLoadFinish = true;
-                        loading.setVisibility(View.GONE);
-                        photoView.setImageBitmap(resource);
-                    }
+        //加载原图
+        ZoomMediaLoader.getInstance().getLoader().displayImage(this, imgUrl, new MySimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap) {
+                photoView.setImageBitmap(bitmap);
+                loading.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onLoadStarted(Drawable placeholder) {
-                        super.onLoadStarted(placeholder);
-                        if (!isLoadFinish) {
-                            loading.setVisibility(View.VISIBLE);
-                        } else {
-                            loading.setVisibility(View.GONE);
-                        }
-                    }
+            @Override
+            public void onLoadFailed(int errorDrawable) {
+                if (errorDrawable != 0) {
+                    photoView.setImageResource(errorDrawable);
+                }
+                loading.setVisibility(View.GONE);
+            }
 
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        loading.setVisibility(View.GONE);
-                    }
+            @Override
+            public void onLoadStarted() {
 
+            }
+        });
 
-                });
     }
 
     public void transformIn() {

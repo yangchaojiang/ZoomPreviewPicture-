@@ -36,7 +36,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:25.3.1'
 }
 /** 以下开始是将Android Library上传到jcenter的相关配置**/
@@ -52,7 +51,7 @@ group = "com.ycjiang"   //没有用户名
 //发布到JCenter上的项目名字，必须填写
 def libName = "imgepreviewlibrary"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.2"
+version = "1.0.3"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件

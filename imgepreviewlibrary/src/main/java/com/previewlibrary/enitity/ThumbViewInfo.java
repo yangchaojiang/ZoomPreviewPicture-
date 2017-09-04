@@ -1,4 +1,4 @@
-package com.previewlibrary;
+package com.previewlibrary.enitity;
 
 import android.graphics.Rect;
 import android.os.Parcel;
