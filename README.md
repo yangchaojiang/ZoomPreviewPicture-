@@ -37,8 +37,7 @@
 ###  1.项目类库依赖项目
 ```
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:25.3.1'```
+    compile 'com.android.support:support-v4:25.3.1'
 ```
 ### 2.示例代码
 ````
