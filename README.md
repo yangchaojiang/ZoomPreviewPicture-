@@ -145,6 +145,7 @@ public class MyPreviewImageActivity  extends GPreviewActivity {
 }
 ~~~
 
+#### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
  #### 1.0.4
