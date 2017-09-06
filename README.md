@@ -10,7 +10,7 @@
    * 4支持类似微信朋友圈照片九宫格和微信聊天图片预览，只要你中图片已经说支持。
 ####效果如下：
 
-![](https://github.com/yangchaojiang/ZoomPreviewPicture/blob/master/gif/aaaa.gif)
+![](https://github.com/yangchaojiang/ZoomPreviewPicture/blob/master/gif/aaaaa.gif)
 
 通过Gradle抓取:
 
