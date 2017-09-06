@@ -23,14 +23,14 @@
 ```grade
 
 
-   compile 'com.ycjiang:imgepreviewlibrary:1.0.3'
+   compile 'com.ycjiang:imgepreviewlibrary:1.0.4'
 
 ```
 ```Maven
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>loadviewhelper</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <type>pom</type>
 </dependency>
 ```
@@ -79,6 +79,7 @@ public class TestImageLoader implements IZoomMediaLoader {
                 .load(path)
                 .asBitmap()
                 .centerCrop()
+                .error(R.drawable.ic_ssss)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -95,18 +96,23 @@ public class TestImageLoader implements IZoomMediaLoader {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        simpleTarget.onLoadFailed(R.mipmap.ic_iamge_zhanwei);
+                        simpleTarget.onLoadFailed(errorDrawable);
                     }
 
 
                 });
     }
 
-    @Override
-    public void onStop(Fragment context) {
-        Glide.with(context);
+     @Override
+     public void onStop(@NonNull Fragment context) {
+           Glide.with(context).onStop();
 
-    }
+     }
+
+     @Override
+     public void clearMemory(@NonNull Context c) {
+              Glide.get(c).clearMemory();
+     }
 
 ````
   * 2注册 你实现自定义类，在你 app onCreate() 中
@@ -132,11 +138,19 @@ public class MyPreviewImageActivity  extends GPreviewActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+        @Override
+        public void clearMemory(@NonNull Context c) {
+                 Glide.get(c).clearMemory();
+        }
 }
 ~~~
 
 
 ### 升级日志
+ #### 1.0.4
+   * 1.修复占位图错位问题
+   * 2.支持色值和svg 等矢量图。
+   * 3.优化bitmap使用
  #### 1.0.3
    * 1  移除Glide 类库依赖，使用自定义图片加载框架
    * 2  增加自定义配置接口，实现即可完成自定义加载框架

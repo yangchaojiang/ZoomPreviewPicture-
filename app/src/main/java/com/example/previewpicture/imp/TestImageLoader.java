@@ -52,13 +52,12 @@ public class TestImageLoader implements IZoomMediaLoader {
 
     @Override
     public void onStop(@NonNull Fragment context) {
-          Glide.with(context);
+          Glide.with(context).onStop();
 
     }
 
     @Override
     public void clearMemory(@NonNull Context c) {
              Glide.get(c).clearMemory();
-
     }
 }
