@@ -1,6 +1,8 @@
 package com.previewlibrary.loader;
 
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by yangc on 2017/5/7.
  * E-Mail:yangchaojiang@outlook.com
@@ -18,7 +20,7 @@ public interface MySimpleTarget<T> {
     /**
      * Callback indicating the image could not be successfully loaded.
      */
-    void onLoadFailed(int errorRes);
+    void onLoadFailed(Drawable errorRes);
 
     /**
      * Callback invoked right before your request is submitted.

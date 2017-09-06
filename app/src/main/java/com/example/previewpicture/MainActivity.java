@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
            @Override
            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
-               GPreviewActivity.startActivity(MainActivity.this,MyPreviewImageActivity.class,mThumbViewInfoList,position);
+               GPreviewActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
            }
        });
 

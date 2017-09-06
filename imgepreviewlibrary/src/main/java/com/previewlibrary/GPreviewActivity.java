@@ -81,11 +81,15 @@ public class GPreviewActivity extends FragmentActivity {
 
      @Override
      protected void onDestroy() {
-         super.onDestroy();
+         ZoomMediaLoader.getInstance().getLoader().clearMemory(this);
          fragments.clear();
+         imgUrls.clear();
          fragments=null;
          imgUrls=null;
+         viewPager.setAdapter(null);
          viewPager.clearOnPageChangeListeners();
+         viewPager.removeAllViews();
+         super.onDestroy();
      }
 
      /**
@@ -95,9 +99,10 @@ public class GPreviewActivity extends FragmentActivity {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
         if (imgUrls != null) {
+            Bundle bundle;
             for (int i = 0; i < imgUrls.size(); i++) {
-                PhotoFragment fragment = new PhotoFragment();
-                Bundle bundle = new Bundle();
+                PhotoFragment fragment = PhotoFragment.getInstance();
+                  bundle = new Bundle();
                 bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
                 bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
                 bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex == i);

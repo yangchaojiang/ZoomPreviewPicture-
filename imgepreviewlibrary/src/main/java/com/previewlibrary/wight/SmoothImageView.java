@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -28,10 +29,10 @@ import uk.co.senab.photoview.PhotoView;
  * Created by yangc on 2017/4/26.
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 缩放图片
-***/
+ ***/
 public class SmoothImageView extends PhotoView {
 
-  public   enum Status {
+    public enum Status {
         STATE_NORMAL,
         STATE_IN,
         STATE_OUT,
@@ -43,13 +44,26 @@ public class SmoothImageView extends PhotoView {
     private static final int TRANSFORM_DURATION = 300;
     private Paint mPaint;
     private Matrix matrix;
-    private Bitmap mBitmap;
-
     private Transform startTransform;
     private Transform endTransform;
     private Transform animTransform;
     private Rect thumbRect;
     private boolean transformStart;
+    private   int bitmapWidth;
+    private  int bitmapHeight;
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        bitmapWidth=0;
+        bitmapHeight=0;
+        thumbRect = null;
+        mPaint = null;
+        matrix = null;
+        startTransform = null;
+        endTransform = null;
+        animTransform = null;
+        System.gc();
+    }
 
     private class Transform implements Cloneable {
         float left, top, width, height;
@@ -113,8 +127,8 @@ public class SmoothImageView extends PhotoView {
             canvas.drawPaint(mPaint);
             int saveCount = canvas.getSaveCount();
             matrix.setScale(animTransform.scale, animTransform.scale);
-            float translateX = -(mBitmap.getWidth() * animTransform.scale - animTransform.width) / 2;
-            float translateY = -(mBitmap.getHeight() * animTransform.scale - animTransform.height) / 2;
+            float translateX = -(bitmapWidth * animTransform.scale - animTransform.width) / 2;
+            float translateY = -(bitmapHeight * animTransform.scale - animTransform.height) / 2;
             matrix.postTranslate(translateX, translateY);
 
             canvas.translate(animTransform.left, animTransform.top);
@@ -426,10 +440,16 @@ public class SmoothImageView extends PhotoView {
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
-        if (mBitmap == null) {
-            mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
-        }
-
+            if (getDrawable() instanceof BitmapDrawable) {
+               Bitmap mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
+                  bitmapWidth = mBitmap.getWidth();
+                  bitmapHeight = mBitmap.getHeight();
+            } else {
+              Bitmap  mBitmap = Bitmap.createBitmap(getDrawable().getIntrinsicWidth(),
+                        getDrawable().getIntrinsicHeight(), Bitmap.Config.RGB_565);
+                bitmapWidth = mBitmap.getWidth();
+                bitmapHeight = mBitmap.getHeight();
+            }
         startTransform = new Transform();
         startTransform.alpha = 0;
         if (thumbRect == null) {
@@ -440,8 +460,7 @@ public class SmoothImageView extends PhotoView {
         startTransform.width = thumbRect.width();
         startTransform.height = thumbRect.height();
 
-        int bitmapWidth = mBitmap.getWidth();
-        int bitmapHeight = mBitmap.getHeight();
+
 
         //开始时以CenterCrop方式显示，缩放图片使图片的一边等于起始区域的一边，另一边大于起始区域
         float startScaleX = (float) thumbRect.width() / bitmapWidth;

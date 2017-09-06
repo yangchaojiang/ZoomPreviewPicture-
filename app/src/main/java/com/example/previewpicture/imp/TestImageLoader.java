@@ -1,9 +1,10 @@
 package com.example.previewpicture.imp;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -18,12 +19,14 @@ import com.previewlibrary.loader.MySimpleTarget;
  */
 
 public class TestImageLoader implements IZoomMediaLoader {
+
     @Override
-    public void displayImage(Fragment context, String path, final MySimpleTarget<Bitmap> simpleTarget) {
+    public void displayImage(@NonNull Fragment context,@NonNull String path, final@NonNull MySimpleTarget<Bitmap> simpleTarget) {
         Glide.with(context)
                 .load(path)
                 .asBitmap()
                 .centerCrop()
+                .error(R.drawable.ic_ssss)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -40,7 +43,7 @@ public class TestImageLoader implements IZoomMediaLoader {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        simpleTarget.onLoadFailed(R.mipmap.ic_iamge_zhanwei);
+                        simpleTarget.onLoadFailed(errorDrawable);
                     }
 
 
@@ -48,8 +51,14 @@ public class TestImageLoader implements IZoomMediaLoader {
     }
 
     @Override
-    public void onStop(Fragment context) {
-        Glide.with(context);
+    public void onStop(@NonNull Fragment context) {
+          Glide.with(context);
+
+    }
+
+    @Override
+    public void clearMemory(@NonNull Context c) {
+             Glide.get(c).clearMemory();
 
     }
 }
