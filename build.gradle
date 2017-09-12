@@ -23,7 +23,7 @@ allprojects {
         compileSdkVersion=25
         targetSdkVersion=25
         buildToolsVersion='25.0.2'
-        minSdkVersion=16
+        minSdkVersion=15
         versionCode = 17
         versionName = "3.0"
     }

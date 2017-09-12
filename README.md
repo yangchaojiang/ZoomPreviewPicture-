@@ -8,9 +8,10 @@
    * 2支持重写activity,完成切换切换效果
    * 3图片查看 缩放 拖拽下拉缩小退出
    * 4支持类似微信朋友圈照片九宫格和微信聊天图片预览，只要你中图片已经说支持。
+   * 5指示器类型选择 [圆点模式(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式
 ####效果如下：
 
-![](https://github.com/yangchaojiang/ZoomPreviewPicture/blob/master/gif/aaaaa.gif)
+![](gif/test.gif)
 
 通过Gradle抓取:
 
@@ -23,14 +24,14 @@
 ```grade
 
 
-   compile 'com.ycjiang:imgepreviewlibrary:1.0.4'
+   compile 'com.ycjiang:imgepreviewlibrary:1.0.5'
 
 ```
 ```Maven
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>loadviewhelper</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <type>pom</type>
 </dependency>
 ```
@@ -40,6 +41,18 @@
     compile 'com.android.support:support-v4:25.3.1'
 ```
 ### 2.示例代码
+
+   使用方式
+```
+                 GPreviewBuilder.from(RecycleViewActivity.this)
+                                .setData(mThumbViewInfoList)
+                                .setCurrentIndex(position)
+                                .setSingleFling(true)
+                                .setType(GPreviewBuilder.IndicatorType.Number)
+                                .start();
+
+```
+
 ````
 //mRecyclerView item点击事件
      mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
@@ -47,7 +60,11 @@
             public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int position) {
               //在你点击时，调用computeBoundsBackward（）方法
                 computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
-                PhotoActivity.startActivity(MainActivity.this,mThumbViewInfoList,position);
+              GPreviewBuilder.from(RecycleViewActivity.this)
+                                .setData(mThumbViewInfoList)
+                                .setCurrentIndex(position)
+                                .setType(GPreviewBuilder.IndicatorType.Number)
+                                .start();
             }
         });
 
@@ -148,6 +165,11 @@ public class MyPreviewImageActivity  extends GPreviewActivity {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 1.0.5
+   * 1.修改启动预览activity启动方式 采用GPreviewBuilder 链接调用
+   * 2.增加指示器类型选择 [圆点(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式
+   * 3.升级[PhotoView版本1.3.1](https://github.com/chrisbanes/PhotoView/)
+   * 4.设置最小版本15
  #### 1.0.4
    * 1.修复占位图错位问题
    * 2.支持色值和svg 等矢量图。
