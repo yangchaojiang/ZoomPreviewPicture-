@@ -24,14 +24,14 @@
 ```grade
 
 
-   compile 'com.ycjiang:imgepreviewlibrary:1.0.5'
+   compile 'com.ycjiang:imgepreviewlibrary:1.0.6'
 
 ```
 ```Maven
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>loadviewhelper</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <type>pom</type>
 </dependency>
 ```
@@ -165,7 +165,7 @@ public class MyPreviewImageActivity  extends GPreviewActivity {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
- #### 1.0.5
+ #### 1.0.6
    * 1.修改启动预览activity启动方式 采用GPreviewBuilder 链接调用
    * 2.增加指示器类型选择 [圆点(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式
    * 3.升级[PhotoView版本1.3.1](https://github.com/chrisbanes/PhotoView/)
