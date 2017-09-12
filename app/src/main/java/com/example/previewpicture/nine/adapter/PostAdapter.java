@@ -13,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.R;
+import com.example.previewpicture.list.ListView2Activity;
 import com.example.previewpicture.nine.entity.Post;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.previewlibrary.GPreviewActivity;
+import com.previewlibrary.GPreviewBuilder;
 import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +92,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
                     Log.d("onItemImageClick", list.get(index));
                     computeBoundsBackward(list);//组成数据
-                   GPreviewActivity.startActivity((Activity) context,mThumbViewInfoList,index);//启动
+                    GPreviewBuilder.from((Activity) context)
+                            .setData(mThumbViewInfoList)
+                            .setCurrentIndex(index)
+                            .setType(GPreviewBuilder.IndicatorType.Dot)
+                            .start();//启动
                 }
             });
         }

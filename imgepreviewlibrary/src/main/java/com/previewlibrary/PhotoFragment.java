@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -20,7 +21,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 /**
  * Created by yangc on 2017/4/26.
  * E-Mail:yangchaojiang@outlook.com
- * Deprecated: 图片预览单个图片的frgment
+ * Deprecated: 图片预览单个图片的fragment
  */
 public class PhotoFragment extends Fragment {
     /**
@@ -28,6 +29,7 @@ public class PhotoFragment extends Fragment {
      */
     public static final String KEY_START_BOUND = "startBounds";
     public static final String KEY_TRANS_PHOTO = "is_trans_photo";
+    public static final String KEY_SOING_FINLING = "isSingleFling";
     public static final String KEY_PATH = "key_path";
     //图片地址
     private String imgUrl;
@@ -39,10 +41,10 @@ public class PhotoFragment extends Fragment {
     private View rootView;
     //进度条
     private ProgressBar loading;
-    private  MySimpleTarget mySimpleTarget;
+    private MySimpleTarget mySimpleTarget;
 
-    public  static PhotoFragment  getInstance(){
-        return  new PhotoFragment();
+    public static PhotoFragment getInstance() {
+        return new PhotoFragment();
     }
 
     @Nullable
@@ -62,8 +64,9 @@ public class PhotoFragment extends Fragment {
     public void onStop() {
         super.onStop();
         ZoomMediaLoader.getInstance().getLoader().onStop(this);
-        mySimpleTarget=null;
+        mySimpleTarget = null;
     }
+
     /**
      * 初始化控件
      */
@@ -71,7 +74,7 @@ public class PhotoFragment extends Fragment {
         loading = (ProgressBar) view.findViewById(R.id.loading);
         photoView = (SmoothImageView) view.findViewById(R.id.photoView);
         rootView = view.findViewById(R.id.rootView);
-        mySimpleTarget= new MySimpleTarget<Bitmap>() {
+        mySimpleTarget = new MySimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap) {
                 if (photoView.getTag().toString().equals(imgUrl)) {
@@ -100,7 +103,9 @@ public class PhotoFragment extends Fragment {
      */
     private void initDate() {
         Bundle bundle = getArguments();
+        boolean isSingleFling = true;
         if (bundle != null) {
+            isSingleFling = bundle.getBoolean(KEY_SOING_FINLING);
             //地址
             imgUrl = bundle.getString(KEY_PATH);
             //位置
@@ -113,23 +118,38 @@ public class PhotoFragment extends Fragment {
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
             //加载缩略图
             //加载原图
-            ZoomMediaLoader.getInstance().getLoader().displayImage(this, imgUrl,mySimpleTarget);
+            ZoomMediaLoader.getInstance().getLoader().displayImage(this, imgUrl, mySimpleTarget);
 
         }
         // 非动画进入的Fragment，默认背景为黑色
         if (!isTransPhoto) {
             rootView.setBackgroundColor(Color.BLACK);
-        }
-        photoView.setMinimumScale(1f);
-        photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
-                if (photoView.checkMinScale()) {
-                    ((GPreviewActivity) getActivity()).transformOut();
+        } else
+            photoView.setMinimumScale(1f);
+        if (isSingleFling) {
+            photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+                @Override
+                public void onViewTap(View view, float x, float y) {
+                    if (photoView.checkMinScale()) {
+                        ((GPreviewActivity) getActivity()).transformOut();
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
+                    if (photoView.checkMinScale()) {
+                        ((GPreviewActivity) getActivity()).transformOut();
+                    }
+                }
 
+                @Override
+                public void onOutsidePhotoTap() {
+
+                }
+            });
+        }
         photoView.setAlphaChangeListener(new SmoothImageView.OnAlphaChangeListener() {
             @Override
             public void onAlphaChange(int alpha) {

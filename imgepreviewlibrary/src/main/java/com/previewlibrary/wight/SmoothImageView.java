@@ -51,6 +51,7 @@ public class SmoothImageView extends PhotoView {
     private boolean transformStart;
     private   int bitmapWidth;
     private  int bitmapHeight;
+    ValueAnimator animator;
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -62,7 +63,11 @@ public class SmoothImageView extends PhotoView {
         startTransform = null;
         endTransform = null;
         animTransform = null;
-        System.gc();
+        if (animator!=null){
+            animator.cancel();
+            animator.clone();
+            animator=null;
+        }
     }
 
     private class Transform implements Cloneable {
@@ -346,7 +351,7 @@ public class SmoothImageView extends PhotoView {
             return;
         }
 
-        ValueAnimator animator = new ValueAnimator();
+          animator = new ValueAnimator();
         animator.setDuration(TRANSFORM_DURATION);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (mStatus == Status.STATE_IN) {

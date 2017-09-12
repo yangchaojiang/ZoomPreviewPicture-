@@ -9,12 +9,11 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
-import com.previewlibrary.GPreviewActivity;
+import com.previewlibrary.GPreviewBuilder;
 import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
@@ -40,7 +39,12 @@ public class GridView2Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 computeBoundsBackward( listView.getFirstVisiblePosition());
-                GPreviewActivity.startActivity(GridView2Activity.this,mThumbViewInfoList,position);
+                GPreviewBuilder.from(GridView2Activity.this)
+                        .setData(mThumbViewInfoList)
+                        .setCurrentIndex(position)
+                        .setType(GPreviewBuilder.IndicatorType.Dot)
+                        .start();
+
             }
         });
     }

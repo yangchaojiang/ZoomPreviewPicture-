@@ -41,11 +41,9 @@ public class GridStyleActivity extends BaseActivity {
         this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         setContentView(R.layout.activity_recycler);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
         mRvPostLister = (RecyclerView) findViewById(R.id.rv_post_list);
         final LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvPostLister.setLayoutManager(manager);
-
         mPostList = new ArrayList<>();
         for (int i = 0; i < 18; i++) {
             List<String> imgUrls = new ArrayList<>();

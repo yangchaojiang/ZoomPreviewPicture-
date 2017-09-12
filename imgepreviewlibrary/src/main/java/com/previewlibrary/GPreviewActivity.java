@@ -1,7 +1,5 @@
 package com.previewlibrary;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,14 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-
+import com.previewlibrary.wight.BezierBannerView;
 import com.previewlibrary.wight.PhotoViewPager;
 import com.previewlibrary.wight.SmoothImageView;
 import com.previewlibrary.enitity.ThumbViewInfo;
-
 import java.util.ArrayList;
 import java.util.List;
-
  /**
  * Created by yangc on 2017/4/26.
  * E-Mail:yangchaojiang@outlook.com
@@ -37,38 +33,8 @@ public class GPreviewActivity extends FragmentActivity {
     private PhotoViewPager viewPager;
     //显示图片数
     private TextView ltAddDot;
-
-     /***
-      * 启动预览
-      *
-      * @param activity     活动对象
-      * @param tempData     图片集合
-      * @param currentIndex 当前索引坐标
-      ***/
-     public static void startActivity(Activity activity, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
-         // 图片的地址
-         //获取图片的bitmap
-         Intent intent = new Intent(activity, GPreviewActivity.class);
-         intent.putParcelableArrayListExtra("imagePaths", tempData);
-         intent.putExtra("position", currentIndex);
-         activity.startActivity(intent);
-     }
-     /***
-      * 启动预览
-      *
-      * @param activity     活动对象
-      * @param    className  目标类
-      * @param tempData     图片集合
-      * @param currentIndex 当前索引坐标
-      ***/
-     public static void startActivity(Activity activity, Class className, ArrayList<ThumbViewInfo> tempData, int currentIndex) {
-         // 图片的地址
-         //获取图片的bitmap
-         Intent intent = new Intent(activity,className);
-         intent.putParcelableArrayListExtra("imagePaths", tempData);
-         intent.putExtra("position", currentIndex);
-         activity.startActivity(intent);
-     }
+    private BezierBannerView bezierBannerView;
+    private GPreviewBuilder.IndicatorType type;
 
 
      @Override
@@ -98,6 +64,7 @@ public class GPreviewActivity extends FragmentActivity {
     private void initData() {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
+        type= (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         if (imgUrls != null) {
             Bundle bundle;
             for (int i = 0; i < imgUrls.size(); i++) {
@@ -106,6 +73,7 @@ public class GPreviewActivity extends FragmentActivity {
                 bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
                 bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
                 bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex == i);
+                bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO,  getIntent().getBooleanExtra("isSingleFling",false));
                 fragment.setArguments(bundle);
                 fragments.add(fragment);
             }
@@ -119,41 +87,47 @@ public class GPreviewActivity extends FragmentActivity {
      */
     private void initView() {
         viewPager = (PhotoViewPager) findViewById(R.id.viewPager);
-        ltAddDot = (TextView) findViewById(R.id.ltAddDot);
-        ltAddDot.setText(currentIndex + 1 + "/" + imgUrls.size());
         //viewPager的适配器
         PhotoPagerAdapter adapter = new PhotoPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //当被选中的时候设置小圆点和当前位置
-                if (ltAddDot != null) {
-                    ltAddDot.setText((position + 1) + "/" + imgUrls.size());
-                }
-                currentIndex = position;
-                viewPager.setCurrentItem(currentIndex, true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         viewPager.setCurrentItem(currentIndex);
+        if (type== GPreviewBuilder.IndicatorType.Dot){
+            bezierBannerView=(BezierBannerView) findViewById(R.id.bezierBannerView);
+            bezierBannerView.setVisibility(View.VISIBLE);
+            bezierBannerView.attachToViewpager(viewPager);
+        }else {
+            ltAddDot = (TextView) findViewById(R.id.ltAddDot);
+            ltAddDot.setVisibility(View.VISIBLE);
+            ltAddDot.setText(currentIndex + 1 + "/" + imgUrls.size());
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+                @Override
+                public void onPageSelected(int position) {
+                    //当被选中的时候设置小圆点和当前位置
+                    if (ltAddDot != null) {
+                        ltAddDot.setText((position + 1) + "/" + imgUrls.size());
+                    }
+                    currentIndex = position;
+                    viewPager.setCurrentItem(currentIndex, true);
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 viewPager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                final PhotoFragment fragment = fragments.get(currentIndex);
+                  PhotoFragment fragment = fragments.get(currentIndex);
                 fragment.transformIn();
             }
         });
+
 
     }
 
@@ -166,7 +140,11 @@ public class GPreviewActivity extends FragmentActivity {
         int currentItem = viewPager.getCurrentItem();
         if (currentItem < imgUrls.size()) {
             PhotoFragment fragment = fragments.get(currentItem);
-            ltAddDot.setVisibility(View.GONE);
+            if (ltAddDot!=null) {
+                ltAddDot.setVisibility(View.GONE);
+            }else {
+                bezierBannerView.setVisibility(View.GONE);
+            }
             fragment.changeBg(Color.TRANSPARENT);
             fragment.transformOut(new SmoothImageView.onTransformListener() {
                 @Override
@@ -186,11 +164,6 @@ public class GPreviewActivity extends FragmentActivity {
         finish();
         overridePendingTransition(0, 0);
     }
-
-     public List<ThumbViewInfo> getImgUrls() {
-         return imgUrls;
-     }
-
      public PhotoViewPager getViewPager() {
          return viewPager;
      }
@@ -219,5 +192,7 @@ public class GPreviewActivity extends FragmentActivity {
             return fragments.size();
         }
     }
+
+
 
 }

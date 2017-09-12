@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
 import com.previewlibrary.GPreviewActivity;
+import com.previewlibrary.GPreviewBuilder;
 import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,12 @@ public class RecycleViewActivity extends Activity {
            @Override
            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                computeBoundsBackward(mGridLayoutManager.findFirstVisibleItemPosition());
-               GPreviewActivity.startActivity(RecycleViewActivity.this,mThumbViewInfoList,position);
+               GPreviewBuilder.from(RecycleViewActivity.this)
+                       .setData(mThumbViewInfoList)
+                       .setCurrentIndex(position)
+                       .setSingleFling(true)
+                       .setType(GPreviewBuilder.IndicatorType.Number)
+                       .start();
            }
        });
 
