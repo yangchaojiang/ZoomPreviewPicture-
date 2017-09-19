@@ -147,7 +147,7 @@ public class TestImageLoader implements IZoomMediaLoader {
 public class CustomActivity extends GPreviewActivity {
 
     /***
-     * 重复该方法
+     * 重写该方法
      * 使用你的自定义布局
      **/
     @Override
