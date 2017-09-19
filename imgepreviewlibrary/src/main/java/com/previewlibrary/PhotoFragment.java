@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -29,7 +28,7 @@ public class PhotoFragment extends Fragment {
      */
     public static final String KEY_START_BOUND = "startBounds";
     public static final String KEY_TRANS_PHOTO = "is_trans_photo";
-    public static final String KEY_SOING_FINLING = "isSingleFling";
+    public static final String KEY_SING_FILING = "isSingleFling";
     public static final String KEY_PATH = "key_path";
     //图片地址
     private String imgUrl;
@@ -105,7 +104,7 @@ public class PhotoFragment extends Fragment {
         Bundle bundle = getArguments();
         boolean isSingleFling = true;
         if (bundle != null) {
-            isSingleFling = bundle.getBoolean(KEY_SOING_FINLING);
+            isSingleFling = bundle.getBoolean(KEY_SING_FILING);
             //地址
             imgUrl = bundle.getString(KEY_PATH);
             //位置

@@ -73,7 +73,7 @@ public class GPreviewActivity extends FragmentActivity {
                 bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
                 bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
                 bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex == i);
-                bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO,  getIntent().getBooleanExtra("isSingleFling",false));
+                bundle.putBoolean(PhotoFragment.KEY_SING_FILING,  getIntent().getBooleanExtra("isSingleFling",false));
                 fragment.setArguments(bundle);
                 fragments.add(fragment);
             }

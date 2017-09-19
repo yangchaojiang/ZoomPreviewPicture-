@@ -12,8 +12,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -49,24 +47,25 @@ public class SmoothImageView extends PhotoView {
     private Transform animTransform;
     private Rect thumbRect;
     private boolean transformStart;
-    private   int bitmapWidth;
-    private  int bitmapHeight;
+    private int bitmapWidth;
+    private int bitmapHeight;
     ValueAnimator animator;
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        bitmapWidth=0;
-        bitmapHeight=0;
+        bitmapWidth = 0;
+        bitmapHeight = 0;
         thumbRect = null;
         mPaint = null;
         matrix = null;
         startTransform = null;
         endTransform = null;
         animTransform = null;
-        if (animator!=null){
+        if (animator != null) {
             animator.cancel();
             animator.clone();
-            animator=null;
+            animator = null;
         }
     }
 
@@ -187,7 +186,8 @@ public class SmoothImageView extends PhotoView {
                     isMoved = false;
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (!isDownPhoto) {
+
+                    if (!isDownPhoto && event.getPointerCount() == 1) {
                         break;
                     }
 
@@ -223,7 +223,7 @@ public class SmoothImageView extends PhotoView {
                         }
                         // 多指滑动，直接屏蔽事件
                         else {
-                            return true;
+                            break;
                         }
                     }
                 case MotionEvent.ACTION_UP:
@@ -351,7 +351,7 @@ public class SmoothImageView extends PhotoView {
             return;
         }
 
-          animator = new ValueAnimator();
+        animator = new ValueAnimator();
         animator.setDuration(TRANSFORM_DURATION);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         if (mStatus == Status.STATE_IN) {
@@ -428,8 +428,8 @@ public class SmoothImageView extends PhotoView {
 
     /**
      * 设置起始位置图片的Rect
-     *
-     * @param thumbRect
+     *g
+     * @param thumbRect 参数
      */
     public void setThumbRect(Rect thumbRect) {
         this.thumbRect = thumbRect;
@@ -445,16 +445,16 @@ public class SmoothImageView extends PhotoView {
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
-            if (getDrawable() instanceof BitmapDrawable) {
-               Bitmap mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
-                  bitmapWidth = mBitmap.getWidth();
-                  bitmapHeight = mBitmap.getHeight();
-            } else {
-              Bitmap  mBitmap = Bitmap.createBitmap(getDrawable().getIntrinsicWidth(),
-                        getDrawable().getIntrinsicHeight(), Bitmap.Config.RGB_565);
-                bitmapWidth = mBitmap.getWidth();
-                bitmapHeight = mBitmap.getHeight();
-            }
+        if (getDrawable() instanceof BitmapDrawable) {
+            Bitmap mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
+            bitmapWidth = mBitmap.getWidth();
+            bitmapHeight = mBitmap.getHeight();
+        } else {
+            Bitmap mBitmap = Bitmap.createBitmap(getDrawable().getIntrinsicWidth(),
+                    getDrawable().getIntrinsicHeight(), Bitmap.Config.RGB_565);
+            bitmapWidth = mBitmap.getWidth();
+            bitmapHeight = mBitmap.getHeight();
+        }
         startTransform = new Transform();
         startTransform.alpha = 0;
         if (thumbRect == null) {
@@ -464,7 +464,6 @@ public class SmoothImageView extends PhotoView {
         startTransform.top = thumbRect.top - getStatusBarHeight(getContext());
         startTransform.width = thumbRect.width();
         startTransform.height = thumbRect.height();
-
 
 
         //开始时以CenterCrop方式显示，缩放图片使图片的一边等于起始区域的一边，另一边大于起始区域
@@ -520,6 +519,5 @@ public class SmoothImageView extends PhotoView {
         }
         return statusBarHeight;
     }
-
 
 }
