@@ -4,7 +4,6 @@
         android:supportsRtl="true">
 
         <activity android:name=".GPreviewActivity"
-
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,38 +11,45 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:title="主页"
-        app:titleTextColor="@android:color/white"
-        android:layout_height="?attr/actionBarSize"/>
+        app:titleTextColor="@android:color/white" />
+
     <Button
-        android:text="listView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/button"
-         />
-
-
-    <Button
-        android:text="微信,微博九宫格"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:layout_marginTop="17dp"/>
+        android:text="listView" />
+
 
     <Button
-        android:text="RecycleView"
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="微信,微博九宫格" />
+
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/button2"
-       />
+        android:text="RecycleView" />
 
     <Button
-        android:textStyle="italic"
-        android:text="GridView"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button4"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="18dp"
+        android:text="GridView"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="自定义预览"
+        android:textStyle="italic" />
 </LinearLayout>

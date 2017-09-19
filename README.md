@@ -4,11 +4,12 @@
 常见应用场景如微信朋友圈照片九宫格和微信聊天图片预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
 
  ### 特点
-   * 1支持自定义图片加载框架，
-   * 2支持重写activity,完成切换切换效果
-   * 3图片查看 缩放 拖拽下拉缩小退出
-   * 4支持类似微信朋友圈照片九宫格和微信聊天图片预览，只要你中图片已经说支持。
-   * 5指示器类型选择 [圆点模式(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式
+   * 1.支持自定义图片加载框架，
+   * 2.支持重写activity,完成切换切换效果
+   * 3.图片查看 缩放 拖拽下拉缩小退出
+   * 4.支持自定义activity内容
+   * 5.支持类似微信朋友圈照片九宫格和微信聊天图片预览，只要你中图片已经说支持。
+   * 6.指示器类型选择 [圆点模式(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式
 ####效果如下：
 
 ![](gif/test.gif)
@@ -24,14 +25,14 @@
 ```grade
 
 
-   compile 'com.ycjiang:imgepreviewlibrary:1.0.7'
+   compile 'com.ycjiang:imgepreviewlibrary:1.0.8'
 
 ```
 ```Maven
 <dependency>
   <groupId>com.ycjiang</groupId>
   <artifactId>loadviewhelper</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <type>pom</type>
 </dependency>
 ```
@@ -140,31 +141,83 @@ public class TestImageLoader implements IZoomMediaLoader {
           ZoomMediaLoader.getInstance().init(new TestImageLoader());
       }
 ````
-### 4.自定义Activity 实现getViewPager 切换动画
+### 4.自定义Activity
+   实现业务自己逻辑操作，例如返回按钮toolbar  实现getViewPager 切换动画等等
 ~~~
-public class MyPreviewImageActivity  extends GPreviewActivity {
+public class CustomActivity extends GPreviewActivity {
+
+    /***
+     * 重复该方法
+     * 使用你的自定义布局
+     **/
+    @Override
+    public int setContentLayout() {
+        return R.layout.activity_custom_preview;
+    }
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // getViewPager().setPageTransformer(true,new DepthPageTransformer());
-       // getViewPager();
-       // getImgUrls();
+        toolbar= (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //退出时调用，d封装方法的 不然没有动画效果
+                transformOut();
+            }
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-        @Override
-        public void clearMemory(@NonNull Context c) {
-                 Glide.get(c).clearMemory();
-        }
-}
 ~~~
+ * 布局文件
+ ````
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical">
+     <android.support.v7.widget.Toolbar
+         android:id="@+id/toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         android:background="@color/colorPrimaryDark"
+         app:titleTextColor="@android:color/white"
+         app:navigationIcon="@mipmap/ic_back"
+         app:title="自定义预览" />
+         <!-- 在你布局引用预览布局内容 -->
+      <include layout="@layout/activity_image_preview_photo"/>
+
+ </LinearLayout>
+
+ ````
+
+  >注意：
+  >>
+  >>1. **自定义使用布局时，不在子类使用setContentView()方法**
+
+  >>2. **你在Activity 重写 setContentLayout()，返回你的自定义布局**
+
+  >>3. **在你布局内容 使用include layout="@layout/activity_image_preview_photo" 预览布局添加你布局中**
+
+  >>4. **GPreviewBuilder 调用 from()方法后，调用to();指向你.to(CustomActivity.class)自定义预览activity**
+
+  >>5. **别忘了在AndroidManifest  activity 使用主题**
+  >> 示例：
+
+              <!--d注册自定义activity-->
+                <activity android:name=".custom.CustomActivity"
+                    android:screenOrientation="portrait"
+                    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+              />
+
 
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ ####1.0.8
+   * 1.完善自定义预览实现步骤，让自定义更简洁
+
  #### 1.0.7
    * 1.修复双手缩放失效问题
  #### 1.0.6

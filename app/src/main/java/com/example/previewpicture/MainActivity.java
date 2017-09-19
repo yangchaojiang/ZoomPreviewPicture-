@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.previewpicture.custom.GridViewCustomActivity;
 import com.example.previewpicture.list.GridView2Activity;
 import com.example.previewpicture.list.ListView2Activity;
 import com.example.previewpicture.nine.activity.GridStyleActivity;
@@ -46,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent=new Intent(MainActivity.this, GridView2Activity.class);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button6)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(MainActivity.this, GridViewCustomActivity.class);
                         startActivity(intent);
                     }
                 });

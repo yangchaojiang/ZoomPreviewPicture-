@@ -10,18 +10,20 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
 import com.previewlibrary.wight.BezierBannerView;
 import com.previewlibrary.wight.PhotoViewPager;
 import com.previewlibrary.wight.SmoothImageView;
 import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
- /**
+
+/**
  * Created by yangc on 2017/4/26.
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:图片预览页面
  */
-public class GPreviewActivity extends FragmentActivity {
+public   class GPreviewActivity extends FragmentActivity {
     private boolean isTransformOut = false;
     //图片的地址
     private List<ThumbViewInfo> imgUrls;
@@ -36,44 +38,47 @@ public class GPreviewActivity extends FragmentActivity {
     private BezierBannerView bezierBannerView;
     private GPreviewBuilder.IndicatorType type;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (setContentLayout() == 0) {
+            setContentView(R.layout.activity_image_preview_photo);
+        } else {
+            setContentView(setContentLayout());
+        }
+        initData();
+        initView();
+    }
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_imge_preview_photo);
-         initData();
-         initView();
-     }
+    @Override
+    protected void onDestroy() {
+        ZoomMediaLoader.getInstance().getLoader().clearMemory(this);
+        fragments.clear();
+        imgUrls.clear();
+        fragments = null;
+        imgUrls = null;
+        viewPager.setAdapter(null);
+        viewPager.clearOnPageChangeListeners();
+        viewPager.removeAllViews();
+        super.onDestroy();
+    }
 
-     @Override
-     protected void onDestroy() {
-         ZoomMediaLoader.getInstance().getLoader().clearMemory(this);
-         fragments.clear();
-         imgUrls.clear();
-         fragments=null;
-         imgUrls=null;
-         viewPager.setAdapter(null);
-         viewPager.clearOnPageChangeListeners();
-         viewPager.removeAllViews();
-         super.onDestroy();
-     }
-
-     /**
+    /**
      * 初始化数据
      */
     private void initData() {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
-        type= (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
+        type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         if (imgUrls != null) {
             Bundle bundle;
             for (int i = 0; i < imgUrls.size(); i++) {
                 PhotoFragment fragment = PhotoFragment.getInstance();
-                  bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
                 bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
                 bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex == i);
-                bundle.putBoolean(PhotoFragment.KEY_SING_FILING,  getIntent().getBooleanExtra("isSingleFling",false));
+                bundle.putBoolean(PhotoFragment.KEY_SING_FILING, getIntent().getBooleanExtra("isSingleFling", false));
                 fragment.setArguments(bundle);
                 fragments.add(fragment);
             }
@@ -91,11 +96,11 @@ public class GPreviewActivity extends FragmentActivity {
         PhotoPagerAdapter adapter = new PhotoPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentIndex);
-        if (type== GPreviewBuilder.IndicatorType.Dot){
-            bezierBannerView=(BezierBannerView) findViewById(R.id.bezierBannerView);
+        if (type == GPreviewBuilder.IndicatorType.Dot) {
+            bezierBannerView = (BezierBannerView) findViewById(R.id.bezierBannerView);
             bezierBannerView.setVisibility(View.VISIBLE);
             bezierBannerView.attachToViewpager(viewPager);
-        }else {
+        } else {
             ltAddDot = (TextView) findViewById(R.id.ltAddDot);
             ltAddDot.setVisibility(View.VISIBLE);
             ltAddDot.setText(currentIndex + 1 + "/" + imgUrls.size());
@@ -104,6 +109,7 @@ public class GPreviewActivity extends FragmentActivity {
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
                 }
+
                 @Override
                 public void onPageSelected(int position) {
                     //当被选中的时候设置小圆点和当前位置
@@ -113,6 +119,7 @@ public class GPreviewActivity extends FragmentActivity {
                     currentIndex = position;
                     viewPager.setCurrentItem(currentIndex, true);
                 }
+
                 @Override
                 public void onPageScrollStateChanged(int state) {
 
@@ -123,7 +130,7 @@ public class GPreviewActivity extends FragmentActivity {
             @Override
             public void onGlobalLayout() {
                 viewPager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                  PhotoFragment fragment = fragments.get(currentIndex);
+                PhotoFragment fragment = fragments.get(currentIndex);
                 fragment.transformIn();
             }
         });
@@ -132,7 +139,7 @@ public class GPreviewActivity extends FragmentActivity {
     }
 
     //退出预览的动画
-     void transformOut() {
+   protected void transformOut() {
         if (isTransformOut) {
             return;
         }
@@ -140,9 +147,9 @@ public class GPreviewActivity extends FragmentActivity {
         int currentItem = viewPager.getCurrentItem();
         if (currentItem < imgUrls.size()) {
             PhotoFragment fragment = fragments.get(currentItem);
-            if (ltAddDot!=null) {
+            if (ltAddDot != null) {
                 ltAddDot.setVisibility(View.GONE);
-            }else {
+            } else {
                 bezierBannerView.setVisibility(View.GONE);
             }
             fragment.changeBg(Color.TRANSPARENT);
@@ -157,23 +164,29 @@ public class GPreviewActivity extends FragmentActivity {
         }
     }
 
-     /**
+    /**
      * 关闭页面
      */
-    public void exit() {
+    private void exit() {
         finish();
         overridePendingTransition(0, 0);
     }
-     public PhotoViewPager getViewPager() {
-         return viewPager;
-     }
 
-     @Override
+    public PhotoViewPager getViewPager() {
+        return viewPager;
+    }
+
+    /***
+     * 自定义布局内容
+     ***/
+    public   int setContentLayout(){return 0;}
+
+    @Override
     public void onBackPressed() {
         transformOut();
     }
 
-     /**
+    /**
      * pager的适配器
      */
     private class PhotoPagerAdapter extends FragmentPagerAdapter {
@@ -192,7 +205,6 @@ public class GPreviewActivity extends FragmentActivity {
             return fragments.size();
         }
     }
-
 
 
 }

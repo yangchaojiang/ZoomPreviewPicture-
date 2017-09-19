@@ -2,6 +2,7 @@ package com.previewlibrary;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public final class GPreviewBuilder {
     private Intent intent;
    private  Class  className;
 
-    private GPreviewBuilder(Activity activity) {
+    private GPreviewBuilder(@NonNull Activity activity) {
         mContext = activity;
         intent = new Intent();
     }
@@ -25,21 +26,21 @@ public final class GPreviewBuilder {
      * 设置开始启动预览
      * @param activity  启动
      * **/
-    public static GPreviewBuilder from(Activity activity) {
+    public static GPreviewBuilder from(@NonNull Activity activity) {
         return new GPreviewBuilder(activity);
     }
     /***
      * 设置开始启动预览
      * @param fragment  启动
      * **/
-    public static GPreviewBuilder from(Fragment fragment) {
+    public static GPreviewBuilder from(@NonNull Fragment fragment) {
         return new GPreviewBuilder(fragment.getActivity());
     }
     /****
      *自定义预览activity 类名
      * @param className   继承GPreviewActivity
      * **/
-    public GPreviewBuilder to(Class className) {
+    public GPreviewBuilder to(@NonNull Class className) {
         this.className=className;
         intent.setClass(mContext, className);
         return this;
@@ -50,7 +51,7 @@ public final class GPreviewBuilder {
      * @param imgUrls 数据
      * @return     GPreviewBuilder
      * **/
-    public GPreviewBuilder setData(ArrayList<ThumbViewInfo> imgUrls) {
+    public GPreviewBuilder setData(@NonNull ArrayList<ThumbViewInfo> imgUrls) {
         intent.putParcelableArrayListExtra("imagePaths", imgUrls);
         return this;
     }
@@ -69,7 +70,7 @@ public final class GPreviewBuilder {
      * @param indicatorType 枚举
      * @return     GPreviewBuilder
      * **/
-    public GPreviewBuilder setType(IndicatorType indicatorType) {
+    public GPreviewBuilder setType(@NonNull IndicatorType indicatorType) {
         intent.putExtra("type", indicatorType);
         return this;
     }
@@ -88,6 +89,8 @@ public final class GPreviewBuilder {
     public  void start(){
         if (className==null){
             intent.setClass(mContext,GPreviewActivity.class);
+        }else {
+            intent.setClass(mContext,className);
         }
         mContext.startActivity(intent);
         intent=null;

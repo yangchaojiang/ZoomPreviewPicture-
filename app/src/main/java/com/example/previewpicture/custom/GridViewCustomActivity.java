@@ -1,4 +1,4 @@
-package com.example.previewpicture.list;
+package com.example.previewpicture.custom;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.previewlibrary.enitity.ThumbViewInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridView2Activity extends AppCompatActivity {
+public class GridViewCustomActivity extends AppCompatActivity {
     private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
     GridView listView;
     private MyListAdapter adapter;
@@ -40,7 +40,8 @@ public class GridView2Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 computeBoundsBackward(listView.getFirstVisiblePosition());
-                GPreviewBuilder.from(GridView2Activity.this)
+                GPreviewBuilder.from(GridViewCustomActivity.this)
+                        .to(CustomActivity.class)
                         .setData(mThumbViewInfoList)
                         .setCurrentIndex(position)
                         .setType(GPreviewBuilder.IndicatorType.Dot)
@@ -87,7 +88,7 @@ public class GridView2Activity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = getLayoutInflater().inflate(R.layout.item_image, null);
             ImageView iv = (ImageView) view.findViewById(R.id.iv);
-            Glide.with(GridView2Activity.this)
+            Glide.with(GridViewCustomActivity.this)
                     .load(mThumbViewInfoList.get(position).getUrl())
                     .error(R.mipmap.ic_iamge_zhanwei)
                     .into(iv);
