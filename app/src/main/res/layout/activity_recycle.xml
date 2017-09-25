@@ -4,20 +4,14 @@
     android:id="@+id/activity_main2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        app:title="RecycleView"
-        app:titleTextColor="@android:color/white"
-        android:layout_height="?attr/actionBarSize"/>
+    android:orientation="vertical">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
         android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
-        />
+        android:numColumns="2"
+        android:verticalSpacing="2dp" />
+
 </LinearLayout>

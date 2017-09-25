@@ -24,14 +24,14 @@
         <activity android:name=".list.ListView2Activity" />
         <activity android:name=".custom.GridViewCustomActivity" />
         <!--d注册自定义activity-->
-        <activity android:name=".custom.CustomActivity"
+        <activity
+            android:name=".custom.CustomActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".list.GridView2Activity" />
-        <activity android:name=".nine.activity.GridStyleActivity"
-            android:theme="@style/AppTheme"
-            />
+        <activity
+            android:name=".nine.activity.GridStyleActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
