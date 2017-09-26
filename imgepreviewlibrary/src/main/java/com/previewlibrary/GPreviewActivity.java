@@ -15,6 +15,7 @@ import com.previewlibrary.wight.BezierBannerView;
 import com.previewlibrary.wight.PhotoViewPager;
 import com.previewlibrary.wight.SmoothImageView;
 import com.previewlibrary.enitity.ThumbViewInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated:图片预览页面
  */
-public   class GPreviewActivity extends FragmentActivity {
+public class GPreviewActivity extends FragmentActivity {
     private boolean isTransformOut = false;
     //图片的地址
     private List<ThumbViewInfo> imgUrls;
@@ -53,13 +54,19 @@ public   class GPreviewActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         ZoomMediaLoader.getInstance().getLoader().clearMemory(this);
-        fragments.clear();
-        imgUrls.clear();
-        fragments = null;
-        imgUrls = null;
-        viewPager.setAdapter(null);
-        viewPager.clearOnPageChangeListeners();
-        viewPager.removeAllViews();
+        if (viewPager != null) {
+            viewPager.setAdapter(null);
+            viewPager.clearOnPageChangeListeners();
+            viewPager.removeAllViews();
+        }
+        if (fragments != null) {
+            fragments.clear();
+            fragments = null;
+        }
+        if (imgUrls != null) {
+            imgUrls.clear();
+            imgUrls = null;
+        }
         super.onDestroy();
     }
 
@@ -139,7 +146,7 @@ public   class GPreviewActivity extends FragmentActivity {
     }
 
     //退出预览的动画
-   protected void transformOut() {
+    protected void transformOut() {
         if (isTransformOut) {
             return;
         }
@@ -179,7 +186,9 @@ public   class GPreviewActivity extends FragmentActivity {
     /***
      * 自定义布局内容
      ***/
-    public   int setContentLayout(){return 0;}
+    public int setContentLayout() {
+        return 0;
+    }
 
     @Override
     public void onBackPressed() {
@@ -202,7 +211,7 @@ public   class GPreviewActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return fragments == null ? 0 : fragments.size();
         }
     }
 
