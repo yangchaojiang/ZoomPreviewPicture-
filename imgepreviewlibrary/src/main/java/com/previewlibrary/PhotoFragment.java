@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.previewlibrary.loader.MySimpleTarget;
 import com.previewlibrary.wight.SmoothImageView;
 
@@ -41,7 +40,6 @@ public class PhotoFragment extends Fragment {
     //进度条
     private ProgressBar loading;
     private MySimpleTarget mySimpleTarget;
-
     public static PhotoFragment getInstance() {
         return new PhotoFragment();
     }
@@ -81,7 +79,6 @@ public class PhotoFragment extends Fragment {
                     loading.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onLoadFailed(Drawable errorDrawable) {
                 loading.setVisibility(View.GONE);
@@ -89,7 +86,6 @@ public class PhotoFragment extends Fragment {
                     photoView.setImageDrawable(errorDrawable);
                 }
             }
-
             @Override
             public void onLoadStarted() {
 

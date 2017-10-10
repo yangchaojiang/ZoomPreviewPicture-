@@ -26,7 +26,7 @@ public class TestImageLoader implements IZoomMediaLoader {
                 .load(path)
                 .asBitmap()
                 .centerCrop()
-                .error(R.drawable.ic_ssss)
+                .error(R.drawable.ic_default_image)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
