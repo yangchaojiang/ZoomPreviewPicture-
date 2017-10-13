@@ -10,8 +10,6 @@ import com.example.previewpicture.R;
 import com.example.previewpicture.nine.adapter.PostAdapter;
 import com.example.previewpicture.nine.entity.Post;
 import com.jaeger.ninegridimageview.NineGridImageView;
-import com.previewlibrary.enitity.ThumbViewInfo;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

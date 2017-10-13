@@ -61,9 +61,31 @@ public class PhotoFragment extends Fragment {
     public void onStop() {
         super.onStop();
         ZoomMediaLoader.getInstance().getLoader().onStop(this);
-        mySimpleTarget = null;
     }
 
+
+
+    @Override
+    public void onDestroyView() {
+        ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
+        release();
+        super.onDestroyView();
+    }
+     public void release(){
+        mySimpleTarget = null;
+        if (photoView!=null){
+            photoView.setImageBitmap(null);
+            photoView.setOnViewTapListener(null);
+            photoView.setOnPhotoTapListener(null);
+            photoView.setAlphaChangeListener(null);
+            photoView.setTransformOutListener(null);
+            photoView.transformIn(null);
+            photoView.transformOut(null);
+            photoView=null;
+            rootView=null;
+            isTransPhoto=false;
+        }
+    }
     /**
      * 初始化控件
      */
@@ -71,6 +93,8 @@ public class PhotoFragment extends Fragment {
         loading = (ProgressBar) view.findViewById(R.id.loading);
         photoView = (SmoothImageView) view.findViewById(R.id.photoView);
         rootView = view.findViewById(R.id.rootView);
+        rootView.setDrawingCacheEnabled(false);
+        photoView.setDrawingCacheEnabled(false);
         mySimpleTarget = new MySimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap) {
@@ -92,7 +116,6 @@ public class PhotoFragment extends Fragment {
             }
         };
     }
-
     /**
      * 初始化数据
      */
@@ -111,10 +134,8 @@ public class PhotoFragment extends Fragment {
             photoView.setTag(imgUrl);
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
-            //加载缩略图
             //加载原图
             ZoomMediaLoader.getInstance().getLoader().displayImage(this, imgUrl, mySimpleTarget);
-
         }
         // 非动画进入的Fragment，默认背景为黑色
         if (!isTransPhoto) {

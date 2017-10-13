@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
@@ -200,7 +202,7 @@ public class GPreviewActivity extends FragmentActivity {
      */
     private class PhotoPagerAdapter extends FragmentPagerAdapter {
 
-        PhotoPagerAdapter(FragmentManager fm) {
+         PhotoPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -212,6 +214,11 @@ public class GPreviewActivity extends FragmentActivity {
         @Override
         public int getCount() {
             return fragments == null ? 0 : fragments.size();
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
         }
     }
 

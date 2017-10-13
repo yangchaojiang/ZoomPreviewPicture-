@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.previewpicture.R;
@@ -26,6 +27,7 @@ public class TestImageLoader implements IZoomMediaLoader {
                 .load(path)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.ic_default_image)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override

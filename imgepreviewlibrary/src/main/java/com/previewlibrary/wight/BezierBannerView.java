@@ -212,7 +212,6 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
     public void setProgress(float progress) {
         //viewpager滑动完毕返回的0不需要，拦截掉
         if (progress == 0) {
-            Log.d(TAG, "拦截");
             return;
         }
         mOriginProgress = progress;
@@ -230,9 +229,6 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
             moveToPrivous();
         }
         invalidate();
-        Log.d(TAG, "刷新");
-
-
     }
 
     /**
