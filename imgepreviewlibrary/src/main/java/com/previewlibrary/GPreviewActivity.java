@@ -60,6 +60,7 @@ public class GPreviewActivity extends FragmentActivity {
             viewPager.setAdapter(null);
             viewPager.clearOnPageChangeListeners();
             viewPager.removeAllViews();
+            viewPager = null;
         }
         if (fragments != null) {
             fragments.clear();
@@ -81,8 +82,9 @@ public class GPreviewActivity extends FragmentActivity {
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         if (imgUrls != null) {
             Bundle bundle;
+            PhotoFragment fragment;
             for (int i = 0; i < imgUrls.size(); i++) {
-                PhotoFragment fragment = PhotoFragment.getInstance();
+                fragment = new PhotoFragment();
                 bundle = new Bundle();
                 bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
                 bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
@@ -105,6 +107,7 @@ public class GPreviewActivity extends FragmentActivity {
         PhotoPagerAdapter adapter = new PhotoPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentIndex);
+        viewPager.setOffscreenPageLimit(3);
         if (type == GPreviewBuilder.IndicatorType.Dot) {
             bezierBannerView = (BezierBannerView) findViewById(R.id.bezierBannerView);
             bezierBannerView.setVisibility(View.VISIBLE);
@@ -202,7 +205,7 @@ public class GPreviewActivity extends FragmentActivity {
      */
     private class PhotoPagerAdapter extends FragmentPagerAdapter {
 
-         PhotoPagerAdapter(FragmentManager fm) {
+        PhotoPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

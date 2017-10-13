@@ -40,9 +40,6 @@ public class PhotoFragment extends Fragment {
     //进度条
     private ProgressBar loading;
     private MySimpleTarget mySimpleTarget;
-    public static PhotoFragment getInstance() {
-        return new PhotoFragment();
-    }
 
     @Nullable
     @Override
