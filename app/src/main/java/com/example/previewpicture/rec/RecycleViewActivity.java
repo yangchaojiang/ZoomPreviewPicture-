@@ -29,7 +29,7 @@ public class RecycleViewActivity extends Activity {
     private void init(){
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
-        for (int i = 0; i < urls.size(); i++) {
+        for (int i = 0; i < 30; i++) {
             mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
         }
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);

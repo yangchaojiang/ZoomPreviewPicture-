@@ -81,17 +81,8 @@ public class GPreviewActivity extends FragmentActivity {
         currentIndex = getIntent().getIntExtra("position", -1);
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         if (imgUrls != null) {
-            Bundle bundle;
-            PhotoFragment fragment;
             for (int i = 0; i < imgUrls.size(); i++) {
-                fragment = new PhotoFragment();
-                bundle = new Bundle();
-                bundle.putSerializable(PhotoFragment.KEY_PATH, imgUrls.get(i).getUrl());
-                bundle.putParcelable(PhotoFragment.KEY_START_BOUND, imgUrls.get(i).getBounds());
-                bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex == i);
-                bundle.putBoolean(PhotoFragment.KEY_SING_FILING, getIntent().getBooleanExtra("isSingleFling", false));
-                fragment.setArguments(bundle);
-                fragments.add(fragment);
+                fragments.add(PhotoFragment.getInstance(imgUrls.get(i).getUrl(), imgUrls.get(i).getBounds(), currentIndex == i, getIntent().getBooleanExtra("isSingleFling", false)));
             }
         } else {
             finish();

@@ -29,8 +29,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.9.0'
-    //compile project(':imgepreviewlibrary')
+    compile project(':imgepreviewlibrary')
     compile 'com.simplepeng.library:transformslibrary:1.0.0'
     compile 'com.jaeger.ninegridimageview:library:1.1.0'
-    compile 'com.ycjiang:imgepreviewlibrary:1.1.1'
+    //compile 'com.ycjiang:imgepreviewlibrary:1.1.1'
 }

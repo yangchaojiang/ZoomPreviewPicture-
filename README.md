@@ -25,7 +25,7 @@
 ```grade
 
 
-   compile 'com.ycjiang:imgepreviewlibrary:1.1.2'
+   compile 'com.ycjiang:imgepreviewlibrary:1.1.3'
 
 ```
 ```Maven
@@ -215,6 +215,8 @@ public class CustomActivity extends GPreviewActivity {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ ####1.1.3
+   * 1.fragment改用静态方法实例化。
  ####1.1.2
    * 1.列表数据过长OOM问题问题[#17](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/17)
    * 2.sdk 23版本九宫格图片类型可能进入的动画效果[#15](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/15)

@@ -45,7 +45,7 @@ publish {
     repoName="yangjiang" //仓库名
     groupId = 'com.ycjiang'
     artifactId = 'imgepreviewlibrary'
-    publishVersion = '1.1.2'
+    publishVersion = '1.1.3'
     desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, \' +\n' +
             '                \'exit the full screen to restore the original location of the two processes of the animation transition.\' +\n' +
             '                \' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview, some mobile phone system album, \' +\n' +

@@ -46,6 +46,16 @@ public class PhotoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
     }
+    public  static  PhotoFragment  getInstance(String uri,Rect rect, boolean currentIndex,boolean isSingleFling){
+        PhotoFragment fragment=new PhotoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PhotoFragment.KEY_PATH, uri);
+        bundle.putParcelable(PhotoFragment.KEY_START_BOUND, rect);
+        bundle.putBoolean(PhotoFragment.KEY_TRANS_PHOTO, currentIndex);
+        bundle.putBoolean(PhotoFragment.KEY_SING_FILING,isSingleFling);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
