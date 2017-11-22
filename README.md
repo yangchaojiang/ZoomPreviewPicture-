@@ -34,19 +34,22 @@
       compile 'com.android.support:support-fragment:25.3.1'
 ```
 ### 2.示例代码
-   1.使用方式
+ 1.使用方式
 ```
-  GPreviewBuilder.from(RecycleViewActivity.this)
-                 .setData(mThumbViewInfoList)
-                 .setCurrentIndex(position)
-                 .setSingleFling(true)
-                 
-                 .setType(GPreviewBuilder.IndicatorType.Number)
-                 .start();               
+     GPreviewBuilder.from(GridViewCustomActivity.this)//activity实例必须
+                            .to(CustomActivity.class)//自定义Activity 使用默认的预览不需要
+                            .setData(mThumbViewInfoList)//集合
+                            .setUserFragment(UserFragment.class)//自定义Fragment 使用默认的预览不需要
+                            .setCurrentIndex(position)
+                            .setSingleFling(false)//是否在黑屏区域点击返回
+                            .setDrag(false)//是否禁用图片拖拽返回  
+                            .setType(GPreviewBuilder.IndicatorType.Dot)//指示器类型
+                            .start();//启动            
 
 ```
+2.列表控件item点击事件添加相应代码。
+(RecyclerView为例，demo有(ListView和GridView和九宫格控件实例代码))
 ```
-//mRecyclerView item点击事件
      mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int position) {
@@ -59,7 +62,6 @@
                                 .start();
             }
         });
-
     /**
      ** 查找信息
      * 从第一个完整可见item逆序遍历，如果初始位置为0，则不执行方法内循环
