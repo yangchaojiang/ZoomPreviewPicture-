@@ -170,11 +170,17 @@ public class TestImageLoader implements IZoomMediaLoader {
  
 3 使用细节注意：
   >>1  **Activity和Fragment可以单独使用,也可以组合一起使用**
+  
   >>2. **自定义使用布局时，不在子类使用setContentView()方法**
+  
   >>3. **你在Activity 重写 setContentLayout()，返回你的自定义布局**
+  
   >>4. **在你布局内容 使用include layout="@layout/activity_image_preview_photo" 预览布局添加你布局中**
+ 
   >>5. **GPreviewBuilder 调用 from()方法后，调用to();指向你.to(CustomActivity.class)自定义预览activity**
+ 
   >>6. **别忘了在AndroidManifest  activity 使用主题**
+ 
   >> 示例：
               <!--注册自定义activity-->
                 <activity android:name=".custom.CustomActivity"
