@@ -13,14 +13,14 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
+import com.example.previewpicture.bean.UserViewInfo;
 import com.previewlibrary.GPreviewBuilder;
-import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GridView2Activity extends AppCompatActivity {
-    private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
+    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     GridView listView;
     private MyListAdapter adapter;
 
@@ -32,7 +32,7 @@ public class GridView2Activity extends AppCompatActivity {
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
         for (int i = 0; i < urls.size(); i++) {
-            mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
+            mThumbViewInfoList.add(new UserViewInfo(urls.get(i)));
         }
         adapter = new MyListAdapter();
         listView.setAdapter(adapter);

@@ -23,18 +23,13 @@ public class TestImageLoader implements IZoomMediaLoader {
 
     @Override
     public void displayImage(@NonNull Fragment context,@NonNull String path, final@NonNull MySimpleTarget<Bitmap> simpleTarget) {
-        Glide.with(context)
-                .load(path)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+        Glide.with(context).load(path).asBitmap() .centerCrop() .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.ic_default_image)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         simpleTarget.onResourceReady(resource);
                     }
-
                     @Override
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
@@ -47,8 +42,6 @@ public class TestImageLoader implements IZoomMediaLoader {
                         super.onLoadFailed(e, errorDrawable);
                         simpleTarget.onLoadFailed(errorDrawable);
                     }
-
-
                 });
     }
 

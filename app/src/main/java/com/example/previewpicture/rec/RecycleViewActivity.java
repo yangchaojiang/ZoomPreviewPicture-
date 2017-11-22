@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
-import com.previewlibrary.GPreviewActivity;
+import com.example.previewpicture.bean.UserViewInfo;
 import com.previewlibrary.GPreviewBuilder;
-import com.previewlibrary.enitity.ThumbViewInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleViewActivity extends Activity {
-    private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
+    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     private GridLayoutManager mGridLayoutManager;
     private RecyclerView mRecyclerView;
     @Override
@@ -30,7 +30,7 @@ public class RecycleViewActivity extends Activity {
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
         for (int i = 0; i < 30; i++) {
-            mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
+            mThumbViewInfoList.add(new UserViewInfo(urls.get(i)));
         }
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mGridLayoutManager = new GridLayoutManager(this,2);

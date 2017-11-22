@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this, ListView2Activity.class);
+                        Intent intent = new Intent(MainActivity.this, ListView2Activity.class);
                         startActivity(intent);
 
                     }
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this, RecycleViewActivity.class);
+                        Intent intent = new Intent(MainActivity.this, RecycleViewActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this, GridView2Activity.class);
+                        Intent intent = new Intent(MainActivity.this, GridView2Activity.class);
                         startActivity(intent);
                     }
                 });
@@ -54,7 +54,26 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this, GridViewCustomActivity.class);
+                        Intent intent = new Intent(MainActivity.this, GridViewCustomActivity.class);
+                        intent.putExtra("type", 0);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button7)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, GridViewCustomActivity.class);
+                        intent.putExtra("type", 1);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button8)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, GridViewCustomActivity.class);
+                        intent.putExtra("type", 2);
                         startActivity(intent);
                     }
                 });

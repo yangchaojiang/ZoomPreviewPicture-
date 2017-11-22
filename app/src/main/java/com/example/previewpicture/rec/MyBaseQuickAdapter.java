@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.previewpicture.R;
-import com.previewlibrary.enitity.ThumbViewInfo;
+import com.example.previewpicture.bean.UserViewInfo;
 
 
 /**
@@ -16,7 +16,7 @@ import com.previewlibrary.enitity.ThumbViewInfo;
  * Deprecated:
  */
 
-public class MyBaseQuickAdapter extends BaseQuickAdapter<ThumbViewInfo,BaseViewHolder> {
+public class MyBaseQuickAdapter extends BaseQuickAdapter<UserViewInfo,BaseViewHolder> {
     public static final String TAG = "MyBaseQuickAdapter";
   private  Context context;
     public MyBaseQuickAdapter(Context context) {
@@ -25,7 +25,7 @@ public class MyBaseQuickAdapter extends BaseQuickAdapter<ThumbViewInfo,BaseViewH
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ThumbViewInfo item) {
+    protected void convert(BaseViewHolder helper, UserViewInfo item) {
         final ImageView thumbView = helper.getView(R.id.iv);
         Glide.with(context)
                 .load(item.getUrl())

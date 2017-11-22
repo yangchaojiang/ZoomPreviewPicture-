@@ -18,7 +18,7 @@
         </activity>
 
         <meta-data
-            android:name="com.example.previewpicture.MyGlideModule"
+            android:name="com.example.previewpicture.app.MyGlideModule"
             android:value="GlideModule" />
 
         <activity android:name=".list.ListView2Activity" />

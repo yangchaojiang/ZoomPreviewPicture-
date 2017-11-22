@@ -13,16 +13,15 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
-import com.example.previewpicture.rec.RecycleViewActivity;
-import com.previewlibrary.GPreviewActivity;
+import com.example.previewpicture.bean.UserViewInfo;
+import com.example.previewpicture.custom.UserFragment;
 import com.previewlibrary.GPreviewBuilder;
-import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListView2Activity extends AppCompatActivity {
-    private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
+    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     ListView listView;
     private MyListAdapter adapter;
     @Override
@@ -33,7 +32,7 @@ public class ListView2Activity extends AppCompatActivity {
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
         for (int i = 0; i < urls.size(); i++) {
-            mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
+            mThumbViewInfoList.add(new UserViewInfo(urls.get(i)));
         }
         adapter=new MyListAdapter();
         listView.setAdapter(adapter);
@@ -44,6 +43,7 @@ public class ListView2Activity extends AppCompatActivity {
                 GPreviewBuilder.from(ListView2Activity.this)
                         .setData(mThumbViewInfoList)
                         .setCurrentIndex(position)
+                        .setDrag(true)
                         .setType(GPreviewBuilder.IndicatorType.Number)
                         .start();
             }

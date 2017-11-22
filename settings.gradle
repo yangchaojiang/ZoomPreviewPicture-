@@ -1,1 +1,1 @@
-include ':app', ':imgepreviewlibrary'
+include ':app', ':ImagePreview'

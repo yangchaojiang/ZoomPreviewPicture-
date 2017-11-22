@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+// aar config
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile(name: 'xxx', ext: 'aar')
+    //compile project(':xxx')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.github.chrisbanes:PhotoView:1.3.1'
+    compile 'com.android.support:support-fragment:25.3.1'
+}
+apply plugin: 'com.novoda.bintray-release'
+publish {
+    userOrg = 'ycjiang'
+    repoName="yangjiang" //仓库名
+    groupId = 'com.ycjiang'
+    artifactId = 'ImagePreview'
+    publishVersion = '2.0.0'
+    desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, \' +\n' +
+            '                \'exit the full screen to restore the original location of the two processes of the animation transition.\' +\n' +
+            '                \' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview, some mobile phone system album, \' +\n' +
+            '                \'etc. viewpager picture zoom zoom pull down to pull out (effect with micro letter picture browsing.'
+    website = 'https://github.com/yangchaojiang/ZoomPreviewPicturer'
+}
+

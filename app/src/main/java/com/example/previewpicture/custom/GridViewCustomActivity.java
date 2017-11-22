@@ -13,39 +13,61 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
+import com.example.previewpicture.bean.UserViewInfo;
 import com.previewlibrary.GPreviewBuilder;
-import com.previewlibrary.enitity.ThumbViewInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GridViewCustomActivity extends AppCompatActivity {
-    private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
+    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     GridView listView;
-    private MyListAdapter adapter;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
+        type = getIntent().getIntExtra("type", 0);
         listView = (GridView) findViewById(R.id.listView);
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
         for (int i = 0; i < urls.size(); i++) {
-            mThumbViewInfoList.add(new ThumbViewInfo(urls.get(i)));
+            mThumbViewInfoList.add(new UserViewInfo(urls.get(i)));
         }
-        adapter = new MyListAdapter();
+        MyListAdapter adapter = new MyListAdapter();
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 computeBoundsBackward(listView.getFirstVisiblePosition());
-                GPreviewBuilder.from(GridViewCustomActivity.this)
-                        .to(CustomActivity.class)
-                        .setData(mThumbViewInfoList)
-                        .setCurrentIndex(position)
-                        .setType(GPreviewBuilder.IndicatorType.Dot)
-                        .start();
+                if (type == 0) {//自定义activity
+                    GPreviewBuilder.from(GridViewCustomActivity.this)
+                            .to(CustomActivity.class)
+                            .setData(mThumbViewInfoList)
+                            .setCurrentIndex(position)
+                            .setType(GPreviewBuilder.IndicatorType.Dot)
+                            .start();
+                } else if (type == 1) {//自定义Fragment
+                    GPreviewBuilder.from(GridViewCustomActivity.this)
+                            .setData(mThumbViewInfoList)
+                            .setCurrentIndex(position)
+                            .setUserFragment(UserFragment.class)
+                            .setType(GPreviewBuilder.IndicatorType.Dot)
+                            .start();
+                } else {
+                    //自定义activity和Fragment
+
+                    GPreviewBuilder.from(GridViewCustomActivity.this)
+                            .to(CustomActivity.class)
+                            .setData(mThumbViewInfoList)
+                            .setUserFragment(UserFragment.class)
+                            .setCurrentIndex(position)
+                            .setSingleFling(false)
+                            .setType(GPreviewBuilder.IndicatorType.Dot)
+                            .start();
+                }
+
 
             }
         });
@@ -60,7 +82,9 @@ public class GridViewCustomActivity extends AppCompatActivity {
             View itemView = listView.getChildAt(i - firstCompletelyVisiblePos);
             Rect bounds = new Rect();
             if (itemView != null) {
+                //需要显示过度控件
                 ImageView thumbView = (ImageView) itemView.findViewById(R.id.iv);
+                //拿到在控件屏幕可见中控件显示为矩形Rect信息
                 thumbView.getGlobalVisibleRect(bounds);
             }
             mThumbViewInfoList.get(i).setBounds(bounds);
