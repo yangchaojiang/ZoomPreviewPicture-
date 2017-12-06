@@ -25,7 +25,7 @@
     }
 ```
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.0.0'
+  compile 'com.ycjiang:ImagePreview:2.0.1'
 ```
  
 ###  1.本项目类库依赖第三库

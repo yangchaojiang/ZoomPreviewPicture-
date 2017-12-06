@@ -1,4 +1,0 @@
-<resources>
-    <string name="app_name">TestApp</string>
-    <dimen name="padding_size">10dp</dimen>
-</resources>
