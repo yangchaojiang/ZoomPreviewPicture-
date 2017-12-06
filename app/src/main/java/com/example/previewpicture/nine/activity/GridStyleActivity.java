@@ -7,12 +7,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.previewpicture.R;
+import com.example.previewpicture.bean.UserViewInfo;
 import com.example.previewpicture.nine.adapter.PostAdapter;
 import com.example.previewpicture.nine.entity.Post;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jaeger on 16/2/24.
@@ -43,9 +45,14 @@ public class GridStyleActivity extends BaseActivity {
         final LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvPostLister.setLayoutManager(manager);
         mPostList = new ArrayList<>();
-        for (int i = 0; i < 18; i++) {
-            List<String> imgUrls = new ArrayList<>();
-            imgUrls.addAll(Arrays.asList(IMG_URL_LIST).subList(0, i % 9));
+        for (int i = 0; i < 29; i++) {
+            List<UserViewInfo> imgUrls = new ArrayList<>();
+            UserViewInfo userViewInfo;
+            Random ss=new Random();
+            for (int j = 0; j <ss.nextInt(9); j++) {
+                userViewInfo=new UserViewInfo(IMG_URL_LIST[j]);
+                imgUrls.add(userViewInfo);
+            }
             Post post = new Post("Am I handsome? Am I handsome? Am I handsome?", imgUrls);
             mPostList.add(post);
         }

@@ -10,18 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.previewpicture.R;
-import com.example.previewpicture.list.ListView2Activity;
+import com.example.previewpicture.bean.UserViewInfo;
 import com.example.previewpicture.nine.entity.Post;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
-import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.GPreviewBuilder;
-import com.previewlibrary.enitity.ThumbViewInfo;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,13 +58,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public class PostViewHolder extends RecyclerView.ViewHolder {
-        private NineGridImageView<String> mNglContent;
+        private NineGridImageView<UserViewInfo> mNglContent;
         private TextView mTvContent;
-        private ArrayList<ThumbViewInfo> mThumbViewInfoList = new ArrayList<>();
-        private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {
+        private NineGridImageViewAdapter<UserViewInfo> mAdapter = new NineGridImageViewAdapter<UserViewInfo>() {
             @Override
-            protected void onDisplayImage(Context context, ImageView imageView, String s) {
-                Glide.with(context).load(s).placeholder(R.drawable.ic_default_image).into(imageView);
+            protected void onDisplayImage(Context context, ImageView imageView, UserViewInfo s) {
+                Glide.with(context).load(s.getUrl()).placeholder(R.drawable.ic_default_image).into(imageView);
             }
 
             @Override
@@ -77,23 +72,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
 
             @Override
-            protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-                Toast.makeText(context, "image position is " + index, Toast.LENGTH_SHORT).show();
+            protected void onItemImageClick(Context context, ImageView imageView, int index, List<UserViewInfo> list) {
+              //  Toast.makeText(context, "image position is " + index, Toast.LENGTH_SHORT).show();
             }
         };
 
         public PostViewHolder(View itemView) {
             super(itemView);
             mTvContent = (TextView) itemView.findViewById(R.id.tv_content);
-            mNglContent = (NineGridImageView<String>) itemView.findViewById(R.id.ngl_images);
+            mNglContent = (NineGridImageView<UserViewInfo>) itemView.findViewById(R.id.ngl_images);
             mNglContent.setAdapter(mAdapter);
-            mNglContent.setItemImageClickListener(new ItemImageClickListener<String>() {
+            mNglContent.setItemImageClickListener(new ItemImageClickListener<UserViewInfo>() {
                 @Override
-                public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-                    Log.d("onItemImageClick", list.get(index));
+                public void onItemImageClick(Context context, ImageView imageView, int index, List<UserViewInfo> list) {
+                    Log.d("onItemImageClick", list.get(index).getUrl());
                     computeBoundsBackward(list);//组成数据
                     GPreviewBuilder.from((Activity) context)
-                            .setData(mThumbViewInfoList)
+                            .setData(list)
                             .setCurrentIndex(index)
                             .setType(GPreviewBuilder.IndicatorType.Dot)
                             .start();//启动
@@ -104,9 +99,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
          * 查找信息
          * @param list 图片集合
          */
-        private void computeBoundsBackward(List<String> list) {
-            ThumbViewInfo item;
-            mThumbViewInfoList.clear();
+        private void computeBoundsBackward(List<UserViewInfo> list) {
             for (int i = 0;i < mNglContent.getChildCount(); i++) {
                 View itemView = mNglContent.getChildAt(i);
                 Rect bounds = new Rect();
@@ -114,15 +107,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     ImageView thumbView = (ImageView) itemView;
                     thumbView.getGlobalVisibleRect(bounds);
                 }
-                item=new ThumbViewInfo(list.get(i));
-                item.setBounds(bounds);
-                mThumbViewInfoList.add(item);
+                list.get(i).setBounds(bounds);
+                list.get(i).setUrl(list.get(i).getUrl());
             }
 
         }
 
         public void bind(Post post) {
-
             mNglContent.setImagesData(post.getImgUrlList());
             mTvContent.setText(post.getContent());
             Log.d("jaeger", "九宫格高度: " + mNglContent.getMeasuredHeight());

@@ -1,5 +1,7 @@
 package com.example.previewpicture.nine.entity;
 
+import com.example.previewpicture.bean.UserViewInfo;
+
 import java.util.List;
 
 /**
@@ -11,16 +13,16 @@ import java.util.List;
 public class Post {
     private String mContent;
     private int mSpanType;
-    private List<String> mImgUrlList;
+    private List<UserViewInfo> mImgUrlList;
 
     public Post() {
     }
 
-    public Post(String content, List<String> imgUrlList) {
+    public Post(String content, List<UserViewInfo> imgUrlList) {
         mContent = content;
         mImgUrlList = imgUrlList;
     }
-    public Post(String content,int spanType, List<String> imgUrlList) {
+    public Post(String content,int spanType, List<UserViewInfo> imgUrlList) {
         mContent = content;
         mSpanType = spanType;
         mImgUrlList = imgUrlList;
@@ -42,11 +44,11 @@ public class Post {
         this.mSpanType = mSpanType;
     }
 
-    public List<String> getImgUrlList() {
+    public List<UserViewInfo> getImgUrlList() {
         return mImgUrlList;
     }
 
-    public void setImgUrlList(List<String> imgUrlList) {
+    public void setImgUrlList(List<UserViewInfo> imgUrlList) {
         mImgUrlList = imgUrlList;
     }
 }

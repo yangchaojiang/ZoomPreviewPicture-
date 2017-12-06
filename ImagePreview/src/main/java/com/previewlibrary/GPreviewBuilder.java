@@ -2,6 +2,7 @@ package com.previewlibrary;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
@@ -9,6 +10,7 @@ import com.previewlibrary.enitity.IThumbViewInfo;
 import com.previewlibrary.view.BasePhotoFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yangc on 2017/9/12.
@@ -61,8 +63,8 @@ public final class GPreviewBuilder {
      *@param   <T>    你的实体类类型
      * @return GPreviewBuilder
      * **/
-    public <T extends IThumbViewInfo> GPreviewBuilder setData(@NonNull ArrayList<T> imgUrls) {
-        intent.putParcelableArrayListExtra("imagePaths", imgUrls);
+    public <T extends IThumbViewInfo> GPreviewBuilder setData(@NonNull List<T> imgUrls) {
+        intent.putParcelableArrayListExtra("imagePaths", new ArrayList<Parcelable>(imgUrls));
         return this;
     }
 
@@ -126,6 +128,7 @@ public final class GPreviewBuilder {
             intent.setClass(mContext, className);
         }
         mContext.startActivity(intent);
+        mContext.overridePendingTransition(0,0);
         intent = null;
         mContext = null;
     }

@@ -14,9 +14,11 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:title="主页"
+
         app:titleTextColor="@android:color/white" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
         android:text="微信,微博九宫格" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +41,7 @@
         android:text="RecycleView" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,6 +50,7 @@
         android:textStyle="italic" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +59,7 @@
         android:textStyle="italic" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,6 +68,7 @@
         android:textStyle="italic" />
 
     <Button
+        android:textAllCaps="false"
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
