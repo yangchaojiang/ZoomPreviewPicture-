@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -189,6 +190,7 @@ public class BasePhotoFragment extends Fragment {
         imageView.setAlphaChangeListener(new SmoothImageView.OnAlphaChangeListener() {
             @Override
             public void onAlphaChange(int alpha) {
+                Log.d("onAlphaChange","alpha:"+alpha);
                 rootView.setBackgroundColor(getColorWithAlpha(alpha / 255f, Color.BLACK));
             }
         });

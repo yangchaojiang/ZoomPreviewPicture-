@@ -32,6 +32,7 @@
         <activity android:name=".nine.activity.GridStyleActivity"
             android:theme="@style/AppTheme"
             />
+        <activity android:name=".pager.ViewPagerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

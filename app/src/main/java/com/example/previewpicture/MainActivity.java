@@ -9,6 +9,7 @@ import com.example.previewpicture.custom.GridViewCustomActivity;
 import com.example.previewpicture.list.GridView2Activity;
 import com.example.previewpicture.list.ListView2Activity;
 import com.example.previewpicture.nine.activity.GridStyleActivity;
+import com.example.previewpicture.pager.ViewPagerActivity;
 import com.example.previewpicture.rec.RecycleViewActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, GridViewCustomActivity.class);
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button10)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
                         intent.putExtra("type", 2);
                         startActivity(intent);
                     }

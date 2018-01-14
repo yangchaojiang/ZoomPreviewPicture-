@@ -18,20 +18,16 @@
 ![](gif/test.gif)
 
 通过Gradle抓取:
-```
-    repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-```
+ 
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.0.1'
+  compile 'com.ycjiang:ImagePreview:2.0.4'
 ```
  
 ###  1.本项目类库依赖第三库
+  >>>注意: 由于的[photoview]()有些事件冲突，将1.3.1版本源代码修改采用依赖本地。
 ```
-    compile 'com.github.chrisbanes.photoview:library:1.3.1'
       compile 'com.android.support:support-fragment:25.3.1'
+      compile 'com.android.support:support-core-utils:25.3.1'
 ```
 ### 2.示例代码
  1.使用方式
@@ -191,6 +187,10 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 2.0.4
+   * 1.增加ViewPager 示例demo
+   * 2.由于的photoview有些事件冲突将1.3.1版本photoview代码修改依赖本地。
+   * 3.修改bug[#36](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/36)。
  #### 2.0.0
    * 1.类库引用名称”com.ycjiang:imgepreviewlibrary:xxx“改为“com.ycjiang:ImagePreview:xxx”
    * 2.ThumbViewInfo 父类 改为 IThumbViewInfo 接口实现。
