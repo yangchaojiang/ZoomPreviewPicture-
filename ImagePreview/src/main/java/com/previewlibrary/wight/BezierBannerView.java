@@ -14,7 +14,7 @@ import android.view.animation.Interpolator;
 
 import com.previewlibrary.R;
 
- 
+
 public class BezierBannerView extends View implements ViewPager.OnPageChangeListener {
     //选中画笔
     private Paint mCirclePaint;
@@ -86,7 +86,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
     public static int DIRECTION_LEFT = 1;
     //向左滑 向右滚动
     public static int DIRECTION_RIGHT = 2;
-    private static final String TAG="tag";
+    private static final String TAG=BezierBannerView.class.getName();
 
     Interpolator accelerateinterpolator = new AccelerateDecelerateInterpolator();
 
@@ -210,7 +210,6 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
     public void setProgress(float progress) {
         //viewpager滑动完毕返回的0不需要，拦截掉
         if (progress == 0) {
-            Log.d(TAG, "拦截");
             return;
         }
         mOriginProgress = progress;
@@ -228,9 +227,6 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
             moveToPrivous();
         }
         invalidate();
-        Log.d(TAG, "刷新");
-
-
     }
 
     /**
@@ -428,7 +424,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
      * @param start 初始值
      * @param end  终值
      * @param step  第几活动阶段
-     * @return
+     * @return float
      */
     public float getValue(float start, float end, int step) {
         if (step == MOVE_STEP_ONE) {
@@ -441,7 +437,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
      * 获取当前值（适用全过程变化的值）
      * @param start 初始值
      * @param end  终值
-     * @return
+     * @return float
      */
     public float getValueForAll(float start, float end) {
         return start + (end - start) * mOriginProgress;
@@ -452,7 +448,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
      * @param start 初始值
      * @param end 终值
      * @param progress 当前进度
-     * @return
+     * @return float
      */
     public float getValue(float start, float end, float progress) {
         return start + (end - start) * progress;
@@ -461,7 +457,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
     /**
      * 获取圆心X坐标
      * @param index 第几个圆
-     * @return
+     * @return float
      */
     private float getCenterPointAt(int index) {
         if (index == 0) {
@@ -469,7 +465,6 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
         }
         return index * (distance + 2 * mNomarlRadius) + mNomarlRadius + (mRadius - mNomarlRadius);
     }
-
 
     public void setDirection(int direction) {
         mDrection = direction;
@@ -486,10 +481,12 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
 
     /**
      * 绑定viewpager
+     * @param viewPager viewPager
      */
     public void attachToViewpager(ViewPager viewPager) {
         viewPager.addOnPageChangeListener(this);
         count = viewPager.getAdapter().getCount();
+        mSelectedIndex=viewPager.getCurrentItem();
         moveToNext();
         mDrection=DIRECTION_RIGHT;
         invalidate();
@@ -501,7 +498,7 @@ public class BezierBannerView extends View implements ViewPager.OnPageChangeList
         //偏移量为0 说明运动停止
         if (positionOffset == 0) {
             mSelectedIndex = position;
-            Log.d("tag", "到达");
+            Log.d(TAG, "到达");
             resetProgress();
         }
         //向左滑，指示器向右移动

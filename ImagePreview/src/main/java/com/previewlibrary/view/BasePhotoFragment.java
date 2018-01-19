@@ -40,9 +40,9 @@ public class BasePhotoFragment extends Fragment {
     private IThumbViewInfo beanViewInfo;
     private boolean isTransPhoto = false;
     protected SmoothImageView imageView;
-    private View rootView;
-    private ProgressBar loading;
-    private MySimpleTarget mySimpleTarget;
+    protected View rootView;
+    protected ProgressBar loading;
+    protected MySimpleTarget mySimpleTarget;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
