@@ -23,7 +23,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         //准备数据
         List<String> urls = ImageUrlConfig.getUrls();
-        for (int i = 0; i < urls.size(); i++) {
+        for (int i = 0; i < 1; i++) {
             mThumbViewInfoList.add(new UserViewInfo(urls.get(i)));
         }
         adapter = new MyPagerAdaper(mThumbViewInfoList, this);

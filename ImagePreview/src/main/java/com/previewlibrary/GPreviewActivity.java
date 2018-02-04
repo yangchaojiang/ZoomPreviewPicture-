@@ -88,7 +88,7 @@ public class GPreviewActivity extends FragmentActivity {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
-        isShow = getIntent().getBooleanExtra("isShow", false);
+        isShow = getIntent().getBooleanExtra("isShow", true);
         try {
             Class<? extends BasePhotoFragment> sss;
             sss = (Class<? extends BasePhotoFragment>) getIntent().getSerializableExtra("className");
@@ -159,11 +159,11 @@ public class GPreviewActivity extends FragmentActivity {
 
                 }
             });
-            if (fragments.size() == 1) {
-                if (!isShow) {
-                    bezierBannerView.setVisibility(View.GONE);
-                    ltAddDot.setVisibility(View.GONE);
-                }
+        }
+        if (fragments.size() == 1) {
+            if (!isShow) {
+                bezierBannerView.setVisibility(View.GONE);
+                ltAddDot.setVisibility(View.GONE);
             }
         }
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

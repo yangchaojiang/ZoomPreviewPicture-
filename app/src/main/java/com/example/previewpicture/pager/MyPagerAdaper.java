@@ -61,6 +61,7 @@ public class MyPagerAdaper extends PagerAdapter {
                 setRect(v);
                 GPreviewBuilder.from((Activity) mContext)
                         .setData(mThumbViewInfoList)
+                        .setSingleShowType(false)
                         .setCurrentIndex((Integer) v.getTag(R.id.iv))
                         .setType(GPreviewBuilder.IndicatorType.Dot)
                         .start();
