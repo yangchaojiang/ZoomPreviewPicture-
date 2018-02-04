@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rootView"
+    android:background="@android:color/transparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.previewlibrary.wight.SmoothImageView
+        android:background="@android:color/transparent"
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

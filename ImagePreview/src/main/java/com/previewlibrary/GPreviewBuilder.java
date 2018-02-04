@@ -107,7 +107,15 @@ public final class GPreviewBuilder {
         intent.putExtra("isDrag", isDrag);
         return this;
     }
-
+    /***
+     * 是否设置为一张图片时 显示指示器  默认显示
+     * @param isShow   true  显示 false 不显示
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setSingleShowType( boolean isShow) {
+        intent.putExtra("isShow", isShow);
+        return this;
+    }
     /***
      * 设置超出内容点击退出（黑色区域）
      * @param isSingleFling  true  可以 false

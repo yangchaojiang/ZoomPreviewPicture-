@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -46,6 +45,8 @@ public class GPreviewActivity extends FragmentActivity {
     private BezierBannerView bezierBannerView;
     /***指示器类型枚举***/
     private GPreviewBuilder.IndicatorType type;
+    /***默认显示***/
+    private boolean isShow = true;
 
     @CallSuper
     @Override
@@ -87,6 +88,7 @@ public class GPreviewActivity extends FragmentActivity {
         imgUrls = getIntent().getParcelableArrayListExtra("imagePaths");
         currentIndex = getIntent().getIntExtra("position", -1);
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
+        isShow = getIntent().getBooleanExtra("isShow", false);
         try {
             Class<? extends BasePhotoFragment> sss;
             sss = (Class<? extends BasePhotoFragment>) getIntent().getSerializableExtra("className");
@@ -128,12 +130,12 @@ public class GPreviewActivity extends FragmentActivity {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentIndex);
         viewPager.setOffscreenPageLimit(3);
+        bezierBannerView = (BezierBannerView) findViewById(R.id.bezierBannerView);
+        ltAddDot = (TextView) findViewById(R.id.ltAddDot);
         if (type == GPreviewBuilder.IndicatorType.Dot) {
-            bezierBannerView = (BezierBannerView) findViewById(R.id.bezierBannerView);
             bezierBannerView.setVisibility(View.VISIBLE);
             bezierBannerView.attachToViewpager(viewPager);
         } else {
-            ltAddDot = (TextView) findViewById(R.id.ltAddDot);
             ltAddDot.setVisibility(View.VISIBLE);
             ltAddDot.setText(getString(R.string.string_count, (currentIndex + 1), imgUrls.size()));
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -157,6 +159,12 @@ public class GPreviewActivity extends FragmentActivity {
 
                 }
             });
+            if (fragments.size() == 1) {
+                if (!isShow) {
+                    bezierBannerView.setVisibility(View.GONE);
+                    ltAddDot.setVisibility(View.GONE);
+                }
+            }
         }
         viewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
