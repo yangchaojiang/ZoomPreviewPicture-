@@ -125,7 +125,15 @@ public final class GPreviewBuilder {
         intent.putExtra("isSingleFling", isSingleFling);
         return this;
     }
-
+    /***
+     *  设置动画的时长
+     * @param setDuration  单位毫秒
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setDuration(boolean setDuration) {
+        intent.putExtra("duration", setDuration);
+        return this;
+    }
     /***
      * 启动
      * **/

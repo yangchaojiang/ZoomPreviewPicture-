@@ -16,11 +16,14 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+
 import com.previewlibrary.view.ImageUtils;
+
 import uk.co.senab.photoview.PhotoView;
 
 /**
- * Created by yangc on 2017/4/26.
+ * author yangc
+ * date 2017/4/26
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 缩放图片
  ***/
@@ -35,7 +38,7 @@ public class SmoothImageView extends PhotoView {
     }
 
     private Status mStatus = Status.STATE_NORMAL;
-    private static final int TRANSFORM_DURATION = 300;
+    private static int TRANSFORM_DURATION = 400;
     private Paint mPaint;
     private Matrix matrix;
     private Transform startTransform;
@@ -106,7 +109,6 @@ public class SmoothImageView extends PhotoView {
             float translateX = -(bitmapWidth * animTransform.scale - animTransform.width) / 2;
             float translateY = -(bitmapHeight * animTransform.scale - animTransform.height) / 2;
             matrix.postTranslate(translateX, translateY);
-
             canvas.translate(animTransform.left, animTransform.top);
             canvas.clipRect(0, 0, animTransform.width, animTransform.height);
             canvas.concat(matrix);
@@ -173,7 +175,7 @@ public class SmoothImageView extends PhotoView {
                     if (s) {
                         return super.dispatchTouchEvent(event);
                     } else {
-                        if (isDrag){
+                        if (isDrag) {
                             return super.dispatchTouchEvent(event);
                         }
                         // 一指滑动时，才对图片进行移动缩放处理
@@ -514,4 +516,11 @@ public class SmoothImageView extends PhotoView {
         this.isDrag = isDrag;
     }
 
+    /***
+     *  设置动画的时长
+     * @param duration  单位毫秒
+     * **/
+    public static void setDuration(int duration) {
+        TRANSFORM_DURATION=duration;
+    }
 }

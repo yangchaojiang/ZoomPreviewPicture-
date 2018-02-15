@@ -23,8 +23,7 @@ import com.previewlibrary.wight.SmoothImageView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
- *
- * @author yangc
+ * author yangc
  * date 2017/4/26
  * E-Mail:yangchaojiang@outlook.com
  * Deprecated: 图片预览单个图片的fragment
@@ -43,13 +42,14 @@ public class BasePhotoFragment extends Fragment {
     protected View rootView;
     protected ProgressBar loading;
     protected MySimpleTarget mySimpleTarget;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
     }
 
-    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass, IThumbViewInfo item, boolean currentIndex, boolean isSingleFling,boolean isDrag) {
+    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass, IThumbViewInfo item, boolean currentIndex, boolean isSingleFling, boolean isDrag) {
         BasePhotoFragment fragment;
         try {
             fragment = fragmentClass.newInstance();
@@ -83,9 +83,19 @@ public class BasePhotoFragment extends Fragment {
     @CallSuper
     @Override
     public void onDestroyView() {
-        ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
         release();
         super.onDestroyView();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
     }
 
     public void release() {
@@ -162,7 +172,7 @@ public class BasePhotoFragment extends Fragment {
         if (!isTransPhoto) {
             rootView.setBackgroundColor(Color.BLACK);
         } else {
-            imageView.setMinimumScale(0.6f);
+            imageView.setMinimumScale(0.7f);
         }
         if (isSingleFling) {
             imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
@@ -181,6 +191,7 @@ public class BasePhotoFragment extends Fragment {
                         ((GPreviewActivity) getActivity()).transformOut();
                     }
                 }
+
                 @Override
                 public void onOutsidePhotoTap() {
 
@@ -190,7 +201,7 @@ public class BasePhotoFragment extends Fragment {
         imageView.setAlphaChangeListener(new SmoothImageView.OnAlphaChangeListener() {
             @Override
             public void onAlphaChange(int alpha) {
-                Log.d("onAlphaChange","alpha:"+alpha);
+                Log.d("onAlphaChange", "alpha:" + alpha);
                 rootView.setBackgroundColor(getColorWithAlpha(alpha / 255f, Color.BLACK));
             }
         });
@@ -223,6 +234,11 @@ public class BasePhotoFragment extends Fragment {
         imageView.transformOut(listener);
     }
 
+    public void resetMatrix() {
+        if (imageView != null) {
+            imageView.resetMatrix();
+        }
+    }
 
     public void changeBg(int color) {
         rootView.setBackgroundColor(color);

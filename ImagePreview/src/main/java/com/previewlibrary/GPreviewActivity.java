@@ -89,7 +89,9 @@ public class GPreviewActivity extends FragmentActivity {
         currentIndex = getIntent().getIntExtra("position", -1);
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         isShow = getIntent().getBooleanExtra("isShow", true);
+        int duration = getIntent().getIntExtra("duration", 300);
         try {
+            SmoothImageView.setDuration(duration);
             Class<? extends BasePhotoFragment> sss;
             sss = (Class<? extends BasePhotoFragment>) getIntent().getSerializableExtra("className");
             iniFragment(imgUrls, currentIndex, sss);
