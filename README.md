@@ -20,7 +20,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.0.9'
+  compile 'com.ycjiang:ImagePreview:2.1.0'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -187,6 +187,8 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 2.1.0
+   * 1. 设置动画时长类型
  #### 2.0.9
    * 1.增加增加设置动画时长
  #### 2.0.8

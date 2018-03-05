@@ -130,7 +130,7 @@ public final class GPreviewBuilder {
      * @param setDuration  单位毫秒
      * @return GPreviewBuilder
      * **/
-    public GPreviewBuilder setDuration(boolean setDuration) {
+    public GPreviewBuilder setDuration(int setDuration) {
         intent.putExtra("duration", setDuration);
         return this;
     }
