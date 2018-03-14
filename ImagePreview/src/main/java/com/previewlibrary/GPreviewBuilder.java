@@ -31,7 +31,7 @@ public final class GPreviewBuilder {
     /***
      * 设置开始启动预览
      * @param activity  启动
-     *@return     GPreviewBuilder
+     *@return GPreviewBuilder
      * **/
     public static GPreviewBuilder from(@NonNull Activity activity) {
         return new GPreviewBuilder(activity);
@@ -40,7 +40,7 @@ public final class GPreviewBuilder {
     /***
      * 设置开始启动预览
      * @param fragment  启动
-     *@return     GPreviewBuilder
+     *@return GPreviewBuilder
      * **/
     public static GPreviewBuilder from(@NonNull Fragment fragment) {
         return new GPreviewBuilder(fragment.getActivity());
@@ -49,7 +49,7 @@ public final class GPreviewBuilder {
     /****
      *自定义预览activity 类名
      * @param className   继承GPreviewActivity
-     *@return     GPreviewBuilder
+     *@return GPreviewBuilder
      * **/
     public GPreviewBuilder to(@NonNull Class className) {
         this.className = className;
@@ -65,6 +65,19 @@ public final class GPreviewBuilder {
      * **/
     public <T extends IThumbViewInfo> GPreviewBuilder setData(@NonNull List<T> imgUrls) {
         intent.putParcelableArrayListExtra("imagePaths", new ArrayList<Parcelable>(imgUrls));
+        return this;
+    }
+
+    /***
+     * 设置单个数据源
+     * @param imgUrl 数据
+     *@param   <E>    你的实体类类型
+     * @return GPreviewBuilder
+     * **/
+    public <E extends IThumbViewInfo> GPreviewBuilder setSingleData(@NonNull E imgUrl) {
+        ArrayList arrayList = new ArrayList<Parcelable>();
+        arrayList.add(imgUrl);
+        intent.putParcelableArrayListExtra("imagePaths", arrayList);
         return this;
     }
 
@@ -107,15 +120,17 @@ public final class GPreviewBuilder {
         intent.putExtra("isDrag", isDrag);
         return this;
     }
+
     /***
      * 是否设置为一张图片时 显示指示器  默认显示
      * @param isShow   true  显示 false 不显示
      * @return GPreviewBuilder
      * **/
-    public GPreviewBuilder setSingleShowType( boolean isShow) {
+    public GPreviewBuilder setSingleShowType(boolean isShow) {
         intent.putExtra("isShow", isShow);
         return this;
     }
+
     /***
      * 设置超出内容点击退出（黑色区域）
      * @param isSingleFling  true  可以 false
@@ -125,6 +140,7 @@ public final class GPreviewBuilder {
         intent.putExtra("isSingleFling", isSingleFling);
         return this;
     }
+
     /***
      *  设置动画的时长
      * @param setDuration  单位毫秒
@@ -134,6 +150,7 @@ public final class GPreviewBuilder {
         intent.putExtra("duration", setDuration);
         return this;
     }
+
     /***
      * 启动
      * **/
@@ -144,7 +161,7 @@ public final class GPreviewBuilder {
             intent.setClass(mContext, className);
         }
         mContext.startActivity(intent);
-        mContext.overridePendingTransition(0,0);
+        mContext.overridePendingTransition(0, 0);
         intent = null;
         mContext = null;
     }

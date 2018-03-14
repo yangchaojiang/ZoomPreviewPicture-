@@ -14,9 +14,11 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.previewlibrary.R;
 import com.previewlibrary.view.ImageUtils;
 
 import uk.co.senab.photoview.PhotoView;
@@ -50,7 +52,6 @@ public class SmoothImageView extends PhotoView {
     private int bitmapHeight;
     private boolean isDrag;
     ValueAnimator animator;
-
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -135,7 +136,6 @@ public class SmoothImageView extends PhotoView {
     private int alpha = 0;
     private static final int MIN_TRANS_DEST = 5;
     private static final float MAX_TRANS_SCALE = 0.5f;
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (getScale() == 1) {
@@ -155,15 +155,12 @@ public class SmoothImageView extends PhotoView {
                             isDownPhoto = true;
                         }
                     }
-
                     isMoved = false;
                     break;
                 case MotionEvent.ACTION_MOVE:
-
                     if (!isDownPhoto && event.getPointerCount() == 1) {
                         break;
                     }
-
                     int mx = (int) event.getX();
                     int my = (int) event.getY();
 
@@ -210,6 +207,7 @@ public class SmoothImageView extends PhotoView {
                             moveToOldPosition();
                         } else {
                             changeTransform();
+                            setTag(R.id.item_image_key,true);
                             if (transformOutListener != null) {
                                 transformOutListener.onTransformOut();
                             }
@@ -363,6 +361,14 @@ public class SmoothImageView extends PhotoView {
             }
         });
         animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if (getTag(R.id.item_image_key)!=null){
+                    setTag(R.id.item_image_key,null);
+                    setOnLongClickListener(null);
+                }
+            }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 /*

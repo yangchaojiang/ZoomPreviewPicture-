@@ -20,7 +20,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.1.0'
+  compile 'com.ycjiang:ImagePreview:2.1.2'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -30,6 +30,14 @@
       compile 'com.android.support:support-core-utils:25.3.1'
 ```
 ### 2.示例代码
+  * >>注意:: 你实现自定义类，在你 app onCreate() 中
+````
+    @Override
+      public void onCreate() {
+          super.onCreate();
+          ZoomMediaLoader.getInstance().init(new TestImageLoader());
+      }
+````
  1.使用方式
 ```
      GPreviewBuilder.from(GridViewCustomActivity.this)//activity实例必须
@@ -140,14 +148,7 @@ public class TestImageLoader implements IZoomMediaLoader {
      }
 
 ````
-  * 2注册 你实现自定义类，在你 app onCreate() 中
-````
-    @Override
-      public void onCreate() {
-          super.onCreate();
-          ZoomMediaLoader.getInstance().init(new TestImageLoader());
-      }
-````
+
 ### 4.自定义Activity,Fragment
  1.实现自定义Activity，实现你业务操作例如加入标题栏，ViewPager切换动画等等
  .![image.png](http://upload-images.jianshu.io/upload_images/1190712-fed3e16d9a686110.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -187,6 +188,8 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 2.1.2
+   * 1. 修复图片还原时触发长按事件
  #### 2.1.0
    * 1. 设置动画时长类型
  #### 2.0.9
