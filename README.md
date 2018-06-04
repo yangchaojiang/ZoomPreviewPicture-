@@ -188,6 +188,8 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 2.1.3
+   * 1. 修复8.0主题属性发音崩溃
  #### 2.1.2
    * 1. 修复图片还原时触发长按事件
  #### 2.1.0
