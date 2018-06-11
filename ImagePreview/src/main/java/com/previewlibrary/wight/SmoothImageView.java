@@ -14,7 +14,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
@@ -31,16 +30,11 @@ import uk.co.senab.photoview.PhotoView;
  ***/
 public class SmoothImageView extends PhotoView {
 
-    public enum Status {
-        STATE_NORMAL,
-        STATE_IN,
-        STATE_OUT,
-        STATE_MOVE,
-
-    }
-
-    private Status mStatus = Status.STATE_NORMAL;
+    private static final int MIN_TRANS_DEST = 5;
     private static int TRANSFORM_DURATION = 400;
+    private static float MAX_TRANS_SCALE = 0.1f;
+    ValueAnimator animator;
+    private Status mStatus = Status.STATE_NORMAL;
     private Paint mPaint;
     private Matrix matrix;
     private Transform startTransform;
@@ -51,7 +45,33 @@ public class SmoothImageView extends PhotoView {
     private int bitmapWidth;
     private int bitmapHeight;
     private boolean isDrag;
-    ValueAnimator animator;
+    private int downX, downY;
+    private boolean isMoved = false;
+    private boolean isDownPhoto = false;
+    private int alpha = 0;
+    private OnAlphaChangeListener alphaChangeListener;
+    private OnTransformOutListener transformOutListener;
+    private Transform markTransform;
+    private onTransformListener onTransformListener;
+
+    public SmoothImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initSmoothImageView();
+    }
+
+    public SmoothImageView(Context context) {
+        super(context);
+        initSmoothImageView();
+    }
+
+    /***
+     *  设置动画的时长
+     * @param duration  单位毫秒
+     * **/
+    public static void setDuration(int duration) {
+        TRANSFORM_DURATION = duration;
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -69,7 +89,6 @@ public class SmoothImageView extends PhotoView {
             animator = null;
         }
     }
-
 
     private void initSmoothImageView() {
         mPaint = new Paint();
@@ -130,12 +149,6 @@ public class SmoothImageView extends PhotoView {
         }
     }
 
-    private int downX, downY;
-    private boolean isMoved = false;
-    private boolean isDownPhoto = false;
-    private int alpha = 0;
-    private static final int MIN_TRANS_DEST = 5;
-    private static final float MAX_TRANS_SCALE = 0.5f;
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (getScale() == 1) {
@@ -207,7 +220,7 @@ public class SmoothImageView extends PhotoView {
                             moveToOldPosition();
                         } else {
                             changeTransform();
-                            setTag(R.id.item_image_key,true);
+                            setTag(R.id.item_image_key, true);
                             if (transformOutListener != null) {
                                 transformOutListener.onTransformOut();
                             }
@@ -289,9 +302,6 @@ public class SmoothImageView extends PhotoView {
         return Math.abs(getTop() / markTransform.height);
     }
 
-    private OnAlphaChangeListener alphaChangeListener;
-    private OnTransformOutListener transformOutListener;
-
     public void setTransformOutListener(OnTransformOutListener transformOutListener) {
         this.transformOutListener = transformOutListener;
     }
@@ -299,16 +309,6 @@ public class SmoothImageView extends PhotoView {
     public void setAlphaChangeListener(OnAlphaChangeListener alphaChangeListener) {
         this.alphaChangeListener = alphaChangeListener;
     }
-
-    public interface OnTransformOutListener {
-        void onTransformOut();
-    }
-
-    public interface OnAlphaChangeListener {
-        void onAlphaChange(int alpha);
-    }
-
-    private Transform markTransform;
 
     private void changeTransform() {
         if (markTransform != null) {
@@ -363,8 +363,8 @@ public class SmoothImageView extends PhotoView {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                if (getTag(R.id.item_image_key)!=null){
-                    setTag(R.id.item_image_key,null);
+                if (getTag(R.id.item_image_key) != null) {
+                    setTag(R.id.item_image_key, null);
                     setOnLongClickListener(null);
                 }
             }
@@ -476,11 +476,41 @@ public class SmoothImageView extends PhotoView {
         markTransform = endTransform;
     }
 
-    private onTransformListener onTransformListener;
-
     public void setOnTransformListener(SmoothImageView.onTransformListener onTransformListener) {
         this.onTransformListener = onTransformListener;
     }
+
+    /***
+     * 设置图片拖拽返回
+     * @param isDrag  true  可以 false 默认 true
+     * @param sensitivity    拖拽返回的灵敏度0.1~1f
+     * **/
+    public void setDrag(boolean isDrag, float sensitivity) {
+        this.isDrag = isDrag;
+        if (sensitivity > 1f) {
+            MAX_TRANS_SCALE = 1f;
+        } else {
+            MAX_TRANS_SCALE = sensitivity;
+        }
+    }
+
+    public enum Status {
+        STATE_NORMAL,
+        STATE_IN,
+        STATE_OUT,
+        STATE_MOVE,
+
+    }
+
+    public interface OnTransformOutListener {
+        void onTransformOut();
+    }
+
+    public interface OnAlphaChangeListener {
+        void onAlphaChange(int alpha);
+    }
+
+
 
     public interface onTransformListener {
         void onTransformCompleted(Status status);
@@ -502,31 +532,5 @@ public class SmoothImageView extends PhotoView {
             }
             return obj;
         }
-    }
-
-    public SmoothImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initSmoothImageView();
-    }
-
-    public SmoothImageView(Context context) {
-        super(context);
-        initSmoothImageView();
-    }
-
-    /***
-     * 设置图片拖拽返回
-     * @param isDrag  true  可以 false 默认 true
-     * **/
-    public void setDrag(boolean isDrag) {
-        this.isDrag = isDrag;
-    }
-
-    /***
-     *  设置动画的时长
-     * @param duration  单位毫秒
-     * **/
-    public static void setDuration(int duration) {
-        TRANSFORM_DURATION=duration;
     }
 }

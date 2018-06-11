@@ -36,20 +36,15 @@ public class BasePhotoFragment extends Fragment {
     private static final String KEY_SING_FILING = "isSingleFling";
     private static final String KEY_PATH = "key_item";
     private static final String KEY_DRAG = "isDrag";
-    private IThumbViewInfo beanViewInfo;
-    private boolean isTransPhoto = false;
+    private static final String KEY_SENSITIVITY = "sensitivity";
     protected SmoothImageView imageView;
     protected View rootView;
     protected ProgressBar loading;
     protected MySimpleTarget mySimpleTarget;
+    private IThumbViewInfo beanViewInfo;
+    private boolean isTransPhoto = false;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
-    }
-
-    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass, IThumbViewInfo item, boolean currentIndex, boolean isSingleFling, boolean isDrag) {
+    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass, IThumbViewInfo item, boolean currentIndex, boolean isSingleFling, boolean isDrag, float sensitivity) {
         BasePhotoFragment fragment;
         try {
             fragment = fragmentClass.newInstance();
@@ -61,8 +56,21 @@ public class BasePhotoFragment extends Fragment {
         bundle.putBoolean(BasePhotoFragment.KEY_TRANS_PHOTO, currentIndex);
         bundle.putBoolean(BasePhotoFragment.KEY_SING_FILING, isSingleFling);
         bundle.putBoolean(BasePhotoFragment.KEY_DRAG, isDrag);
+        bundle.putFloat(BasePhotoFragment.KEY_SENSITIVITY, sensitivity);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public static int getColorWithAlpha(float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        return a + rgb;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
     }
 
     @CallSuper
@@ -161,7 +169,7 @@ public class BasePhotoFragment extends Fragment {
             //位置
             assert beanViewInfo != null;
             imageView.setThumbRect(beanViewInfo.getBounds());
-            imageView.setDrag(bundle.getBoolean(KEY_DRAG));
+            imageView.setDrag(bundle.getBoolean(KEY_DRAG), bundle.getFloat(KEY_SENSITIVITY));
             imageView.setTag(beanViewInfo.getUrl());
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
@@ -213,12 +221,6 @@ public class BasePhotoFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public static int getColorWithAlpha(float alpha, int baseColor) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & baseColor;
-        return a + rgb;
     }
 
     public void transformIn() {

@@ -118,6 +118,18 @@ public final class GPreviewBuilder {
      * **/
     public GPreviewBuilder setDrag(boolean isDrag) {
         intent.putExtra("isDrag", isDrag);
+        intent.putExtra("sensitivity", 0.1f);
+        return this;
+    }
+
+    /***
+     * 设置图片拖拽返回
+     * @param isDrag  true  可以 false 默认 true
+     * @param sensitivity    拖拽返回的灵敏度0.1~1f
+     * **/
+    public GPreviewBuilder setDrag(boolean isDrag, float sensitivity) {
+        intent.putExtra("isDrag", isDrag);
+        intent.putExtra("sensitivity", sensitivity);
         return this;
     }
 

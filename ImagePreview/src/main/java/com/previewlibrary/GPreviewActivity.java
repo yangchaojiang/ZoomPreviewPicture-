@@ -113,8 +113,10 @@ public class GPreviewActivity extends FragmentActivity {
             int size = imgUrls.size();
             boolean s = getIntent().getBooleanExtra("isSingleFling", false);
             boolean isDrag = getIntent().getBooleanExtra("isDrag", false);
+            float sensitivity = getIntent().getFloatExtra("sensitivity", 0.1f);
+
             for (int i = 0; i < size; i++) {
-                fragments.add(BasePhotoFragment.getInstance(className, imgUrls.get(i), currentIndex == i, s, isDrag));
+                fragments.add(BasePhotoFragment.getInstance(className, imgUrls.get(i), currentIndex == i, s, isDrag, sensitivity));
             }
         } else {
             finish();
