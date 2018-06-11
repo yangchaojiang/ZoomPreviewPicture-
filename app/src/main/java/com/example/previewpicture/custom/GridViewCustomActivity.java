@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridViewCustomActivity extends AppCompatActivity {
-    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     GridView listView;
+    private ArrayList<UserViewInfo> mThumbViewInfoList = new ArrayList<>();
     private int type;
 
     @Override
@@ -53,6 +53,7 @@ public class GridViewCustomActivity extends AppCompatActivity {
                             .setData(mThumbViewInfoList)
                             .setCurrentIndex(position)
                             .setUserFragment(UserFragment.class)
+
                             .setType(GPreviewBuilder.IndicatorType.Dot)
                             .start();
                 } else {
@@ -64,7 +65,7 @@ public class GridViewCustomActivity extends AppCompatActivity {
                             .setUserFragment(UserFragment.class)
                             .setCurrentIndex(position)
                             .setSingleFling(false)
-                            .setDrag(false)
+                            .setDrag(false, 0.5f)
                             .setType(GPreviewBuilder.IndicatorType.Dot)
                             .start();
                 }
