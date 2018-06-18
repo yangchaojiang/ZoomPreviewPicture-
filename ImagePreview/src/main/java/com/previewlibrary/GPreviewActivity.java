@@ -111,10 +111,13 @@ public class GPreviewActivity extends FragmentActivity {
     protected void iniFragment(List<IThumbViewInfo> imgUrls, int currentIndex, Class<? extends BasePhotoFragment> className) {
         if (imgUrls != null) {
             int size = imgUrls.size();
-            boolean s = getIntent().getBooleanExtra("isSingleFling", false);
-            boolean isDrag = getIntent().getBooleanExtra("isDrag", false);
             for (int i = 0; i < size; i++) {
-                fragments.add(BasePhotoFragment.getInstance(className, imgUrls.get(i), currentIndex == i, s, isDrag));
+                fragments.add(BasePhotoFragment.
+                        getInstance(className, imgUrls.get(i),
+                        currentIndex == i,
+                                getIntent().getBooleanExtra("isSingleFling", false),
+                                getIntent().getBooleanExtra("isDrag", false),
+                                getIntent().getFloatExtra("isDrag", 0.5f)));
             }
         } else {
             finish();

@@ -36,6 +36,7 @@ public class BasePhotoFragment extends Fragment {
     private static final String KEY_SING_FILING = "isSingleFling";
     private static final String KEY_PATH = "key_item";
     private static final String KEY_DRAG = "isDrag";
+    private static final String KEY_SEN = "sensitivity";
     private IThumbViewInfo beanViewInfo;
     private boolean isTransPhoto = false;
     protected SmoothImageView imageView;
@@ -49,7 +50,11 @@ public class BasePhotoFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
     }
 
-    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass, IThumbViewInfo item, boolean currentIndex, boolean isSingleFling, boolean isDrag) {
+    public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass,
+                                                IThumbViewInfo item, boolean currentIndex,
+                                                boolean isSingleFling,
+                                                boolean isDrag,
+                                                float sensitivity) {
         BasePhotoFragment fragment;
         try {
             fragment = fragmentClass.newInstance();
@@ -61,6 +66,7 @@ public class BasePhotoFragment extends Fragment {
         bundle.putBoolean(BasePhotoFragment.KEY_TRANS_PHOTO, currentIndex);
         bundle.putBoolean(BasePhotoFragment.KEY_SING_FILING, isSingleFling);
         bundle.putBoolean(BasePhotoFragment.KEY_DRAG, isDrag);
+        bundle.putFloat(BasePhotoFragment.KEY_SEN, sensitivity);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -119,8 +125,8 @@ public class BasePhotoFragment extends Fragment {
      * 初始化控件
      */
     private void initView(View view) {
-        loading = (ProgressBar) view.findViewById(R.id.loading);
-        imageView = (SmoothImageView) view.findViewById(R.id.photoView);
+        loading = view.findViewById(R.id.loading);
+        imageView =  view.findViewById(R.id.photoView);
         rootView = view.findViewById(R.id.rootView);
         rootView.setDrawingCacheEnabled(false);
         imageView.setDrawingCacheEnabled(false);
@@ -160,8 +166,8 @@ public class BasePhotoFragment extends Fragment {
             beanViewInfo = bundle.getParcelable(KEY_PATH);
             //位置
             assert beanViewInfo != null;
+            imageView.setDrag(bundle.getBoolean(KEY_DRAG),bundle.getFloat(KEY_SEN));
             imageView.setThumbRect(beanViewInfo.getBounds());
-            imageView.setDrag(bundle.getBoolean(KEY_DRAG));
             imageView.setTag(beanViewInfo.getUrl());
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);

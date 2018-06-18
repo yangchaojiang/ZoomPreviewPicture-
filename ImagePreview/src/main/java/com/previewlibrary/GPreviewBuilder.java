@@ -120,7 +120,17 @@ public final class GPreviewBuilder {
         intent.putExtra("isDrag", isDrag);
         return this;
     }
-
+    /***
+     * 设置图片禁用拖拽返回
+     * @param isDrag  true  可以 false 默认 true
+     * @param sensitivity   sensitivity MAX_TRANS_SCALE 的值来控制灵敏度。
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setDrag(boolean isDrag,float sensitivity) {
+        intent.putExtra("isDrag", isDrag);
+        intent.putExtra("sensitivity", sensitivity);
+        return this;
+    }
     /***
      * 是否设置为一张图片时 显示指示器  默认显示
      * @param isShow   true  显示 false 不显示

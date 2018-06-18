@@ -14,7 +14,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
@@ -52,6 +51,8 @@ public class SmoothImageView extends PhotoView {
     private int bitmapHeight;
     private boolean isDrag;
     ValueAnimator animator;
+    private float MAX_TRANS_SCALE = 0.5f;
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -135,7 +136,7 @@ public class SmoothImageView extends PhotoView {
     private boolean isDownPhoto = false;
     private int alpha = 0;
     private static final int MIN_TRANS_DEST = 5;
-    private static final float MAX_TRANS_SCALE = 0.5f;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (getScale() == 1) {
@@ -207,7 +208,7 @@ public class SmoothImageView extends PhotoView {
                             moveToOldPosition();
                         } else {
                             changeTransform();
-                            setTag(R.id.item_image_key,true);
+                            setTag(R.id.item_image_key, true);
                             if (transformOutListener != null) {
                                 transformOutListener.onTransformOut();
                             }
@@ -363,8 +364,8 @@ public class SmoothImageView extends PhotoView {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                if (getTag(R.id.item_image_key)!=null){
-                    setTag(R.id.item_image_key,null);
+                if (getTag(R.id.item_image_key) != null) {
+                    setTag(R.id.item_image_key, null);
                     setOnLongClickListener(null);
                 }
             }
@@ -373,8 +374,8 @@ public class SmoothImageView extends PhotoView {
             public void onAnimationEnd(Animator animation) {
                 /*
                  * 如果是进入的话，当然是希望最后停留在center_crop的区域。但是如果是out的话，就不应该是center_crop的位置了
-				 * ， 而应该是最后变化的位置，因为当out的时候结束时，不回复视图是Normal，要不然会有一个突然闪动回去的bug
-				 */
+                 * ， 而应该是最后变化的位置，因为当out的时候结束时，不回复视图是Normal，要不然会有一个突然闪动回去的bug
+                 */
                 if (onTransformListener != null) {
                     onTransformListener.onTransformCompleted(mStatus);
                 }
@@ -518,8 +519,9 @@ public class SmoothImageView extends PhotoView {
      * 设置图片拖拽返回
      * @param isDrag  true  可以 false 默认 true
      * **/
-    public void setDrag(boolean isDrag) {
+    public void setDrag(boolean isDrag, float sensitivity) {
         this.isDrag = isDrag;
+        this.MAX_TRANS_SCALE = sensitivity;
     }
 
     /***
@@ -527,6 +529,6 @@ public class SmoothImageView extends PhotoView {
      * @param duration  单位毫秒
      * **/
     public static void setDuration(int duration) {
-        TRANSFORM_DURATION=duration;
+        TRANSFORM_DURATION = duration;
     }
 }
