@@ -117,7 +117,7 @@ public class GPreviewActivity extends FragmentActivity {
                         currentIndex == i,
                                 getIntent().getBooleanExtra("isSingleFling", false),
                                 getIntent().getBooleanExtra("isDrag", false),
-                                getIntent().getFloatExtra("isDrag", 0.5f)));
+                                getIntent().getFloatExtra("sensitivity", 0.5f)));
             }
         } else {
             finish();
