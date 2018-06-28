@@ -139,8 +139,8 @@ public class SmoothImageView extends PhotoView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        int action = event.getAction();
         if (getScale() == 1) {
-            int action = event.getAction();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     downX = (int) event.getX();
@@ -219,6 +219,26 @@ public class SmoothImageView extends PhotoView {
                 default: {
 
                 }
+            }
+        }else {
+            switch (action) {
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    if (isMoved) {
+                        if (moveScale() <= MAX_TRANS_SCALE) {
+                            moveToOldPosition();
+                        } else {
+                            changeTransform();
+                            setTag(R.id.item_image_key, true);
+                            if (transformOutListener != null) {
+                                transformOutListener.onTransformOut();
+                            }
+                        }
+                        return true;
+                    }
+                    default:{
+
+                    }
             }
         }
         return super.dispatchTouchEvent(event);

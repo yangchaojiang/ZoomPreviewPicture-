@@ -126,7 +126,7 @@ public class BasePhotoFragment extends Fragment {
      */
     private void initView(View view) {
         loading = view.findViewById(R.id.loading);
-        imageView =  view.findViewById(R.id.photoView);
+        imageView = view.findViewById(R.id.photoView);
         rootView = view.findViewById(R.id.rootView);
         rootView.setDrawingCacheEnabled(false);
         imageView.setDrawingCacheEnabled(false);
@@ -166,7 +166,7 @@ public class BasePhotoFragment extends Fragment {
             beanViewInfo = bundle.getParcelable(KEY_PATH);
             //位置
             assert beanViewInfo != null;
-            imageView.setDrag(bundle.getBoolean(KEY_DRAG),bundle.getFloat(KEY_SEN));
+            imageView.setDrag(bundle.getBoolean(KEY_DRAG), bundle.getFloat(KEY_SEN));
             imageView.setThumbRect(beanViewInfo.getBounds());
             imageView.setTag(beanViewInfo.getUrl());
             //是否展示动画
@@ -214,9 +214,7 @@ public class BasePhotoFragment extends Fragment {
         imageView.setTransformOutListener(new SmoothImageView.OnTransformOutListener() {
             @Override
             public void onTransformOut() {
-                if (imageView.checkMinScale()) {
-                    ((GPreviewActivity) getActivity()).transformOut();
-                }
+                ((GPreviewActivity) getActivity()).transformOut();
             }
         });
     }

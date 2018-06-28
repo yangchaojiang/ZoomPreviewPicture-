@@ -20,7 +20,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.1.4'
+  compile 'com.ycjiang:ImagePreview:2.1.5'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -189,8 +189,10 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 ### 升级日志
  ##### ####
-   * 1.未来版本支持视频
-
+   * 1.未来版本默认支持视频
+ #### 2.1.5
+   * 2. 拖动还原的过程中，双指放大会然后松手图片会卡在那里修复[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/58)
+ #### 2.1.3
  #### 2.1.4
    * 1. [增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56)
    * 2. [bug50](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/50)
