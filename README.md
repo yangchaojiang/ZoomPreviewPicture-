@@ -24,7 +24,7 @@
 ```
  
 ###  1.本项目类库依赖第三库
-  >>>注意: 由于的[photoview]()有些事件冲突，将1.3.1版本源代码修改采用依赖本地。
+  >>>注意: 由于的[photoview](https://github.com/chrisbanes/PhotoView)有些事件冲突，将1.3.1版本源代码修改采用依赖本地。
 ```
       compile 'com.android.support:support-fragment:25.3.1'
       compile 'com.android.support:support-core-utils:25.3.1'
