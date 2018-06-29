@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.previewpicture.ImageUrlConfig;
 import com.example.previewpicture.R;
 import com.example.previewpicture.bean.UserViewInfo;
 import com.example.previewpicture.nine.adapter.PostAdapter;
@@ -27,13 +28,7 @@ public class GridStyleActivity extends BaseActivity {
     private RecyclerView mRvPostLister;
     private PostAdapter mNineImageAdapter;
     private List<Post> mPostList;
-    private String[] IMG_URL_LIST = {
-        "http://ac-QYgvX1CC.clouddn.com/36f0523ee1888a57.jpg", "http://ac-QYgvX1CC.clouddn.com/07915a0154ac4a64.jpg",
-        "http://ac-QYgvX1CC.clouddn.com/9ec4bc44bfaf07ed.jpg", "http://ac-QYgvX1CC.clouddn.com/fa85037f97e8191f.jpg",
-        "http://ac-QYgvX1CC.clouddn.com/de13315600ba1cff.jpg", "http://ac-QYgvX1CC.clouddn.com/15c5c50e941ba6b0.jpg",
-        "http://ac-QYgvX1CC.clouddn.com/10762c593798466a.jpg", "http://ac-QYgvX1CC.clouddn.com/eaf1c9d55c5f9afd.jpg",
-        "http://ac-QYgvX1CC.clouddn.com/ad99de83e1e3f7d4.jpg", "http://ac-QYgvX1CC.clouddn.com/233a5f70512befcc.jpg",
-    };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +44,9 @@ public class GridStyleActivity extends BaseActivity {
             List<UserViewInfo> imgUrls = new ArrayList<>();
             UserViewInfo userViewInfo;
             Random ss=new Random();
+
             for (int j = 0; j <ss.nextInt(9); j++) {
-                userViewInfo=new UserViewInfo(IMG_URL_LIST[j]);
+                userViewInfo=new UserViewInfo(     ImageUrlConfig.getUrls().get(j));
                 imgUrls.add(userViewInfo);
             }
             Post post = new Post("Am I handsome? Am I handsome? Am I handsome?", imgUrls);

@@ -33,6 +33,9 @@
             android:theme="@style/AppTheme"
             />
         <activity android:name=".pager.ViewPagerActivity" />
+        <activity android:name=".video.VideoViewActivity" />
+
+        <activity android:name=".video.VideoPlayerDetailedActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

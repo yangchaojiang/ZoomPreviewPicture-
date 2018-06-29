@@ -11,6 +11,7 @@ import com.example.previewpicture.list.ListView2Activity;
 import com.example.previewpicture.nine.activity.GridStyleActivity;
 import com.example.previewpicture.pager.ViewPagerActivity;
 import com.example.previewpicture.rec.RecycleViewActivity;
+import com.example.previewpicture.video.VideoViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
+                    }
+                });
+        findViewById(R.id.button11)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this, VideoViewActivity.class);
                         intent.putExtra("type", 2);
                         startActivity(intent);
                     }

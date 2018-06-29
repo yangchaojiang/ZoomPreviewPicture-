@@ -1,5 +1,6 @@
 package com.example.previewpicture.custom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.previewpicture.bean.UserViewInfo;
+import com.example.previewpicture.video.VideoPlayerDetailedActivity;
 import com.previewlibrary.view.BasePhotoFragment;
 
 /**
@@ -35,6 +37,8 @@ public class UserFragment extends BasePhotoFragment {
             }
         });
     }
+
+
 
     @Nullable
     @Override

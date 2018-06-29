@@ -2,6 +2,7 @@ package com.previewlibrary.enitity;
 
 import android.graphics.Rect;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 /**
  * @author yangc
@@ -21,6 +22,13 @@ public interface IThumbViewInfo extends Parcelable {
      * @return Rect
      ***/
     Rect getBounds();
+
+
+    /**
+     * 获取视频链接
+     * ***/
+    @Nullable
+     String getVideoUrl();
 
 
 }

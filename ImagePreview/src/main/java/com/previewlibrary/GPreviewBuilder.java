@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.previewlibrary.enitity.IThumbViewInfo;
+import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.view.BasePhotoFragment;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public final class GPreviewBuilder {
     private Activity mContext;
     private Intent intent;
     private Class className;
+    private VideoClickListener videoClickListener;
 
     private GPreviewBuilder(@NonNull Activity activity) {
         mContext = activity;
@@ -120,17 +122,19 @@ public final class GPreviewBuilder {
         intent.putExtra("isDrag", isDrag);
         return this;
     }
+
     /***
      * 设置图片禁用拖拽返回
      * @param isDrag  true  可以 false 默认 true
      * @param sensitivity   sensitivity MAX_TRANS_SCALE 的值来控制灵敏度。
      * @return GPreviewBuilder
      * **/
-    public GPreviewBuilder setDrag(boolean isDrag,float sensitivity) {
+    public GPreviewBuilder setDrag(boolean isDrag, float sensitivity) {
         intent.putExtra("isDrag", isDrag);
         intent.putExtra("sensitivity", sensitivity);
         return this;
     }
+
     /***
      * 是否设置为一张图片时 显示指示器  默认显示
      * @param isShow   true  显示 false 不显示
@@ -162,6 +166,15 @@ public final class GPreviewBuilder {
     }
 
     /***
+     *  设置是怕你点击播放回调
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setOnVideoPlayerListener(VideoClickListener listener) {
+        this.videoClickListener = listener;
+        return this;
+    }
+
+    /***
      * 启动
      * **/
     public void start() {
@@ -170,6 +183,7 @@ public final class GPreviewBuilder {
         } else {
             intent.setClass(mContext, className);
         }
+        BasePhotoFragment.listener=videoClickListener;
         mContext.startActivity(intent);
         mContext.overridePendingTransition(0, 0);
         intent = null;

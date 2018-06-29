@@ -2,5 +2,6 @@
     <string name="app_name">ImagePreviewLibrary</string>
     <dimen name="yms_dimens_50.0_px">25.0dp</dimen>
     <string name="string_count">%1$s/%2$s</string>
+    <string name="Playback_failed">播放失败</string>
     <item name="item_image_key" type="id" />
 </resources>

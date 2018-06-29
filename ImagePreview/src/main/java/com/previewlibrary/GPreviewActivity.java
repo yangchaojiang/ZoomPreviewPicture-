@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.previewlibrary.enitity.IThumbViewInfo;
+import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.view.BasePhotoFragment;
 import com.previewlibrary.wight.BezierBannerView;
 import com.previewlibrary.wight.PhotoViewPager;
@@ -117,7 +118,8 @@ public class GPreviewActivity extends FragmentActivity {
                         currentIndex == i,
                                 getIntent().getBooleanExtra("isSingleFling", false),
                                 getIntent().getBooleanExtra("isDrag", false),
-                                getIntent().getFloatExtra("sensitivity", 0.5f)));
+                                getIntent().getFloatExtra("sensitivity", 0.5f))
+                               );
             }
         } else {
             finish();
@@ -209,6 +211,11 @@ public class GPreviewActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void finish() {
+        BasePhotoFragment.listener=null;
+        super.finish();
+    }
 
     /***
      * 得到PhotoFragment集合

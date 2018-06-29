@@ -10,9 +10,10 @@
    * 2.支持重写activity,完成切换切换效果。
    * 3.图片查看 缩放 拖拽下拉缩小退出。
    * 4.支持自定义activity,Fragment。
-   * 5.支持类似微信朋友圈照片九宫格和微信聊天图片预览。
-   * 6.指示器类型选择 [圆点模式(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式。
-   * 7.增加接口实体类。不在使用数据转化。
+   * 5.支持视频和自定义视频播放控件。 
+   * 6.支持类似微信朋友圈照片九宫格和微信聊天图片预览。
+   * 7.指示器类型选择 [圆点模式(贝塞尔圆点指示器)](https://github.com/yanyiqun001/bannerDot)和数字模式。
+   * 8.增加接口实体类。不在使用数据转化。
 ####效果如下：
 
 ![](gif/test.gif)
@@ -20,7 +21,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.1.5'
+  compile 'com.ycjiang:ImagePreview:2.1.6'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -88,7 +89,8 @@
      private String url;  //图片地址
      private Rect mBounds; // 记录坐标
      private String user;//
- 
+      private String videoUrl;//视频链接 //不为空是视频
+      
      public UserViewInfo(String url) {
          this.url = url;
      }
@@ -148,8 +150,27 @@ public class TestImageLoader implements IZoomMediaLoader {
      }
 
 ````
+### 4.视频的支持
+1.自定义播放视频控制
+`````
+   GPreviewBuilder.from(VideoViewActivity.this)
+                       .setData(mThumbViewInfoList)
+                       .setCurrentIndex(position)
+                       .setSingleFling(true)
+                      .setOnVideoPlayerListener(new VideoClickListener(){
+                           @Override
+                           public void onPlayerVideo(String url) {
+                               Log.d("onPlayerVideo",url);
+                               Intent intent=new Intent(VideoViewActivity.this,VideoPlayerDetailedActivity.class);
+                               intent.putExtra("url",url);
+                               startActivity(intent);
+                           }
+                       })
+                       .setType(GPreviewBuilder.IndicatorType.Number)
+                       .start();
+`````
 
-### 4.自定义Activity,Fragment
+### 5.自定义Activity,Fragment
  1.实现自定义Activity，实现你业务操作例如加入标题栏，ViewPager切换动画等等
  .![image.png](http://upload-images.jianshu.io/upload_images/1190712-fed3e16d9a686110.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
  
@@ -188,8 +209,9 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
- ##### ####
-   * 1.未来版本默认支持视频
+ ##### 2.1.6
+   * 1.增加默认支持视频
+    * 3. [修复增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56) 
  #### 2.1.5
    * 2. 拖动还原的过程中，双指放大会然后松手图片会卡在那里修复[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/58)
  #### 2.1.3

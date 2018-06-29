@@ -7,17 +7,20 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.R;
 import com.previewlibrary.ZoomMediaLoader;
 import com.previewlibrary.enitity.IThumbViewInfo;
 import com.previewlibrary.loader.MySimpleTarget;
+import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.wight.SmoothImageView;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -43,6 +46,8 @@ public class BasePhotoFragment extends Fragment {
     protected View rootView;
     protected ProgressBar loading;
     protected MySimpleTarget mySimpleTarget;
+    protected View btnVideo;
+    public static VideoClickListener listener;
 
     @Nullable
     @Override
@@ -115,8 +120,10 @@ public class BasePhotoFragment extends Fragment {
             imageView.transformIn(null);
             imageView.transformOut(null);
             imageView.setOnLongClickListener(null);
+            btnVideo.setOnClickListener(null);
             imageView = null;
             rootView = null;
+            listener = null;
             isTransPhoto = false;
         }
     }
@@ -127,21 +134,44 @@ public class BasePhotoFragment extends Fragment {
     private void initView(View view) {
         loading = view.findViewById(R.id.loading);
         imageView = view.findViewById(R.id.photoView);
+        btnVideo = view.findViewById(R.id.btnVideo);
         rootView = view.findViewById(R.id.rootView);
         rootView.setDrawingCacheEnabled(false);
         imageView.setDrawingCacheEnabled(false);
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String video = beanViewInfo.getVideoUrl();
+                if (video != null && !video.isEmpty()) {
+                    if (listener != null) {
+                        listener.onPlayerVideo(video);
+                    } else {
+                        GPVideoPlayerActivity.startActivity(getContext(), video);
+                    }
+                }
+
+            }
+        });
         mySimpleTarget = new MySimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap) {
                 if (imageView.getTag().toString().equals(beanViewInfo.getUrl())) {
                     imageView.setImageBitmap(bitmap);
                     loading.setVisibility(View.GONE);
+                    String video = beanViewInfo.getVideoUrl();
+                    if (video != null && !video.isEmpty()) {
+                        btnVideo.setVisibility(View.VISIBLE);
+                        ViewCompat.animate(btnVideo).alpha(1).setDuration(1000).start();
+                    } else {
+                        btnVideo.setVisibility(View.GONE);
+                    }
                 }
             }
 
             @Override
             public void onLoadFailed(Drawable errorDrawable) {
                 loading.setVisibility(View.GONE);
+                btnVideo.setVisibility(View.GONE);
                 if (errorDrawable != null) {
                     imageView.setImageDrawable(errorDrawable);
                 }
@@ -207,8 +237,19 @@ public class BasePhotoFragment extends Fragment {
         imageView.setAlphaChangeListener(new SmoothImageView.OnAlphaChangeListener() {
             @Override
             public void onAlphaChange(int alpha) {
+                if (alpha == 255) {
+                    String video = beanViewInfo.getVideoUrl();
+                    if (video != null && !video.isEmpty()) {
+                        btnVideo.setVisibility(View.VISIBLE);
+                    } else {
+                        btnVideo.setVisibility(View.GONE);
+                    }
+                } else {
+                    btnVideo.setVisibility(View.GONE);
+                }
                 Log.d("onAlphaChange", "alpha:" + alpha);
                 rootView.setBackgroundColor(getColorWithAlpha(alpha / 255f, Color.BLACK));
+
             }
         });
         imageView.setTransformOutListener(new SmoothImageView.OnTransformOutListener() {
@@ -245,6 +286,7 @@ public class BasePhotoFragment extends Fragment {
     }
 
     public void changeBg(int color) {
+        ViewCompat.animate(btnVideo).alpha(0).setDuration(500).start();
         rootView.setBackgroundColor(color);
     }
 

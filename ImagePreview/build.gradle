@@ -45,14 +45,13 @@ dependencies {
 apply plugin: 'com.novoda.bintray-release'
 publish {
     userOrg = 'ycjiang'
-    repoName="yangjiang" //仓库名
+    repoName = "yangjiang" //仓库名
     groupId = 'com.ycjiang'
     artifactId = 'ImagePreview'
-    publishVersion = '2.1.5'
+    publishVersion = '2.1.6'
     desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, \' +\n' +
             '                \'exit the full screen to restore the original location of the two processes of the animation transition.\' +\n' +
             '                \' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview, some mobile phone system album, \' +\n' +
             '                \'etc. viewpager picture zoom zoom pull down to pull out (effect with micro letter picture browsing.'
     website = 'https://github.com/yangchaojiang/ZoomPreviewPicturer'
 }
-

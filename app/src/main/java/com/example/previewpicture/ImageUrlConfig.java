@@ -1,5 +1,7 @@
 package com.example.previewpicture;
 
+import com.example.previewpicture.bean.UserViewInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,31 +14,42 @@ import java.util.List;
 public final class ImageUrlConfig {
 
     private static List<String> sUrls = new ArrayList<>();
+    private static List<UserViewInfo> videos = new ArrayList<>();
+    public static List<UserViewInfo> getVideos(){
+        videos.clear();
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a.mp4",
+        "http://pic.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a.mp4",
+                "http://pic.vjshi.com/2017-05-25/b146e104069c2bd0590bb919269193c4/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://ac-QYgvX1CC.clouddn.com/36f0523ee1888a57.jpg"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-05-07/d0bbfc4ac4dd173cc93873ed4eb0be53.mp4",
+                "http://pic.vjshi.com/2017-05-07/d0bbfc4ac4dd173cc93873ed4eb0be53/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-07-18/80d08ce1a84adfbaed5c7067b73d19ed.mp4",
+                "http://pic.vjshi.com/2017-07-18/80d08ce1a84adfbaed5c7067b73d19ed/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://img0.imgtn.bdimg.com/it/u=556618733,1205300389&fm=21&gp=0.jpg"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a.mp4",
+                "http://pic.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://img0.imgtn.bdimg.com/it/u=556618733,1205300389&fm=21&gp=0.jpg"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2018-06-07/cf673556cce54ab9cf4633fd7d9d0d46.mp4",
+                "http://pic.vjshi.com/2018-06-06/caa296729c8e6e41e6aff2aadf4feff3/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://img44.photophoto.cn/20170730/0018090594006661_s.jpg"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a.mp4",
+                "http://pic.vjshi.com/2017-09-13/f55a900d89679ac1c9837d5b5aaf632a/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://ac-QYgvX1CC.clouddn.com/36f0523ee1888a57.jpg"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2018-01-27/5169bb7bdd7386ce7bd4ce1739229424.mp4",
+                "http://pic.vjshi.com/2018-01-27/5169bb7bdd7386ce7bd4ce1739229424/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://photocdn.sohu.com/20160307/mp62252655_1457334772519_2.png"));
+        videos.add(new UserViewInfo("http://lmp4.vjshi.com/2017-09-27/9a6e69f7c257ff7b7832e8bac6fddf82.mp4",
+                "http://pic.vjshi.com/2017-09-27/9a6e69f7c257ff7b7832e8bac6fddf82/online/puzzle.jpg?x-oss-process=style/resize_w_285_crop_h_428"));
+        videos.add(new UserViewInfo("http://photocdn.sohu.com/20160307/mp62252655_1457334772519_2.png"));
+
+
+        return videos ;
+    }
 
     public static List<String> getUrls() {
         sUrls.clear();
-
-        sUrls.add("http://photocdn.sohu.com/20160307/mp62252655_1457334772519_2.png");
-        sUrls.add("http://img0.imgtn.bdimg.com/it/u=556618733,1205300389&fm=21&gp=0.jpg");
-        sUrls.add("http://photocdn.sohu.com/20160307/mp62252655_1457334772519_2.png");
-        sUrls.add("http://img1.imgtn.bdimg.com/it/u=3272030875,860665188&fm=21&gp=0.jpg");
-        sUrls.add("http://img1.imgtn.bdimg.com/it/u=2237658959,3726297486&fm=21&gp=0.jpg");
-        sUrls.add("http://img1.imgtn.bdimg.com/it/u=3016675040,1510439865&fm=21&gp=0.jpg");
-
-        sUrls.add("http://imgcdn.thecover.cn/FlwmxD5lj9aZuAwIfNlTGeg4fbA6?imageMogr2/quality/80/ignore-error/1");
-        sUrls.add("http://i0.itc.cn/20110124/8f7_98cce95e_ae0a_4712_8e65_1789fba80843_0.jpg");
-        sUrls.add("http://simg314.magcasa.com/content_images/2015/10/22/162537/1445450806_8832.jpg");
-
-        sUrls.add("http://img4.duitang.com/uploads/item/201307/02/20130702113059_UEGL2.jpeg");
-        sUrls.add("http://img0.imgtn.bdimg.com/it/u=985035006,79865976&fm=21&gp=0.jpg");
-        sUrls.add("http://img5.imgtn.bdimg.com/it/u=1774291582,2563335167&fm=21&gp=0.jpg");
-        sUrls.add("http://photocdn.sohu.com/20160307/mp62252655_1457334772519_2.png");
-        sUrls.add("http://img5.imgtn.bdimg.com/it/u=1511364704,3337189105&fm=21&gp=0.jpg");
-        sUrls.add("http://img3.imgtn.bdimg.com/it/u=2144096677,2391514122&fm=21&gp=0.jpg");
-        sUrls.add("http://img0.imgtn.bdimg.com/it/u=556618733,1205300389&fm=21&gp=0.jpg");
-        sUrls.add("http://img1.imgtn.bdimg.com/it/u=3272030875,860665188&fm=21&gp=0.jpg");
-        sUrls.add("http://img1.imgtn.bdimg.com/it/u=2237658959,3726297486&fm=21&gp=0.jpg");
-
         sUrls.add("http://img4.duitang.com/uploads/item/201307/02/20130702113059_UEGL2.jpeg");
         sUrls.add("http://img0.imgtn.bdimg.com/it/u=985035006,79865976&fm=21&gp=0.jpg");
         sUrls.add("http://img5.imgtn.bdimg.com/it/u=1774291582,2563335167&fm=21&gp=0.jpg");
