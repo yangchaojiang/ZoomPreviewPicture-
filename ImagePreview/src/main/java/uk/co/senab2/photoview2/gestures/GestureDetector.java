@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package uk.co.senab.photoview.gestures;
+package uk.co.senab2.photoview2.gestures;
 
 import android.view.MotionEvent;
 

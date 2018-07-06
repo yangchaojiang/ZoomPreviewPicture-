@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package uk.co.senab.photoview.scrollerproxy;
+package uk.co.senab2.photoview2.log;
 
-import android.annotation.TargetApi;
-import android.content.Context;
+import android.util.Log;
 
-@TargetApi(14)
-public class IcsScroller extends GingerScroller {
+/**
+ * class that holds the {@link Logger} for this library, defaults to {@link LoggerDefault} to send logs to android {@link Log}
+ */
+public final class LogManager {
 
-    public IcsScroller(Context context) {
-        super(context);
+    private static Logger logger = new LoggerDefault();
+
+    public static void setLogger(Logger newLogger) {
+        logger = newLogger;
     }
 
-    @Override
-    public boolean computeScrollOffset() {
-        return mScroller.computeScrollOffset();
+    public static Logger getLogger() {
+        return logger;
     }
 
 }

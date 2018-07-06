@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import com.previewlibrary.R;
 import com.previewlibrary.view.ImageUtils;
 
-import uk.co.senab.photoview.PhotoView;
+import uk.co.senab2.photoview2.PhotoView;
 
 /**
  * author yangc

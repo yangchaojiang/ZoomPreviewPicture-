@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package uk.co.senab.photoview;
+package uk.co.senab2.photoview2;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -38,10 +38,10 @@ import android.widget.ImageView.ScaleType;
 
 import java.lang.ref.WeakReference;
 
-import uk.co.senab.photoview.gestures.OnGestureListener;
-import uk.co.senab.photoview.gestures.VersionedGestureDetector;
-import uk.co.senab.photoview.log.LogManager;
-import uk.co.senab.photoview.scrollerproxy.ScrollerProxy;
+import uk.co.senab2.photoview2.gestures.OnGestureListener;
+import uk.co.senab2.photoview2.gestures.VersionedGestureDetector;
+import uk.co.senab2.photoview2.log.LogManager;
+import uk.co.senab2.photoview2.scrollerproxy.ScrollerProxy;
 
 import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
@@ -129,7 +129,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
     // Gesture Detectors
     private GestureDetector mGestureDetector;
-    private uk.co.senab.photoview.gestures.GestureDetector mScaleDragDetector;
+    private uk.co.senab2.photoview2.gestures.GestureDetector mScaleDragDetector;
 
     // These are set so we don't keep allocating them on the heap
     private final Matrix mBaseMatrix = new Matrix();
@@ -243,7 +243,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
      * Clean-up the resources attached to this object. This needs to be called when the ImageView is
      * no longer used. A good example is from {@link android.view.View#onDetachedFromWindow()} or
      * from {@link android.app.Activity#onDestroy()}. This is automatically called if you are using
-     * {@link uk.co.senab.photoview.PhotoView}.
+     * {@link uk.co.senab2.photoview2.PhotoView}.
      */
     @SuppressWarnings("deprecation")
     public void cleanup() {

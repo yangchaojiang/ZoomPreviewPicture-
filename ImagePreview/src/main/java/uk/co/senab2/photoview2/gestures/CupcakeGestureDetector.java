@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package uk.co.senab.photoview.gestures;
+package uk.co.senab2.photoview2.gestures;
 
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 
-import uk.co.senab.photoview.log.LogManager;
+import uk.co.senab2.photoview2.log.LogManager;
 
 public class CupcakeGestureDetector implements GestureDetector {
 

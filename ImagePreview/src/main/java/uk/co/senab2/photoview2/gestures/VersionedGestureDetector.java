@@ -1,4 +1,4 @@
-package uk.co.senab.photoview.gestures;
+package uk.co.senab2.photoview2.gestures;
 
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.

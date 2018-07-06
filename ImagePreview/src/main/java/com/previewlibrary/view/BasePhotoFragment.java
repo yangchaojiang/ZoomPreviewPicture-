@@ -23,7 +23,7 @@ import com.previewlibrary.loader.MySimpleTarget;
 import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.wight.SmoothImageView;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
+import uk.co.senab2.photoview2.PhotoViewAttacher;
 
 /**
  * author yangc

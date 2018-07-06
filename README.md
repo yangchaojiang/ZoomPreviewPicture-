@@ -3,7 +3,7 @@
 本项目受Google官方demo Zooming a View 启发，实现了点击小图放大至全屏预览，退出全屏恢复至原来位置这两个过程的动画过渡。
 常见应用场景如微信朋友圈照片九宫格和微信聊天图片预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
 
-[ ![Download](https://api.bintray.com/packages/ycjiang/yangjiang/ImagePreview/images/download.svg) ](https://bintray.com/ycjiang/yangjiang/ImagePreview/_latestVersion)
+[![Download](https://api.bintray.com/packages/ycjiang/yangjiang/ImagePreview/images/download.svg) ](https://bintray.com/ycjiang/yangjiang/ImagePreview/_latestVersion)
 
  ### 特点
    * 1.支持自定义图片加载框架。
@@ -21,7 +21,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.1.6'
+  compile 'com.ycjiang:ImagePreview:2.1.7'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -209,9 +209,11 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
- ##### 2.1.6
+ #### 2.1.7
+   * 1.修改本地[photoview]包名路径
+ #### 2.1.6
    * 1.增加默认支持视频
-    * 3. [修复增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56) 
+   * 3. [修复增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56) 
  #### 2.1.5
    * 2. 拖动还原的过程中，双指放大会然后松手图片会卡在那里修复[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/58)
  #### 2.1.3
