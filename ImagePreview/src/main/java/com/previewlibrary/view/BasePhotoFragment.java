@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
@@ -44,7 +43,7 @@ public class BasePhotoFragment extends Fragment {
     private boolean isTransPhoto = false;
     protected SmoothImageView imageView;
     protected View rootView;
-    protected ProgressBar loading;
+    protected View loading;
     protected MySimpleTarget mySimpleTarget;
     protected View btnVideo;
     public static VideoClickListener listener;

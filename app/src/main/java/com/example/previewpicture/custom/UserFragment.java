@@ -43,6 +43,6 @@ public class UserFragment extends BasePhotoFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(com.previewlibrary.R.layout.fragment_image_photo_layout, container, false);
     }
 }
