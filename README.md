@@ -83,7 +83,8 @@
         }
     }
 ````
-  2.构造实体类： 你的实体类实现IThumbViewInfo接口
+  2.构造实体类： 你的实体类实现IThumbViewInfo接口 
+  >> **注意：IThumbViewInfo 实现 Parcelable 接口 注意序列化化**
  `````
  public class UserViewInfo implements IThumbViewInfo {
      private String url;  //图片地址
