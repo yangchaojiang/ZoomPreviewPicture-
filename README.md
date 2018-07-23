@@ -21,7 +21,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.1.7'
+  compile 'com.ycjiang:ImagePreview:2.1.8'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -211,7 +211,8 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 ### 升级日志
  #### 2.1.8
-   * 1.增加
+   * 1.增加Gif 显示支持
+   * 2.其它优化。
 
  #### 2.1.7
    * 1.修改本地[photoview]包名路径
