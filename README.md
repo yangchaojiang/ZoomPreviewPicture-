@@ -1,7 +1,7 @@
 # ZoomPreviewPicture
 
 本项目受Google官方demo Zooming a View 启发，实现了点击小图放大至全屏预览，退出全屏恢复至原来位置这两个过程的动画过渡。
-常见应用场景如微信朋友圈照片九宫格和微信聊天图片预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
+常见应用场景如微信朋友圈照片九宫格和微信聊天图片,视频,gif预览，某些手机系统相册等viewpager图片查看 缩放 拖拽下拉缩小退出（效果同微信图片浏览）
 
 [![Download](https://api.bintray.com/packages/ycjiang/yangjiang/ImagePreview/images/download.svg) ](https://bintray.com/ycjiang/yangjiang/ImagePreview/_latestVersion)
 
