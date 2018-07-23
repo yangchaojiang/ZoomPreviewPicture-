@@ -36,6 +36,7 @@ public class MyBaseQuickAdapter extends BaseQuickAdapter<UserViewInfo,BaseViewHo
 
         Glide.with(context)
                 .load(item.getUrl())
+                .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_iamge_zhanwei)
                 .into(thumbView);
         thumbView.setTag(R.id.iv,item.getUrl());

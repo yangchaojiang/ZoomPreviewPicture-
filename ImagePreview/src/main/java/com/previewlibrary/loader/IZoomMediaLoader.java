@@ -2,10 +2,12 @@ package com.previewlibrary.loader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 
 /**
  *
@@ -25,6 +27,13 @@ public interface IZoomMediaLoader {
      * ***/
     void displayImage(@NonNull Fragment context, @NonNull String path, @NonNull MySimpleTarget<Bitmap> simpleTarget);
 
+    /***
+     * 加载gif 图
+     * @param  context 容器
+     * @param   path  图片你的路径
+     * @param   simpleTarget   图片加载状态回调
+     * ***/
+    void displayGifImage(@NonNull Fragment context, @NonNull String path, ImageView imageView, @NonNull MySimpleTarget simpleTarget);
     /**
      * 停止
      *

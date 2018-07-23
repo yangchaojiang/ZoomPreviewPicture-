@@ -210,23 +210,26 @@ public class TestImageLoader implements IZoomMediaLoader {
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 
 ### 升级日志
+ #### 2.1.8
+   * 1.增加
+
  #### 2.1.7
    * 1.修改本地[photoview]包名路径
  #### 2.1.6
    * 1.增加默认支持视频
-   * 3. [修复增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56) 
+   * 2.[修复增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56) 
  #### 2.1.5
-   * 2. 拖动还原的过程中，双指放大会然后松手图片会卡在那里修复[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/58)
+   * 1.拖动还原的过程中，双指放大会然后松手图片会卡在那里修复[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/58)
  #### 2.1.3
  #### 2.1.4
-   * 1. [增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56)
-   * 2. [bug50](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/50)
+   * 1.[增加设置图片拖拽返回的灵敏度57](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/56)
+   * 2.[bug50](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/50)
  #### 2.1.3
-   * 1. 修复8.0主题属性发音崩溃
+   * 1.修复8.0主题属性发音崩溃
  #### 2.1.2
-   * 1. 修复图片还原时触发长按事件
+   * 1.修复图片还原时触发长按事件
  #### 2.1.0
-   * 1. 设置动画时长类型
+   * 1.设置动画时长类型
  #### 2.0.9
    * 1.增加增加设置动画时长
  #### 2.0.8

@@ -31,7 +31,7 @@ public class ZoomMediaLoader {
 
     public IZoomMediaLoader getLoader() {
         if (loader==null){
-            throw  new  NullPointerException("loader no init");
+            throw  new  NullPointerException("ZoomMediaLoader loader  no init");
         }
         return loader;
     }

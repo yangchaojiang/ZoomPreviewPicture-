@@ -17,10 +17,6 @@
 
         </activity>
 
-        <meta-data
-            android:name="com.example.previewpicture.app.MyGlideModule"
-            android:value="GlideModule" />
-
         <activity android:name=".list.ListView2Activity" />
         <activity android:name=".custom.GridViewCustomActivity" />
         <!--d注册自定义activity-->

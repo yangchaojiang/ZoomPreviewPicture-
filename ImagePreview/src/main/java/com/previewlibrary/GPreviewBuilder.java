@@ -190,6 +190,9 @@ public final class GPreviewBuilder {
         mContext = null;
     }
 
+    /***
+     * 指示器类型
+     * ***/
     public enum IndicatorType {
         Dot, Number
     }

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
@@ -44,7 +45,7 @@ public class BasePhotoFragment extends Fragment {
     protected SmoothImageView imageView;
     protected View rootView;
     protected View loading;
-    protected MySimpleTarget mySimpleTarget;
+    protected MySimpleTarget<Bitmap> mySimpleTarget;
     protected View btnVideo;
     public static VideoClickListener listener;
 
@@ -154,16 +155,21 @@ public class BasePhotoFragment extends Fragment {
         mySimpleTarget = new MySimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap bitmap) {
-                if (imageView.getTag().toString().equals(beanViewInfo.getUrl())) {
+                   onResourceReady();
+                if (rootView.getTag().toString().equals(beanViewInfo.getUrl())) {
                     imageView.setImageBitmap(bitmap);
-                    loading.setVisibility(View.GONE);
-                    String video = beanViewInfo.getVideoUrl();
-                    if (video != null && !video.isEmpty()) {
-                        btnVideo.setVisibility(View.VISIBLE);
-                        ViewCompat.animate(btnVideo).alpha(1).setDuration(1000).start();
-                    } else {
-                        btnVideo.setVisibility(View.GONE);
-                    }
+                }
+            }
+
+            @Override
+            public void onResourceReady() {
+                loading.setVisibility(View.GONE);
+                String video = beanViewInfo.getVideoUrl();
+                if (video != null && !video.isEmpty()) {
+                    btnVideo.setVisibility(View.VISIBLE);
+                    ViewCompat.animate(btnVideo).alpha(1).setDuration(1000).start();
+                } else {
+                    btnVideo.setVisibility(View.GONE);
                 }
             }
 
@@ -175,11 +181,6 @@ public class BasePhotoFragment extends Fragment {
                     imageView.setImageDrawable(errorDrawable);
                 }
             }
-
-            @Override
-            public void onLoadStarted() {
-
-            }
         };
     }
 
@@ -189,6 +190,7 @@ public class BasePhotoFragment extends Fragment {
     private void initDate() {
         Bundle bundle = getArguments();
         boolean isSingleFling = true;
+        // 非动画进入的Fragment，默认背景为黑色
         if (bundle != null) {
             isSingleFling = bundle.getBoolean(KEY_SING_FILING);
             //地址
@@ -197,13 +199,19 @@ public class BasePhotoFragment extends Fragment {
             assert beanViewInfo != null;
             imageView.setDrag(bundle.getBoolean(KEY_DRAG), bundle.getFloat(KEY_SEN));
             imageView.setThumbRect(beanViewInfo.getBounds());
-            imageView.setTag(beanViewInfo.getUrl());
+            rootView.setTag(beanViewInfo.getUrl());
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
-            //加载原图
-            ZoomMediaLoader.getInstance().getLoader().displayImage(this, beanViewInfo.getUrl(), mySimpleTarget);
+            if ( beanViewInfo.getUrl().toLowerCase().contains(".gif")){
+                imageView.setZoomable(false);
+                //加载图
+                ZoomMediaLoader.getInstance().getLoader().displayGifImage(this, beanViewInfo.getUrl(),imageView, mySimpleTarget);
+            }else {
+                //加载图
+                ZoomMediaLoader.getInstance().getLoader().displayImage(this, beanViewInfo.getUrl(),mySimpleTarget);
+            }
+
         }
-        // 非动画进入的Fragment，默认背景为黑色
         if (!isTransPhoto) {
             rootView.setBackgroundColor(Color.BLACK);
         } else {
@@ -246,7 +254,6 @@ public class BasePhotoFragment extends Fragment {
                 } else {
                     btnVideo.setVisibility(View.GONE);
                 }
-                Log.d("onAlphaChange", "alpha:" + alpha);
                 rootView.setBackgroundColor(getColorWithAlpha(alpha / 255f, Color.BLACK));
 
             }

@@ -2,7 +2,6 @@ package com.example.previewpicture.app;
 
 import android.app.Application;
 
-import com.example.previewpicture.imp.TestImageLoader;
 import com.previewlibrary.ZoomMediaLoader;
 
 /**

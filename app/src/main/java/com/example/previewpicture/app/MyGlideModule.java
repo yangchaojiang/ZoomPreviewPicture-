@@ -21,7 +21,6 @@ public class MyGlideModule implements GlideModule {
 
     @Override
     public void applyOptions(final Context context, GlideBuilder builder) {
-        ViewTarget.setTagId(R.id.glide_tag_id);
         MemorySizeCalculator calculator = new MemorySizeCalculator(context);
         int defaultMemoryCacheSize = calculator.getMemoryCacheSize();
         int defaultBitmapPoolSize = calculator.getBitmapPoolSize();
@@ -30,6 +29,7 @@ public class MyGlideModule implements GlideModule {
         builder.setMemoryCache(new LruResourceCache(customMemoryCacheSize));
          builder.setBitmapPool(new LruBitmapPool(customBitmapPoolSize));
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, cacheSize100MegaBytes));
+        ViewTarget.setTagId(R.id.glide_tag_id);
     }
 
     @Override
