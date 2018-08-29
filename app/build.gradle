@@ -34,7 +34,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.9.0'
     implementation project(':ImagePreview')
     implementation 'com.simplepeng.library:transformslibrary:1.0.0'
-    implementation 'com.jaeger.ninegridimageview:library:1.1.0'
+    implementation 'com.jaeger.ninegridimageview:library:1.1.1'
  //   compile 'com.ycjiang:ImagePreview:2.1.71'
     implementation 'com.ycjiang:VideoPlayModule-Lite:2.1.80'
 

@@ -107,6 +107,9 @@ public class BasePhotoFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
+        if (getActivity()!=null&&getActivity().isFinishing()){
+            listener = null;
+        }
     }
 
     public void release() {
@@ -123,7 +126,6 @@ public class BasePhotoFragment extends Fragment {
             btnVideo.setOnClickListener(null);
             imageView = null;
             rootView = null;
-            listener = null;
             isTransPhoto = false;
         }
     }

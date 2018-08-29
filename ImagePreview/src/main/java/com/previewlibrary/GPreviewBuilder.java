@@ -164,7 +164,15 @@ public final class GPreviewBuilder {
         intent.putExtra("duration", setDuration);
         return this;
     }
-
+    /***
+     *  设置是否全屏
+     * @param isFullscreen  单位毫秒
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setFullscreen(boolean isFullscreen) {
+        intent.putExtra("isFullscreen", isFullscreen);
+        return this;
+    }
     /***
      *  设置是怕你点击播放回调
      * @return GPreviewBuilder

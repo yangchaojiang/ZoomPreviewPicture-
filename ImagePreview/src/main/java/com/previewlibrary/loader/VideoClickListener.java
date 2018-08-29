@@ -13,7 +13,7 @@ import android.os.Parcelable;
  */
 public   interface VideoClickListener {
 
-    abstract void onPlayerVideo(String url);
+     void onPlayerVideo(String url);
 
 
 }

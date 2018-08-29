@@ -53,12 +53,12 @@ public class GPreviewActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
         if (setContentLayout() == 0) {
             setContentView(R.layout.activity_image_preview_photo);
         } else {
             setContentView(setContentLayout());
         }
-        initData();
         initView();
     }
 
@@ -91,6 +91,10 @@ public class GPreviewActivity extends FragmentActivity {
         type = (GPreviewBuilder.IndicatorType) getIntent().getSerializableExtra("type");
         isShow = getIntent().getBooleanExtra("isShow", true);
         int duration = getIntent().getIntExtra("duration", 300);
+         boolean isFullscreen=getIntent().getBooleanExtra("isFullscreen",false);
+         if (isFullscreen){
+             setTheme(android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+         }
         try {
             SmoothImageView.setDuration(duration);
             Class<? extends BasePhotoFragment> sss;
