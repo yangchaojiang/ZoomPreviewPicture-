@@ -22,7 +22,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.2.0'
+  compile 'com.ycjiang:ImagePreview:2.2.1'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -121,27 +121,48 @@
 ````
 public class TestImageLoader implements IZoomMediaLoader {
     @Override
-    public void displayImage(Fragment context, String path, final MySimpleTarget<Bitmap> simpleTarget) {
-         Glide.with(context).load(path).asBitmap().centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                      .error(R.drawable.ic_default_image)
-                      .into(new SimpleTarget<Bitmap>() {
-                          @Override
-                          public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                              simpleTarget.onResourceReady(resource);
-                          }
-                          @Override
-                          public void onLoadStarted(Drawable placeholder) {
-                              super.onLoadStarted(placeholder);
-                              simpleTarget.onLoadStarted();
-                          }
-      
-                          @Override
-                          public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                              super.onLoadFailed(e, errorDrawable);
-                              simpleTarget.onLoadFailed(errorDrawable);
-                          }
-                      });
+    public void displayImage(Fragment context, String path,ImageView imageView, final MySimpleTarget<Bitmap> simpleTarget) {
+            Glide.with(context).load(path)
+                       .asBitmap()
+                        .error(R.drawable.ic_default_image)
+                        .listener(new RequestListener<String, Bitmap>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                                simpleTarget.onLoadFailed(null);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                simpleTarget.onResourceReady();
+                                return false;
+                            }
+                        })
+                        .into(imageView);
     }
+        @Override
+        public void displayGifImage(@NonNull Fragment context, @NonNull String path, ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
+            Glide.with(context).load(path)
+                   .asGif()
+                    //可以解决gif比较几种时 ，加载过慢  //DiskCacheStrategy.NONE
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .error(R.drawable.ic_default_image)
+                    .dontAnimate() //去掉显示动画
+                    .listener(new RequestListener<String, GifDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GifDrawable> target, boolean isFirstResource) {
+                            simpleTarget.onResourceReady();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GifDrawable resource, String model, Target<GifDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            simpleTarget.onLoadFailed(null);
+                            return false;
+                        }
+                    })
+                    .into(imageView);
+        }
      @Override
      public void onStop(@NonNull Fragment context) {
            Glide.with(context).onStop();
@@ -209,7 +230,10 @@ public class TestImageLoader implements IZoomMediaLoader {
               /> 
 
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
-
+### 升级日志
+ #### 2.2.1
+   * 1修复回调处理增加view参数
+   * 2.修改bug[#81](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/81)。
 ### 升级日志
  #### 2.2.0
    * 1.关于视频监听的bug[bug58](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/79)
