@@ -29,11 +29,13 @@ import com.previewlibrary.loader.MySimpleTarget;
 
 public class TestImageLoader implements IZoomMediaLoader {
 
+
     @Override
-    public void displayImage(@NonNull Fragment context,@NonNull String path,ImageView imageView, final@NonNull MySimpleTarget<Bitmap> simpleTarget) {
+    public void displayImage(@NonNull Fragment context, @NonNull String path, ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
         Glide.with(context).load(path)
-               .asBitmap()
+                .asBitmap()
                 .error(R.drawable.ic_default_image)
+              //  .placeholder(android.R.color.darker_gray)
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {

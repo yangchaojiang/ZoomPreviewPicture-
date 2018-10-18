@@ -22,7 +22,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.2.1'
+  compile 'com.ycjiang:ImagePreview:2.2.2'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -231,6 +231,8 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 ### 升级日志
+ #### 2.2.2
+   * 2.修改bug[#81](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/85)。
  #### 2.2.1
    * 1修复回调处理增加view参数
    * 2.修改bug[#81](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/81)。

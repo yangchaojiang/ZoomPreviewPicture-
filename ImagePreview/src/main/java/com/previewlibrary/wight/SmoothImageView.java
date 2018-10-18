@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -456,6 +457,10 @@ public class SmoothImageView extends PhotoView {
             Bitmap mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
             bitmapWidth = mBitmap.getWidth();
             bitmapHeight = mBitmap.getHeight();
+        } else if (getDrawable() instanceof ColorDrawable){
+            ColorDrawable colorDrawable= (ColorDrawable) getDrawable();
+            bitmapWidth = colorDrawable.getIntrinsicWidth();
+            bitmapHeight = colorDrawable.getIntrinsicHeight();
         } else {
             Bitmap mBitmap = Bitmap.createBitmap(getDrawable().getIntrinsicWidth(),
                     getDrawable().getIntrinsicHeight(), Bitmap.Config.RGB_565);

@@ -43,7 +43,7 @@ public class BasePhotoFragment extends Fragment {
     protected SmoothImageView imageView;
     protected View rootView;
     protected View loading;
-    protected MySimpleTarget<Bitmap> mySimpleTarget;
+    protected MySimpleTarget mySimpleTarget;
     protected View btnVideo;
     public static VideoClickListener listener;
 
@@ -152,7 +152,7 @@ public class BasePhotoFragment extends Fragment {
 
             }
         });
-        mySimpleTarget = new MySimpleTarget<Bitmap>() {
+        mySimpleTarget = new MySimpleTarget() {
 
             @Override
             public void onResourceReady() {

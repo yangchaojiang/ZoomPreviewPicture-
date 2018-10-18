@@ -25,7 +25,7 @@ public interface IZoomMediaLoader {
      * @param   path  图片你的路径
      * @param   simpleTarget   图片加载状态回调
      * ***/
-    void displayImage(@NonNull Fragment context, @NonNull String path, ImageView imageView,@NonNull MySimpleTarget<Bitmap> simpleTarget);
+    void displayImage(@NonNull Fragment context, @NonNull String path, ImageView imageView,@NonNull MySimpleTarget  simpleTarget);
 
     /***
      * 加载gif 图

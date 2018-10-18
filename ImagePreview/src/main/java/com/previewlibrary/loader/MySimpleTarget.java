@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
  * Deprecated: 图片加载回调状态接口
  */
 
-public interface MySimpleTarget<T> {
+public interface MySimpleTarget {
    /**
      * Callback when an image has been successfully loaded.
      * <p>
