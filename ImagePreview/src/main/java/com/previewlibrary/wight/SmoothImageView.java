@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
@@ -41,6 +42,7 @@ public class SmoothImageView extends PhotoView {
 
     private Status mStatus = Status.STATE_NORMAL;
     private static int TRANSFORM_DURATION = 400;
+    private static boolean ISFUll = false;
     private Paint mPaint;
     private Matrix matrix;
     private Transform startTransform;
@@ -65,6 +67,7 @@ public class SmoothImageView extends PhotoView {
         startTransform = null;
         endTransform = null;
         animTransform = null;
+        ISFUll=false;
         if (animator != null) {
             animator.cancel();
             animator.clone();
@@ -472,8 +475,13 @@ public class SmoothImageView extends PhotoView {
         if (thumbRect == null) {
             thumbRect = new Rect();
         }
+
         startTransform.left = thumbRect.left;
-        startTransform.top = thumbRect.top - ImageUtils.getStatusBarHeight(getContext().getApplicationContext());
+        if (ISFUll){
+            startTransform.top = thumbRect.top;
+        }else {
+            startTransform.top = thumbRect.top - ImageUtils.getStatusBarHeight(getContext().getApplicationContext());
+        }
         startTransform.width = thumbRect.width();
         startTransform.height = thumbRect.height();
         //开始时以CenterCrop方式显示，缩放图片使图片的一边等于起始区域的一边，另一边大于起始区域
@@ -555,5 +563,12 @@ public class SmoothImageView extends PhotoView {
      * **/
     public static void setDuration(int duration) {
         TRANSFORM_DURATION = duration;
+    }
+    /***
+     *  设置是否全屏
+     * @param isFull true 全屏
+     * **/
+    public static void setFullscreen(boolean isFull) {
+        ISFUll = isFull;
     }
 }

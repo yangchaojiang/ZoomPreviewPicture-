@@ -36,6 +36,8 @@ public class TestImageLoader implements IZoomMediaLoader {
                 .asBitmap()
                 .error(R.drawable.ic_default_image)
               //  .placeholder(android.R.color.darker_gray)
+                .fitCenter()
+                .centerCrop()
                 .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
