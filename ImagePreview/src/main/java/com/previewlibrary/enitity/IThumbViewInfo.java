@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
  *         Deprecated: 图片预览接口
  */
 public interface IThumbViewInfo extends Parcelable {
+
     /****
      * 图片地址
      * @return String

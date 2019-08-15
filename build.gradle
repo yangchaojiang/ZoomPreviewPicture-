@@ -21,8 +21,8 @@ allprojects {
         google()
     }
     project.ext {
-        compileSdkVersion=27
-        targetSdkVersion=27
+        compileSdkVersion=28
+        targetSdkVersion=28
         buildToolsVersion='27.0.3'
         minSdkVersion=16
         versionCode = 17

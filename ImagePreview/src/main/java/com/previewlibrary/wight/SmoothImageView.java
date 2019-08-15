@@ -565,6 +565,12 @@ public class SmoothImageView extends PhotoView {
         TRANSFORM_DURATION = duration;
     }
     /***
+     *   获取动画的时长
+     * **/
+    public static int getDuration() {
+        return TRANSFORM_DURATION;
+    }
+    /***
      *  设置是否全屏
      * @param isFull true 全屏
      * **/

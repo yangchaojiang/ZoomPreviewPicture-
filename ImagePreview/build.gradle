@@ -32,15 +32,15 @@ android {
 //}
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //compile(name: 'xxx', ext: 'aar')
     //compile project(':xxx')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-fragment:25.3.1'
-    compile "com.android.support:support-core-utils:25.3.1"
+    implementation 'com.android.support:support-fragment:25.3.1'
+    implementation "com.android.support:support-core-utils:25.3.1"
 }
 apply plugin: 'com.novoda.bintray-release'
 publish {
@@ -48,7 +48,7 @@ publish {
     repoName = "yangjiang" //仓库名
     groupId = 'com.ycjiang'
     artifactId = 'ImagePreview'
-    publishVersion = '2.2.3'
+    publishVersion = '2.2.5'
     desc = 'The project by the Google official demo Zooming a View inspired to achieve a click on the thumbnail zoom to full screen preview, \' +\n' +
             '                \'exit the full screen to restore the original location of the two processes of the animation transition.\' +\n' +
             '                \' Common application scenes such as WeChat friends circle photo Jiugongge and WeChat chat picture preview, some mobile phone system album, \' +\n' +

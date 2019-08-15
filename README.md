@@ -231,6 +231,9 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
 ### 升级日志
+ #### 2.2.5
+   * 1.修改问题[#117](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/117)同意动画时长。
+    * 2. compileSdkVersion  升级 28  
  #### 2.2.3
    * 1.修改bug[#99](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/99)。
    * 2.修改bug[#97](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/97)。   

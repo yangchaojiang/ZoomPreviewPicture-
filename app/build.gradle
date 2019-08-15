@@ -29,13 +29,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.9.0'
-   // implementation project(':ImagePreview')
+   implementation project(':ImagePreview')
     implementation 'com.simplepeng.library:transformslibrary:1.0.0'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
-  implementation 'com.ycjiang:ImagePreview:2.2.3'
+   //implementation 'com.ycjiang:ImagePreview:2.2.3'
     implementation 'com.ycjiang:VideoPlayModule-Lite:2.1.80'
 
 
