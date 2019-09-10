@@ -15,14 +15,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview2.PhotoView;
 import com.previewlibrary.R;
 import com.previewlibrary.view.ImageUtils;
 
-import uk.co.senab2.photoview2.PhotoView;
 
 /**
  * author yangc
@@ -67,7 +66,7 @@ public class SmoothImageView extends PhotoView {
         startTransform = null;
         endTransform = null;
         animTransform = null;
-        ISFUll=false;
+        ISFUll = false;
         if (animator != null) {
             animator.cancel();
             animator.clone();
@@ -144,105 +143,83 @@ public class SmoothImageView extends PhotoView {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         int action = event.getAction();
-        if (getScale() == 1) {
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    downX = (int) event.getX();
-                    downY = (int) event.getY();
-                    if (markTransform == null) {
-                        initTransform();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                downX = (int) event.getX();
+                downY = (int) event.getY();
+                if (markTransform == null) {
+                    initTransform();
+                }
+                isDownPhoto = false;
+                if (markTransform != null) {
+                    int startY = (int) markTransform.top;
+                    int endY = (int) (markTransform.height + markTransform.top);
+                    if (downY >= startY && endY >= downY) {
+                        isDownPhoto = true;
                     }
-                    isDownPhoto = false;
-                    if (markTransform != null) {
-                        int startY = (int) markTransform.top;
-                        int endY = (int) (markTransform.height + markTransform.top);
-                        if (downY >= startY && endY >= downY) {
-                            isDownPhoto = true;
+                }
+                isMoved = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (!isDownPhoto && event.getPointerCount() == 1) {
+                    return super.dispatchTouchEvent(event);
+                }
+                int mx = (int) event.getX();
+                int my = (int) event.getY();
+
+                int offsetX = mx - downX;
+                int offsetY = my - downY;
+
+                // 水平方向移动不予处理
+                boolean s = !isMoved && (Math.abs(offsetX) > Math.abs(offsetY) || Math.abs(offsetY) < MIN_TRANS_DEST);
+                if (s) {
+                    return super.dispatchTouchEvent(event);
+                } else {
+                    if (isDrag) {
+                        return super.dispatchTouchEvent(event);
+                    }
+                    // 一指滑动时，才对图片进行移动缩放处理
+                    if (event.getPointerCount() == 1) {
+                        mStatus = Status.STATE_MOVE;
+                        offsetLeftAndRight(offsetX);
+                        offsetTopAndBottom(offsetY);
+                        float scale = moveScale();
+                        float scaleXY = 1 - scale * 0.1f;
+                        setScaleY(scaleXY);
+                        setScaleX(scaleXY);
+                        isMoved = true;
+                        alpha = (int) (255 * (1 - scale * 0.5f));
+                        invalidate();
+                        if (alpha < 0) {
+                            alpha = 0;
                         }
+                        if (alphaChangeListener != null) {
+                            alphaChangeListener.onAlphaChange(alpha);
+                        }
+                        return true;
                     }
-                    isMoved = false;
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (!isDownPhoto && event.getPointerCount() == 1) {
+                    // 多指滑动，直接屏蔽事件
+                    else {
                         break;
                     }
-                    int mx = (int) event.getX();
-                    int my = (int) event.getY();
-
-                    int offsetX = mx - downX;
-                    int offsetY = my - downY;
-
-                    // 水平方向移动不予处理
-                    boolean s = !isMoved && (Math.abs(offsetX) > Math.abs(offsetY) || Math.abs(offsetY) < MIN_TRANS_DEST);
-                    if (s) {
-                        return super.dispatchTouchEvent(event);
-                    } else {
-                        if (isDrag) {
-                            return super.dispatchTouchEvent(event);
-                        }
-                        // 一指滑动时，才对图片进行移动缩放处理
-                        if (event.getPointerCount() == 1) {
-                            mStatus = Status.STATE_MOVE;
-                            offsetLeftAndRight(offsetX);
-                            offsetTopAndBottom(offsetY);
-                            float scale = moveScale();
-                            float scaleXY = 1 - scale * 0.1f;
-                            setScaleY(scaleXY);
-                            setScaleX(scaleXY);
-                            isMoved = true;
-                            alpha = (int) (255 * (1 - scale * 0.5f));
-                            invalidate();
-                            if (alpha < 0) {
-                                alpha = 0;
-                            }
-                            if (alphaChangeListener != null) {
-                                alphaChangeListener.onAlphaChange(alpha);
-                            }
-                            return true;
-                        }
-                        // 多指滑动，直接屏蔽事件
-                        else {
-                            break;
-                        }
-                    }
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    if (isMoved) {
-                        if (moveScale() <= MAX_TRANS_SCALE) {
-                            moveToOldPosition();
-                        } else {
-                            changeTransform();
-                            setTag(R.id.item_image_key, true);
-                            if (transformOutListener != null) {
-                                transformOutListener.onTransformOut();
-                            }
-                        }
-                        return true;
-                    }
-                    break;
-                default: {
-
                 }
-            }
-        }else {
-            switch (action) {
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    if (isMoved) {
-                        if (moveScale() <= MAX_TRANS_SCALE) {
-                            moveToOldPosition();
-                        } else {
-                            changeTransform();
-                            setTag(R.id.item_image_key, true);
-                            if (transformOutListener != null) {
-                                transformOutListener.onTransformOut();
-                            }
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (isMoved) {
+                    if (moveScale() <= MAX_TRANS_SCALE) {
+                        moveToOldPosition();
+                    } else {
+                        changeTransform();
+                        setTag(R.id.item_image_key, true);
+                        if (transformOutListener != null) {
+                            transformOutListener.onTransformOut();
                         }
-                        return true;
                     }
-                    default:{
+                    return true;
+                }
+                break;
+            default: {
 
-                    }
             }
         }
         return super.dispatchTouchEvent(event);
@@ -460,8 +437,8 @@ public class SmoothImageView extends PhotoView {
             Bitmap mBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
             bitmapWidth = mBitmap.getWidth();
             bitmapHeight = mBitmap.getHeight();
-        } else if (getDrawable() instanceof ColorDrawable){
-            ColorDrawable colorDrawable= (ColorDrawable) getDrawable();
+        } else if (getDrawable() instanceof ColorDrawable) {
+            ColorDrawable colorDrawable = (ColorDrawable) getDrawable();
             bitmapWidth = colorDrawable.getIntrinsicWidth();
             bitmapHeight = colorDrawable.getIntrinsicHeight();
         } else {
@@ -477,9 +454,9 @@ public class SmoothImageView extends PhotoView {
         }
 
         startTransform.left = thumbRect.left;
-        if (ISFUll){
+        if (ISFUll) {
             startTransform.top = thumbRect.top;
-        }else {
+        } else {
             startTransform.top = thumbRect.top - ImageUtils.getStatusBarHeight(getContext().getApplicationContext());
         }
         startTransform.width = thumbRect.width();
@@ -564,12 +541,14 @@ public class SmoothImageView extends PhotoView {
     public static void setDuration(int duration) {
         TRANSFORM_DURATION = duration;
     }
+
     /***
      *   获取动画的时长
      * **/
     public static int getDuration() {
         return TRANSFORM_DURATION;
     }
+
     /***
      *  设置是否全屏
      * @param isFull true 全屏

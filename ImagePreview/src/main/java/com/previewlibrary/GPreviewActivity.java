@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -264,7 +265,7 @@ public class GPreviewActivity extends FragmentActivity {
     /**
      * pager的适配器
      */
-    private class PhotoPagerAdapter extends FragmentPagerAdapter {
+    private class PhotoPagerAdapter extends FragmentStatePagerAdapter {
 
         PhotoPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -280,10 +281,6 @@ public class GPreviewActivity extends FragmentActivity {
             return fragments == null ? 0 : fragments.size();
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-        }
     }
 
 

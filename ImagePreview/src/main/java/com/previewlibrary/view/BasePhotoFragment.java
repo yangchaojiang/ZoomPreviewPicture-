@@ -1,6 +1,5 @@
 package com.previewlibrary.view;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,7 +10,10 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview2.OnPhotoTapListener;
+import com.github.chrisbanes.photoview2.OnViewTapListener;
 import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.R;
@@ -21,7 +23,6 @@ import com.previewlibrary.loader.MySimpleTarget;
 import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.wight.SmoothImageView;
 
-import uk.co.senab2.photoview2.PhotoViewAttacher;
 
 /**
  * author yangc
@@ -46,15 +47,9 @@ public class BasePhotoFragment extends Fragment {
     protected MySimpleTarget mySimpleTarget;
     protected View btnVideo;
     public static VideoClickListener listener;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
-    }
-
     public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass,
-                                                IThumbViewInfo item, boolean currentIndex,
+                                                IThumbViewInfo item,
+                                                boolean currentIndex,
                                                 boolean isSingleFling,
                                                 boolean isDrag,
                                                 float sensitivity) {
@@ -72,6 +67,11 @@ public class BasePhotoFragment extends Fragment {
         bundle.putFloat(BasePhotoFragment.KEY_SEN, sensitivity);
         fragment.setArguments(bundle);
         return fragment;
+    }
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_image_photo_layout, container, false);
     }
 
     @CallSuper
@@ -211,7 +211,13 @@ public class BasePhotoFragment extends Fragment {
             imageView.setMinimumScale(0.7f);
         }
         if (isSingleFling) {
-            imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            imageView.setOnViewTapListener(new OnViewTapListener() {
+                @Override
+                public void onViewTap(View view, float x, float y) {
+
+                }
+            });
+            imageView.setOnViewTapListener(new OnViewTapListener() {
                 @Override
                 public void onViewTap(View view, float x, float y) {
                     if (imageView.checkMinScale()) {
@@ -220,17 +226,12 @@ public class BasePhotoFragment extends Fragment {
                 }
             });
         } else {
-            imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
                 @Override
-                public void onPhotoTap(View view, float x, float y) {
+                public void onPhotoTap(ImageView view, float x, float y) {
                     if (imageView.checkMinScale()) {
                         ((GPreviewActivity) getActivity()).transformOut();
                     }
-                }
-
-                @Override
-                public void onOutsidePhotoTap() {
-
                 }
             });
         }
@@ -278,11 +279,6 @@ public class BasePhotoFragment extends Fragment {
         imageView.transformOut(listener);
     }
 
-    public void resetMatrix() {
-        if (imageView != null) {
-            imageView.resetMatrix();
-        }
-    }
 
     public void changeBg(int color) {
         ViewCompat.animate(btnVideo).alpha(0).setDuration(SmoothImageView.getDuration()).start();

@@ -22,14 +22,15 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.2.5'
+  compile 'com.ycjiang:ImagePreview:2.2.6'
 ```
  
 ###  1.本项目类库依赖第三库
-  >>>注意: 由于的[photoview](https://github.com/chrisbanes/PhotoView)有些事件冲突，将1.3.1版本源代码修改采用依赖本地。
+  >>>注意: 由于的[photoview](https://github.com/chrisbanes/PhotoView)
+  2.3.0版本源代码修改采用依赖本地。
 ```
-      compile 'com.android.support:support-fragment:25.3.1'
-      compile 'com.android.support:support-core-utils:25.3.1'
+      compile 'com.android.support:support-fragment:26.1.0'
+      compile 'com.android.support:support-core-utils:26.1.0'
 ```
 ### 2.示例代码
   * >>注意:: 你实现自定义类，在你 app onCreate() 中
@@ -230,7 +231,13 @@ public class TestImageLoader implements IZoomMediaLoader {
               /> 
 
 #### [九宫格图片控件来自laobie](https://github.com/laobie/NineGridImageView)
+
+
 ### 升级日志
+ #### 2.2.6
+   * 1.photoview版本升级到2.3.0
+   * 2.修复bug[116](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/116)和bug[107](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/107) 
+   * 3. 
  #### 2.2.5
    * 1.修改问题[#117](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/117)同意动画时长。
     * 2. compileSdkVersion  升级 28  
