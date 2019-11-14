@@ -169,7 +169,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             // forward long click listener
             @Override
             public void onLongPress(MotionEvent e) {
-                if (null != mLongClickListener) {
+                if (null != mLongClickListener&&null!=mImageView&&mImageView.getY()==0) {
                     mLongClickListener.onLongClick(mImageView);
                 }
             }
