@@ -61,11 +61,6 @@ public class SmoothImageView extends PhotoView {
         bitmapWidth = 0;
         bitmapHeight = 0;
         thumbRect = null;
-        mPaint = null;
-        matrix = null;
-        startTransform = null;
-        endTransform = null;
-        animTransform = null;
         ISFUll = false;
         if (animator != null) {
             animator.cancel();

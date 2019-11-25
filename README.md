@@ -22,7 +22,7 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.2.7'
+  compile 'com.ycjiang:ImagePreview:2.2.8'
 ```
  
 ###  1.本项目类库依赖第三库
@@ -234,6 +234,9 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 
 ### 升级日志
+ #### 2.2.8
+   * 1.修改bug[#140](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/140)。
+   * 2.修改bug[#138](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/138)。  
  #### 2.2.7
    * 1.修改bug[#131](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/131)。
  #### 2.2.6
