@@ -2,6 +2,7 @@ package com.previewlibrary;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -58,7 +59,18 @@ public final class GPreviewBuilder {
         intent.setClass(mContext, className);
         return this;
     }
-
+    /****
+     *自定义预览activity 类名  方便自定义数据。
+     * @param className 继承GPreviewActivity
+     * @param bundle 需携带的参数
+     *@return GPreviewBuilder
+     * **/
+    public GPreviewBuilder to(@NonNull Class className,@NonNull Bundle bundle) {
+        this.className = className;
+        intent.setClass(mContext, className);
+        intent.putExtras(bundle);
+        return this;
+    }
     /***
      * 设置数据源
      * @param imgUrls 数据
