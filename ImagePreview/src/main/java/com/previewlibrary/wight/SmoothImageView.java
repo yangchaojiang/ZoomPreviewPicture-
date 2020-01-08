@@ -18,9 +18,10 @@ import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.github.chrisbanes.photoview2.PhotoView;
 import com.previewlibrary.R;
 import com.previewlibrary.view.ImageUtils;
+
+import uk.co.senab2.photoview2.PhotoView;
 
 
 /**

@@ -25,9 +25,9 @@
   compile 'com.ycjiang:ImagePreview:2.2.8'
 ```
  
-###  1.本项目类库依赖第三库
+###  1.本项目类库依赖第三库，（）
   >>>注意: 由于的[photoview](https://github.com/chrisbanes/PhotoView)
-  2.3.0版本源代码修改采用依赖本地。
+  1.3.1版本源代码修改采用依赖本地。重新 photoview版本库 回退到1.3.1版本。
 ```
       compile 'com.android.support:support-fragment:26.1.0'
       compile 'com.android.support:support-core-utils:26.1.0'

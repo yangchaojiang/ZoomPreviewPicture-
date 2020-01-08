@@ -10,10 +10,6 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.github.chrisbanes.photoview2.OnPhotoTapListener;
-import com.github.chrisbanes.photoview2.OnViewTapListener;
 import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.R;
@@ -22,6 +18,8 @@ import com.previewlibrary.enitity.IThumbViewInfo;
 import com.previewlibrary.loader.MySimpleTarget;
 import com.previewlibrary.loader.VideoClickListener;
 import com.previewlibrary.wight.SmoothImageView;
+
+import uk.co.senab2.photoview2.PhotoViewAttacher;
 
 
 /**
@@ -211,13 +209,13 @@ public class BasePhotoFragment extends Fragment {
             imageView.setMinimumScale(0.7f);
         }
         if (isSingleFling) {
-            imageView.setOnViewTapListener(new OnViewTapListener() {
+            imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
                 public void onViewTap(View view, float x, float y) {
 
                 }
             });
-            imageView.setOnViewTapListener(new OnViewTapListener() {
+            imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
                 public void onViewTap(View view, float x, float y) {
                     if (imageView.checkMinScale()) {
@@ -226,13 +224,19 @@ public class BasePhotoFragment extends Fragment {
                 }
             });
         } else {
-            imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
+            imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
                 @Override
-                public void onPhotoTap(ImageView view, float x, float y) {
+                public void onPhotoTap(View view, float x, float y) {
                     if (imageView.checkMinScale()) {
                         ((GPreviewActivity) getActivity()).transformOut();
                     }
                 }
+
+                @Override
+                public void onOutsidePhotoTap() {
+
+                }
+
             });
         }
         imageView.setAlphaChangeListener(new SmoothImageView.OnAlphaChangeListener() {

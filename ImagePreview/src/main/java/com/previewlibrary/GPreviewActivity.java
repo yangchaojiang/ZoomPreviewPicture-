@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class GPreviewActivity extends FragmentActivity {
     private static final String TAG = GPreviewActivity.class.getName();
-    private boolean isTransformOut = false;
+    protected boolean isTransformOut = false;
     /*** 图片的地址***/
     private List<IThumbViewInfo> imgUrls;
     /*** 当前图片的位置 ***/
@@ -137,14 +137,14 @@ public class GPreviewActivity extends FragmentActivity {
      */
     @SuppressLint("StringFormatMatches")
     private void initView() {
-        viewPager = (PhotoViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         //viewPager的适配器
         PhotoPagerAdapter adapter = new PhotoPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentIndex);
         viewPager.setOffscreenPageLimit(3);
-        bezierBannerView = (BezierBannerView) findViewById(R.id.bezierBannerView);
-        ltAddDot = (TextView) findViewById(R.id.ltAddDot);
+        bezierBannerView =  findViewById(R.id.bezierBannerView);
+        ltAddDot = findViewById(R.id.ltAddDot);
         if (type == GPreviewBuilder.IndicatorType.Dot) {
             bezierBannerView.setVisibility(View.VISIBLE);
             bezierBannerView.attachToViewpager(viewPager);
@@ -259,6 +259,7 @@ public class GPreviewActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
+        isTransformOut =false;
         transformOut();
     }
 
