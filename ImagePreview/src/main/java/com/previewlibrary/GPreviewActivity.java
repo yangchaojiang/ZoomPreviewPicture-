@@ -36,7 +36,7 @@ public class GPreviewActivity extends FragmentActivity {
     /*** 图片的地址***/
     private List<IThumbViewInfo> imgUrls;
     /*** 当前图片的位置 ***/
-    private int currentIndex;
+    protected int currentIndex;
     /*** 图片的展示的Fragment***/
     private List<BasePhotoFragment> fragments = new ArrayList<>();
     /*** 展示图片的viewPager ***/

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.previewlibrary.GPVideoPlayerActivity;
 import com.previewlibrary.GPreviewActivity;
 import com.previewlibrary.R;
@@ -45,6 +46,7 @@ public class BasePhotoFragment extends Fragment {
     protected MySimpleTarget mySimpleTarget;
     protected View btnVideo;
     public static VideoClickListener listener;
+
     public static BasePhotoFragment getInstance(Class<? extends BasePhotoFragment> fragmentClass,
                                                 IThumbViewInfo item,
                                                 boolean currentIndex,
@@ -66,6 +68,7 @@ public class BasePhotoFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,8 +93,8 @@ public class BasePhotoFragment extends Fragment {
     @CallSuper
     @Override
     public void onDestroyView() {
-        release();
         super.onDestroyView();
+        release();
     }
 
     @Override
@@ -109,21 +112,15 @@ public class BasePhotoFragment extends Fragment {
     }
 
     public void release() {
-        mySimpleTarget = null;
-        if (imageView != null) {
-            imageView.setImageBitmap(null);
-            imageView.setOnViewTapListener(null);
-            imageView.setOnPhotoTapListener(null);
-            imageView.setAlphaChangeListener(null);
-            imageView.setTransformOutListener(null);
-            imageView.transformIn(null);
-            imageView.transformOut(null);
-            imageView.setOnLongClickListener(null);
-            btnVideo.setOnClickListener(null);
-            imageView = null;
-            rootView = null;
-            isTransPhoto = false;
-        }
+        imageView.setOnViewTapListener(null);
+        imageView.setOnPhotoTapListener(null);
+        imageView.setAlphaChangeListener(null);
+        imageView.setTransformOutListener(null);
+        imageView.transformIn(null);
+        imageView.transformOut(null);
+        imageView.setOnLongClickListener(null);
+        btnVideo.setOnClickListener(null);
+        isTransPhoto = false;
     }
 
     /**
