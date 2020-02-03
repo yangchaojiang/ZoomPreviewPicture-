@@ -94,7 +94,7 @@ public class BasePhotoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        release();
+
     }
 
     @Override
@@ -105,6 +105,7 @@ public class BasePhotoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        release();
         ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
         if (getActivity() != null && getActivity().isFinishing()) {
             listener = null;
