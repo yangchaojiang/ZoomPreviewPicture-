@@ -234,7 +234,7 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 
 ### 升级日志
- #### 2.3.3
+ #### 2.3.4
    * 1.修改加载中返回问题[#158](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/158)。
    * 2.修改加载中返回问题[#55](https://github.com/yangchaojiang/ZoomPreviewPicture/issues/55)。   
  #### 2.2.8

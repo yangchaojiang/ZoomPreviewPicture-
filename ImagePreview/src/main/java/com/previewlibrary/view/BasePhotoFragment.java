@@ -80,7 +80,7 @@ public class BasePhotoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        initDate();
+        initData();
     }
 
     @CallSuper
@@ -94,7 +94,7 @@ public class BasePhotoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        release();
     }
 
     @Override
@@ -105,7 +105,6 @@ public class BasePhotoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        release();
         ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
         if (getActivity() != null && getActivity().isFinishing()) {
             listener = null;
@@ -113,14 +112,6 @@ public class BasePhotoFragment extends Fragment {
     }
 
     public void release() {
-        imageView.setOnViewTapListener(null);
-        imageView.setOnPhotoTapListener(null);
-        imageView.setAlphaChangeListener(null);
-        imageView.setTransformOutListener(null);
-        imageView.transformIn(null);
-        imageView.transformOut(null);
-        imageView.setOnLongClickListener(null);
-        btnVideo.setOnClickListener(null);
         isTransPhoto = false;
     }
 
@@ -176,7 +167,7 @@ public class BasePhotoFragment extends Fragment {
     /**
      * 初始化数据
      */
-    private void initDate() {
+    private void initData() {
         Bundle bundle = getArguments();
         boolean isSingleFling = true;
         // 非动画进入的Fragment，默认背景为黑色
