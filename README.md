@@ -22,12 +22,17 @@
 通过Gradle抓取:
  
 ```grade
-  compile 'com.ycjiang:ImagePreview:2.3.2'
+  compile 'com.ycjiang:ImagePreview:2.3.5'
 ```
  
 ###  1.本项目类库依赖第三库，（）
   >>>注意: 由于的[photoview](https://github.com/chrisbanes/PhotoView)
-  1.3.1版本源代码修改采用依赖本地。重新 photoview版本库 回退到1.3.1版本。
+   2.3.5 新增图片只有没有放大缩小，才能拖拽图片返回，（场景预览放大情况，容易点击误返回）实例代码：
+   ````
+    GPreviewBuilder.from((Activity) context)
+                            .setData(list)
+                            .setIsScale(true)
+   ````
 ```
       compile 'com.android.support:support-fragment:26.1.0'
       compile 'com.android.support:support-core-utils:26.1.0'

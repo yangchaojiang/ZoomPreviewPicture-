@@ -186,7 +186,16 @@ public final class GPreviewBuilder {
         return this;
     }
     /***
-     *  设置是怕你点击播放回调
+     *  设置只有图片没有放大或者的缩小状态触退出
+     * @param isScale    true false
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder setIsScale(boolean isScale) {
+        intent.putExtra("isScale", isScale);
+        return this;
+    }
+    /***
+     *  设置是视频点击播放回调
      * @return GPreviewBuilder
      * **/
     public GPreviewBuilder setOnVideoPlayerListener(VideoClickListener listener) {

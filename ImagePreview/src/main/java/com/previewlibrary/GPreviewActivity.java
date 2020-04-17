@@ -93,7 +93,9 @@ public class GPreviewActivity extends FragmentActivity {
         isShow = getIntent().getBooleanExtra("isShow", true);
         int duration = getIntent().getIntExtra("duration", 300);
          boolean isFullscreen=getIntent().getBooleanExtra("isFullscreen",false);
+        boolean isScale=getIntent().getBooleanExtra("isScale",false);
         SmoothImageView.setFullscreen(isFullscreen);
+        SmoothImageView.setIsScale(isScale);
          if (isFullscreen){
              setTheme(android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
          }

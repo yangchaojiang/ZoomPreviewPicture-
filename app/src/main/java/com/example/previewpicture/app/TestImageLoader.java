@@ -4,17 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.example.previewpicture.R;
@@ -31,14 +28,27 @@ public class TestImageLoader implements IZoomMediaLoader {
 
 
     @Override
-    public void displayImage(@NonNull Fragment context, @NonNull String path, ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
+    public void displayImage(@NonNull Fragment context, @NonNull String path,final ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
         Glide.with(context).load(path)
                 .asBitmap()
                 .error(R.drawable.ic_default_image)
               //  .placeholder(android.R.color.darker_gray)
                 .fitCenter()
-                .centerCrop()
-                .listener(new RequestListener<String, Bitmap>() {
+                //.centerCrop()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        simpleTarget.onResourceReady();
+                        imageView.setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        simpleTarget.onLoadFailed(errorDrawable);
+                        super.onLoadFailed(e, errorDrawable);
+                    }
+                });
+         /*       .listener(new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
                         simpleTarget.onLoadFailed(null);
@@ -51,7 +61,7 @@ public class TestImageLoader implements IZoomMediaLoader {
                         return false;
                     }
                 })
-                .into(imageView);
+                .into(imageView);*/
     }
 
     @Override

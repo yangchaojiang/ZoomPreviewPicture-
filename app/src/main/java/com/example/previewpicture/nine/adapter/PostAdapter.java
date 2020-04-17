@@ -89,6 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     computeBoundsBackward(list);//组成数据
                     GPreviewBuilder.from((Activity) context)
                             .setData(list)
+                            .setIsScale(true)
                             .setCurrentIndex(index)
                             .setType(GPreviewBuilder.IndicatorType.Dot)
                             .start();//启动
