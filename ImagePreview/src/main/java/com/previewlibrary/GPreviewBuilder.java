@@ -126,11 +126,21 @@ public final class GPreviewBuilder {
     }
 
     /***
+     * @deprecated  use {@link #isDisableDrag(boolean) }
      * 设置图片禁用拖拽返回
      * @param isDrag  true  可以 false 默认 true
      * @return GPreviewBuilder
      * **/
     public GPreviewBuilder setDrag(boolean isDrag) {
+        intent.putExtra("isDrag", isDrag);
+        return this;
+    }
+    /***
+     * 设置图片禁用拖拽返回
+     * @param isDrag  true  可以 false 默认 true
+     * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder isDisableDrag(boolean isDrag) {
         intent.putExtra("isDrag", isDrag);
         return this;
     }
@@ -140,6 +150,20 @@ public final class GPreviewBuilder {
      * @param isDrag  true  可以 false 默认 true
      * @param sensitivity   sensitivity MAX_TRANS_SCALE 的值来控制灵敏度。
      * @return GPreviewBuilder
+     * **/
+    public GPreviewBuilder isDisableDrag(boolean isDrag, float sensitivity) {
+        intent.putExtra("isDrag", isDrag);
+        intent.putExtra("sensitivity", sensitivity);
+        return this;
+    }
+
+    /***
+     * @deprecated  use {@link #isDisableDrag(boolean,float) }
+     * 设置图片禁用拖拽返回
+     * @param isDrag  true  可以 false 默认 true
+     * @param sensitivity   sensitivity MAX_TRANS_SCALE 的值来控制灵敏度。
+     * @return GPreviewBuilder
+     *
      * **/
     public GPreviewBuilder setDrag(boolean isDrag, float sensitivity) {
         intent.putExtra("isDrag", isDrag);

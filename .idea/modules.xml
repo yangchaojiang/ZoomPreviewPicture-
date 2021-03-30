@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ImagePreview/ImagePreview.iml" filepath="$PROJECT_DIR$/ImagePreview/ImagePreview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ZoomPreviewPicture.iml" filepath="$PROJECT_DIR$/ZoomPreviewPicture.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImagePreview/ImagePreview.iml" filepath="$PROJECT_DIR$/ImagePreview/ImagePreview.iml" group="ZoomPreviewPicture/ImagePreview" />
+      <module fileurl="file://$PROJECT_DIR$/ZoomPreviewPicture.iml" filepath="$PROJECT_DIR$/ZoomPreviewPicture.iml" group="ZoomPreviewPicture" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ZoomPreviewPicture/app" />
     </modules>
   </component>
 </project>

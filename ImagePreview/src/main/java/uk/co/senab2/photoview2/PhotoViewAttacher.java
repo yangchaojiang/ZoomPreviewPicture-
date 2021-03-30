@@ -184,7 +184,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
                     // forward long click listener
                     @Override
                     public void onLongPress(MotionEvent e) {
-                        if (null != mLongClickListener&&getImageView().getY()==0&& getImageView().getX()==0) {
+                        if (null!=getImageView()&&null != mLongClickListener&&getImageView().getY()==0&& getImageView().getX()==0) {
                            mLongClickListener.onLongClick(getImageView());
                         }
                     }

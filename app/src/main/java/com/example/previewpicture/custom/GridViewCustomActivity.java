@@ -64,7 +64,7 @@ public class GridViewCustomActivity extends AppCompatActivity {
                             .setUserFragment(UserFragment.class)
                             .setCurrentIndex(position)
                             .setSingleFling(false)
-                            .setDrag(false)
+                            .isDisableDrag(false)
                             .setType(GPreviewBuilder.IndicatorType.Dot)
                             .start();
                 }

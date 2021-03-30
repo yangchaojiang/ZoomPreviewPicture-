@@ -260,6 +260,7 @@ public class BasePhotoFragment extends Fragment {
     }
 
     public void transformIn() {
+        assert imageView != null;
         imageView.transformIn(new SmoothImageView.onTransformListener() {
             @Override
             public void onTransformCompleted(SmoothImageView.Status status) {
@@ -269,6 +270,7 @@ public class BasePhotoFragment extends Fragment {
     }
 
     public void transformOut(SmoothImageView.onTransformListener listener) {
+        assert imageView != null;
         imageView.transformOut(listener);
     }
 

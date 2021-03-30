@@ -43,7 +43,7 @@ public class ListView2Activity extends AppCompatActivity {
                 GPreviewBuilder.from(ListView2Activity.this)
                         .setData(mThumbViewInfoList)
                         .setCurrentIndex(position)
-                        .setDrag(true,0.6f)
+                        .isDisableDrag(true,0.6f)
                         .setType(GPreviewBuilder.IndicatorType.Number)
                         .start();
             }
